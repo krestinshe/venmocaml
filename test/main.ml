@@ -33,8 +33,19 @@ let invalid_amount_tests =
       "3.33 C AD";
     ]
 
+let acc1 = make ~balance:"0.00 USD" "test" "test"
+
+let balance_tests =
+  [
+    ( "acc1 balance is 0.0 USD" >:: fun _ ->
+      assert_equal "0.0 USD" (balance acc1) ~printer:(fun x -> x) );
+  ]
+(* let deposit_amount_tests = [ ( "100 USD is a valid deposit" >:: fun _ ->
+   assert_equal "100 USD" (deposit acc1 "100 USD") ); ]*)
+
 let suite =
   "test suite for final project"
-  >::: List.flatten [ invalid_currency_tests; invalid_amount_tests ]
+  >::: List.flatten
+         [ invalid_currency_tests; invalid_amount_tests; balance_tests ]
 
 let _ = run_test_tt_main suite

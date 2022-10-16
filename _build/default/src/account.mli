@@ -31,3 +31,9 @@ val balance : t -> string
 val display : t -> unit
 (** [display acc] prints the account, with its username, balance, and
     transaction history. *)
+
+val deposit : t -> string -> string
+(** [deposit acc amt] adds amt to the balance of the account [acc]. *)
+
+val withdraw : t -> string -> string
+(** [withdraw acc] removes amt from the balance of the account [acc]. *)

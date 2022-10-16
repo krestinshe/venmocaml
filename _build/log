@@ -1,9 +1,10 @@
-# dune build
+# dune exec test/main.exe
 # OCAMLPARAM: unset
 # Shared cache: disabled
-# Workspace root: /home/krestinshe/3110/final-project
+# Workspace root: "/Users/ac/Documents/Senior Year/cs3110/Final
+# Project/cs-3110-final-project"
 # Auto-detected concurrency: 8
-$ /home/krestinshe/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /tmp/dune_2869b4_output
+$ /Users/ac/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/pv/qgjpc8sx5b549ty4pqy63vzm0000gn/T/dune_36642b_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -12,79 +13,76 @@ $ /home/krestinshe/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /tmp/dune_2869b4
 #  ; for_host = None
 #  ; fdo_target_exe = None
 #  ; build_dir = "default"
-#  ; toplevel_path =
-#      Some External "/home/krestinshe/.opam/cs3110-2022fa/lib/toplevel"
-#  ; ocaml_bin = External "/home/krestinshe/.opam/cs3110-2022fa/bin"
-#  ; ocaml = Ok External "/home/krestinshe/.opam/cs3110-2022fa/bin/ocaml"
-#  ; ocamlc = External "/home/krestinshe/.opam/cs3110-2022fa/bin/ocamlc.opt"
-#  ; ocamlopt =
-#      Ok External "/home/krestinshe/.opam/cs3110-2022fa/bin/ocamlopt.opt"
-#  ; ocamldep =
-#      Ok External "/home/krestinshe/.opam/cs3110-2022fa/bin/ocamldep.opt"
+#  ; toplevel_path = Some External "/Users/ac/.opam/cs3110-2022fa/lib/toplevel"
+#  ; ocaml_bin = External "/Users/ac/.opam/cs3110-2022fa/bin"
+#  ; ocaml = Ok External "/Users/ac/.opam/cs3110-2022fa/bin/ocaml"
+#  ; ocamlc = External "/Users/ac/.opam/cs3110-2022fa/bin/ocamlc.opt"
+#  ; ocamlopt = Ok External "/Users/ac/.opam/cs3110-2022fa/bin/ocamlopt.opt"
+#  ; ocamldep = Ok External "/Users/ac/.opam/cs3110-2022fa/bin/ocamldep.opt"
 #  ; ocamlmklib =
-#      Ok External "/home/krestinshe/.opam/cs3110-2022fa/bin/ocamlmklib.opt"
+#      Ok External "/Users/ac/.opam/cs3110-2022fa/bin/ocamlmklib.opt"
 #  ; env =
 #      map
-#        { "DUNE_OCAML_HARDCODED" : "/home/krestinshe/.opam/cs3110-2022fa/lib"
-#        ; "DUNE_OCAML_STDLIB" :
-#            "/home/krestinshe/.opam/cs3110-2022fa/lib/ocaml"
-#        ; "DUNE_SOURCEROOT" : "/home/krestinshe/3110/final-project"
-#        ; "INSIDE_DUNE" : "/home/krestinshe/3110/final-project/_build/default"
+#        { "DUNE_OCAML_HARDCODED" : "/Users/ac/.opam/cs3110-2022fa/lib"
+#        ; "DUNE_OCAML_STDLIB" : "/Users/ac/.opam/cs3110-2022fa/lib/ocaml"
+#        ; "DUNE_SOURCEROOT" :
+#            "/Users/ac/Documents/Senior Year/cs3110/Final Project/cs-3110-final-project"
+#        ; "INSIDE_DUNE" :
+#            "/Users/ac/Documents/Senior Year/cs3110/Final Project/cs-3110-final-project/_build/default"
+#        ; "MANPATH" :
+#            "/Users/ac/Documents/Senior Year/cs3110/Final Project/cs-3110-final-project/_build/install/default/bin"
 #        ; "OCAMLFIND_IGNORE_DUPS_IN" :
-#            "/home/krestinshe/3110/final-project/_build/install/default/lib"
+#            "/Users/ac/Documents/Senior Year/cs3110/Final Project/cs-3110-final-project/_build/install/default/lib"
 #        ; "OCAMLPATH" :
-#            "/home/krestinshe/3110/final-project/_build/install/default/lib"
+#            "/Users/ac/Documents/Senior Year/cs3110/Final Project/cs-3110-final-project/_build/install/default/lib"
 #        ; "OCAMLTOP_INCLUDE_PATH" :
-#            "/home/krestinshe/3110/final-project/_build/install/default/lib/toplevel"
+#            "/Users/ac/Documents/Senior Year/cs3110/Final Project/cs-3110-final-project/_build/install/default/lib/toplevel"
 #        ; "OCAML_COLOR" : "always"
 #        ; "OPAMCOLOR" : "always"
 #        }
-#  ; findlib_paths = [ External "/home/krestinshe/.opam/cs3110-2022fa/lib" ]
+#  ; findlib_paths = [ External "/Users/ac/.opam/cs3110-2022fa/lib" ]
 #  ; arch_sixtyfour = true
 #  ; natdynlink_supported = true
 #  ; supports_shared_libraries = true
 #  ; ocaml_config =
 #      { version = "4.14.0"
-#      ; standard_library_default =
-#          "/home/krestinshe/.opam/cs3110-2022fa/lib/ocaml"
-#      ; standard_library = "/home/krestinshe/.opam/cs3110-2022fa/lib/ocaml"
+#      ; standard_library_default = "/Users/ac/.opam/cs3110-2022fa/lib/ocaml"
+#      ; standard_library = "/Users/ac/.opam/cs3110-2022fa/lib/ocaml"
 #      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
 #      ; ccomp_type = "cc"
-#      ; c_compiler = "gcc"
+#      ; c_compiler = "cc"
 #      ; ocamlc_cflags =
-#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread"; "-fPIC" ]
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread" ]
 #      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64" ]
 #      ; ocamlopt_cflags =
-#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread"; "-fPIC" ]
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread" ]
 #      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64" ]
 #      ; bytecomp_c_compiler =
-#          [ "gcc"
+#          [ "cc"
 #          ; "-O2"
 #          ; "-fno-strict-aliasing"
 #          ; "-fwrapv"
 #          ; "-pthread"
-#          ; "-fPIC"
 #          ; "-D_FILE_OFFSET_BITS=64"
 #          ]
-#      ; bytecomp_c_libraries = [ "-lm"; "-ldl"; "-lpthread" ]
+#      ; bytecomp_c_libraries = [ "-lm"; "-lpthread" ]
 #      ; native_c_compiler =
-#          [ "gcc"
+#          [ "cc"
 #          ; "-O2"
 #          ; "-fno-strict-aliasing"
 #          ; "-fwrapv"
 #          ; "-pthread"
-#          ; "-fPIC"
 #          ; "-D_FILE_OFFSET_BITS=64"
 #          ]
-#      ; native_c_libraries = [ "-lm"; "-ldl" ]
+#      ; native_c_libraries = [ "-lm" ]
 #      ; native_pack_linker = [ "ld"; "-r"; "-o" ]
 #      ; cc_profile = []
 #      ; architecture = "amd64"
 #      ; model = "default"
 #      ; int_size = 63
 #      ; word_size = 64
-#      ; system = "linux"
-#      ; asm = [ "as" ]
+#      ; system = "macosx"
+#      ; asm = [ "cc"; "-c"; "-Wno-trigraphs" ]
 #      ; asm_cfi_supported = true
 #      ; with_frame_pointers = false
 #      ; ext_exe = ""
@@ -95,8 +93,8 @@ $ /home/krestinshe/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /tmp/dune_2869b4
 #      ; os_type = "Unix"
 #      ; default_executable_name = "a.out"
 #      ; systhread_supported = true
-#      ; host = "x86_64-pc-linux-gnu"
-#      ; target = "x86_64-pc-linux-gnu"
+#      ; host = "x86_64-apple-darwin19.6.0"
+#      ; target = "x86_64-apple-darwin19.6.0"
 #      ; profiling = false
 #      ; flambda = false
 #      ; spacetime = false
@@ -116,44 +114,5 @@ $ /home/krestinshe/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /tmp/dune_2869b4
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /home/krestinshe/.opam/cs3110-2022fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -I src/.account.objs/byte -intf-suffix .ml -no-alias-deps -opaque -o src/.account.objs/byte/account.cmo -c -impl src/account.ml)
-> File "src/account.ml", line 17, characters 2-21:
-> 17 |   number : int * int;
->        ^^^^^^^^^^^^^^^^^^^
-> Warning 69 [unused-field]: record field number is never read.
-> (However, this field is used to build or mutate values.)
-> File "src/account.ml", line 18, characters 2-22:
-> 18 |   currency : currency;
->        ^^^^^^^^^^^^^^^^^^^^
-> Warning 69 [unused-field]: record field currency is never read.
-> (However, this field is used to build or mutate values.)
-> File "src/account.ml", line 31, characters 2-20:
-> 31 |   password : string;
->        ^^^^^^^^^^^^^^^^^^
-> Warning 69 [unused-field]: record field password is never read.
-> (However, this field is used to build or mutate values.)
-> File "src/account.ml", line 32, characters 2-19:
-> 32 |   balance : amount;
->        ^^^^^^^^^^^^^^^^^
-> Warning 69 [unused-field]: record field balance is never read.
-> (However, this field is used to build or mutate values.)
-> File "src/account.ml", line 103, characters 4-18:
-> 103 | let unparse_amount (a : amount) : string =
->           ^^^^^^^^^^^^^^
-> Warning 32 [unused-value-declaration]: unused value unparse_amount.
-> File "src/account.ml", line 103, characters 20-21:
-> 103 | let unparse_amount (a : amount) : string =
->                           ^
-> Warning 27 [unused-var-strict]: unused variable a.
-> File "src/account.ml", line 110, characters 12-15:
-> 110 | let balance acc = raise (Failure "Unimplemented: Account.balance")
->                   ^^^
-> Warning 27 [unused-var-strict]: unused variable acc.
-> File "src/account.ml", line 111, characters 12-15:
-> 111 | let display acc = raise (Failure "Unimplemented: Account.display")
->                   ^^^
-> Warning 27 [unused-var-strict]: unused variable acc.
-$ (cd _build/default && /home/krestinshe/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I test/.main.eobjs/byte -I test/.main.eobjs/native -I /home/krestinshe/.opam/cs3110-2022fa/lib/ounit2 -I /home/krestinshe/.opam/cs3110-2022fa/lib/ounit2/advanced -I /home/krestinshe/.opam/cs3110-2022fa/lib/seq -I /home/krestinshe/.opam/cs3110-2022fa/lib/stdlib-shims -I src/.account.objs/byte -I src/.account.objs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.main.eobjs/native/dune__exe__Main.cmx -c -impl test/main.ml)
-$ (cd _build/default && /home/krestinshe/.opam/cs3110-2022fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -a -o src/account.cma src/.account.objs/byte/account.cmo)
-$ (cd _build/default && /home/krestinshe/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -shared -linkall -I src -o src/account.cmxs src/account.cmxa)
-$ (cd _build/default && /home/krestinshe/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o test/main.exe src/account.cmxa /home/krestinshe/.opam/cs3110-2022fa/lib/ocaml/unix.cmxa -I /home/krestinshe/.opam/cs3110-2022fa/lib/ocaml -I /home/krestinshe/.opam/cs3110-2022fa/lib/ocaml /home/krestinshe/.opam/cs3110-2022fa/lib/stdlib-shims/stdlib_shims.cmxa /home/krestinshe/.opam/cs3110-2022fa/lib/ounit2/advanced/oUnitAdvanced.cmxa /home/krestinshe/.opam/cs3110-2022fa/lib/ounit2/oUnit.cmxa test/.main.eobjs/native/dune__exe__Main.cmx)
+$ (cd _build/default && /Users/ac/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I test/.main.eobjs/byte -I test/.main.eobjs/native -I /Users/ac/.opam/cs3110-2022fa/lib/ounit2 -I /Users/ac/.opam/cs3110-2022fa/lib/ounit2/advanced -I /Users/ac/.opam/cs3110-2022fa/lib/seq -I /Users/ac/.opam/cs3110-2022fa/lib/stdlib-shims -I src/.account.objs/byte -I src/.account.objs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.main.eobjs/native/dune__exe__Main.cmx -c -impl test/main.ml)
+$ (cd _build/default && /Users/ac/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o test/main.exe src/account.cmxa /Users/ac/.opam/cs3110-2022fa/lib/ocaml/unix.cmxa -I /Users/ac/.opam/cs3110-2022fa/lib/ocaml -I /Users/ac/.opam/cs3110-2022fa/lib/ocaml /Users/ac/.opam/cs3110-2022fa/lib/stdlib-shims/stdlib_shims.cmxa /Users/ac/.opam/cs3110-2022fa/lib/ounit2/advanced/oUnitAdvanced.cmxa /Users/ac/.opam/cs3110-2022fa/lib/ounit2/oUnit.cmxa test/.main.eobjs/native/dune__exe__Main.cmx)

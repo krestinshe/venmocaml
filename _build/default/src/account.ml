@@ -54,6 +54,18 @@ let currency_of_string s =
   | "CAD" -> CAD
   | _ -> raise (InvalidCurrency s)
 
+(** [string_of_currency c] converts [c] to a [string]. Examples:
+
+    - [string_of_currency USD] is ["USD"].
+    - [string_of_currency EUR] is ["EUR"].*)
+let string_of_currency c =
+  match c with
+  | USD -> "USD"
+  | EUR -> "EUR"
+  | KRW -> "KRW"
+  | RMB -> "RMB"
+  | CAD -> "CAD"
+
 (** [parse_amount s] parses a player's input into an [amount], as follows. The
     sequence of numbers before the "." in [s] becomes the first element of the
     [number] field. The sequence of numbers after the "." become the second
@@ -101,11 +113,17 @@ let parse_amount (s : string) : amount =
       | exception Failure s -> raise (InvalidAmount s))
 
 let unparse_amount (a : amount) : string =
-  raise (Failure "Unimplemented: Account.unparse_amount")
+  let number =
+    match a.number with
+    | a, b -> string_of_int a ^ "." ^ string_of_int b ^ " "
+  in
+  number ^ string_of_currency a.currency
 
 let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
   { username; password; balance = parse_amount balance }
 
 let username acc = acc.username
-let balance acc = raise (Failure "Unimplemented: Account.balance")
+let balance acc = unparse_amount acc.balance
 let display acc = raise (Failure "Unimplemented: Account.display")
+let deposit acc amt = raise (Failure "Unimplemented: Account.deposit")
+let withdraw acc amt = raise (Failure "Unimplemented: Account.withdraw")
