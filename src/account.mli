@@ -33,15 +33,16 @@ val make : ?balance:string -> string -> string -> t
 val username : t -> string
 (** [username acc] is the username of account [acc]. *)
 
-val password : t -> string
+(* val password : t -> string *)
 (** [password acc] is the password of account [acc]. *)
 
 val balance : t -> string
 (** [balance acc] is the current balance of account [acc] with the understanding
     that a user can have a negative balance. *)
 
-(*val display : t -> unit (** [display acc] prints the account, with its
-  username, balance, and transaction history. *)*)
+val display : t -> unit
+(** [display acc] prints the account, with its username, balance, and
+    transaction history.*)
 
 val deposit : t -> string -> t
 (** [deposit acc amt] adds [amt] to the balance of the account [acc] with the
