@@ -36,6 +36,8 @@ exception InvalidUsername of string
 exception IncorrectPassword
 exception InvalidAmount of string
 exception InvalidCurrency of string
+exception InvalidDeposit of string
+exception InvalidWithdrawal of string
 
 (** [currency_of_string s] converts [s] to a [currency], and raises
     [InvalidCurrency s] if [s] is not the name of a constructor of [currency].
@@ -125,5 +127,56 @@ let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
 let username acc = acc.username
 let balance acc = unparse_amount acc.balance
 let display acc = raise (Failure "Unimplemented: Account.display")
-let deposit acc amt = raise (Failure "Unimplemented: Account.deposit")
-let withdraw acc amt = raise (Failure "Unimplemented: Account.withdraw")
+
+let deposit acc amt =
+  let a = parse_amount amt in
+  if a.currency = acc.balance.currency then
+    let acc_num = acc.balance.number in
+    let amt_num = a.number in
+    if snd acc_num + snd amt_num >= 100 then
+      {
+        acc with
+        balance =
+          {
+            number =
+              (fst amt_num + fst acc_num + 1, snd amt_num + snd acc_num - 100);
+            currency = a.currency;
+          };
+      }
+    else
+      {
+        acc with
+        balance =
+          {
+            number = (fst amt_num + fst acc_num, snd amt_num + snd acc_num);
+            currency = a.currency;
+          };
+      }
+  else raise (InvalidDeposit amt)
+(*check if currency is the same then add*)
+
+let withdraw acc amt =
+  let a = parse_amount amt in
+  if a.currency = acc.balance.currency then
+    let acc_num = acc.balance.number in
+    let amt_num = a.number in
+    if snd acc_num - snd amt_num < 0 then
+      {
+        acc with
+        balance =
+          {
+            number =
+              (fst acc_num - fst amt_num - 1, snd acc_num - snd amt_num + 100);
+            currency = a.currency;
+          };
+      }
+    else
+      {
+        acc with
+        balance =
+          {
+            number = (fst acc_num - fst amt_num, snd acc_num - snd amt_num);
+            currency = a.currency;
+          };
+      }
+  else raise (InvalidWithdrawal amt)

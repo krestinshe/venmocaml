@@ -17,6 +17,14 @@ exception InvalidAmount of string
 exception InvalidCurrency of string
 (** Raised when a user attempts to define an amount with an invalid currency. *)
 
+exception InvalidDeposit of string
+(** Placeholder until exchange rates are established. Raised when a user
+    attempts to deposit a currency that is different from its balance. *)
+
+exception InvalidWithdrawal of string
+(** Placeholder until exchange rates are established. Raised when a user
+    attempts to withdraw a currency that is different from its balance. *)
+
 val make : ?balance:string -> string -> string -> t
 (** [make ~balance:balance username password] is the account with username
     [username], password [password], and balance set to the amount represented
@@ -26,14 +34,17 @@ val username : t -> string
 (** [username acc] is the username of account [acc]. *)
 
 val balance : t -> string
-(** [balance acc] is the current balance of account [acc]. *)
+(** [balance acc] is the current balance of account [acc] with the understanding
+    that a user can have a negative balance. *)
 
 val display : t -> unit
 (** [display acc] prints the account, with its username, balance, and
     transaction history. *)
 
-val deposit : t -> string -> string
-(** [deposit acc amt] adds amt to the balance of the account [acc]. *)
+val deposit : t -> string -> t
+(** [deposit acc amt] adds [amt] to the balance of the account [acc] with the
+    precondition that amt > 0 *)
 
-val withdraw : t -> string -> string
-(** [withdraw acc] removes amt from the balance of the account [acc]. *)
+val withdraw : t -> string -> t
+(** [withdraw acc amt] removes [amt] from the balance of the account [acc] with
+    the precondition that amt > 0. *)

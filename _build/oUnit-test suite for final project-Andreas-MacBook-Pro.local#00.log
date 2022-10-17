@@ -1,147 +1,223 @@
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Runner: processes
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Chooser: simple
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration suite_name = "test suite for final project"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration cache_filename = "/Users/ac/Documents/Senior Year/cs3110/Final Project/cs-3110-final-project/_build/oUnit-$(suite_name).cache"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration run_gc_full_major = "true"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration display = "true"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration results_style_1_X = "false"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration testdata_dir = "none"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration health_check_interval = "1."
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration verbose = "false"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration chooser = "simple"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration output_html_dir = "none"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration processes_kill_period = "5."
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration runner = "processes"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration shards = "2"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration processes_grace_period = "5."
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration log_encoding = "utf-8"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration output_junit_file = "none"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration ci = "false"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Configuration output_file = "/Users/ac/Documents/Senior Year/cs3110/Final Project/cs-3110-final-project/_build/oUnit-$(suite_name)-$(shard_id).log"
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Using 2 workers maximum.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Starting worker number Andreas-MacBook-Pro.local#01.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Worker Andreas-MacBook-Pro.local#01 started.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Starting worker number Andreas-MacBook-Pro.local#02.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Worker Andreas-MacBook-Pro.local#02 started.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:1:is an invalid amount, test suite for final project:0:AAA is invalid currency.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:0:AAA is invalid currency.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:1:is an invalid amount, test suite for final project:0:AAA is invalid currency.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:1:is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:1:is an invalid amount, test suite for final project:0:AAA is invalid currency.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:0:AAA is invalid currency is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:1:is an invalid amount, test suite for final project:0:AAA is invalid currency.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:0:AAA is invalid currency.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:1:is an invalid amount, test suite for final project:0:AAA is invalid currency.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:2:   is an invalid amount, test suite for final project:1:is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:2:   is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:2:   is an invalid amount, test suite for final project:1:is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:1:is an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:2:   is an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:2:   is an invalid amount, test suite for final project:1:is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:1:is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:2:   is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:2:   is an invalid amount, test suite for final project:1:is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:4:0is an invalid amount, test suite for final project:3:asdfis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:3:asdfis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:4:0is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:4:0is an invalid amount, test suite for final project:3:asdfis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:3:asdfis an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:4:0is an invalid amount, test suite for final project:3:asdfis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:3:asdfis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:4:0is an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:4:0is an invalid amount, test suite for final project:3:asdfis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:4:0is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:5:2.20is an invalid amount, test suite for final project:4:0is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:5:2.20is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:6:2.2is an invalid amount, test suite for final project:5:2.20is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:6:2.2is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:6:2.2is an invalid amount, test suite for final project:5:2.20is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:5:2.20is an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:6:2.2is an invalid amount, test suite for final project:5:2.20is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:5:2.20is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:6:2.2is an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:6:2.2is an invalid amount, test suite for final project:5:2.20is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:6:2.2is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:7:2.222is an invalid amount, test suite for final project:6:2.2is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:8:2.2222 USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:7:2.222is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:8:2.2222 USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:8:2.2222 USDis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:8:2.2222 USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:7:2.222is an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:8:2.2222 USDis an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:8:2.2222 USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:7:2.222is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:8:2.2222 USDis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:8:2.2222 USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:10:5.55  CADis an invalid amount, test suite for final project:9:USDis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:10:5.55  CADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:10:5.55  CADis an invalid amount, test suite for final project:9:USDis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:9:USDis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:10:5.55  CADis an invalid amount, test suite for final project:9:USDis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:9:USDis an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:10:5.55  CADis an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:10:5.55  CADis an invalid amount, test suite for final project:9:USDis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:9:USDis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:10:5.55  CADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:10:5.55  CADis an invalid amount, test suite for final project:9:USDis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:12:4. 44 CADis an invalid amount, test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:12:4. 44 CADis an invalid amount, test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:12:4. 44 CADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:12:4. 44 CADis an invalid amount, test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:11:   4 . 4 4 C A D is an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:12:4. 44 CADis an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:12:4. 44 CADis an invalid amount, test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:12:4. 44 CADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:12:4. 44 CADis an invalid amount, test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Still 2 tests running : test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Still 2 tests running : test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:14:acc1 balance is 0.0 USD.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Still 2 tests running : test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:13:3.33 C ADis an invalid amount is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:14:acc1 balance is 0.0 USD is successful.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Still 2 tests running : test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:14:acc1 balance is 0.0 USD.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Still 2 tests running : test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: 0 tests running: .
-2022-10-16T22:44:43+00:00 Andreas-MacBook-Pro.local#00 I: Worker Andreas-MacBook-Pro.local#02 has ended.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Worker Andreas-MacBook-Pro.local#01 has ended.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Used 2 worker during test execution.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Run 7 tests with shard Andreas-MacBook-Pro.local#02.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Run 8 tests with shard Andreas-MacBook-Pro.local#01.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Check health of shard Andreas-MacBook-Pro.local#02, 1 times.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Check health of shard Andreas-MacBook-Pro.local#01, 1 times.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: ==============
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Summary:
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:14:acc1 balance is 0.0 USD is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:13:3.33 C ADis an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:12:4. 44 CADis an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:11:   4 . 4 4 C A D is an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:10:5.55  CADis an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:9:USDis an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:8:2.2222 USDis an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:7:2.222is an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:6:2.2is an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:5:2.20is an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:4:0is an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:3:asdfis an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:2:   is an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:1:is an invalid amount is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:0:AAA is invalid currency is successful.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Ran: 15 tests in: 0.11 seconds.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Cases: 15.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Tried: 15.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Errors: 0.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Failures: 0.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Skip: 0.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Todo: 0.
-2022-10-16T22:44:44+00:00 Andreas-MacBook-Pro.local#00 I: Timeout: 0.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Runner: processes
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Chooser: simple
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration suite_name = "test suite for final project"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration cache_filename = "/Users/ac/Documents/Senior Year/cs3110/Final Project/cs-3110-final-project/_build/oUnit-$(suite_name).cache"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration run_gc_full_major = "true"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration display = "true"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration results_style_1_X = "false"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration testdata_dir = "none"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration health_check_interval = "1."
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration verbose = "false"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration chooser = "simple"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration output_html_dir = "none"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration processes_kill_period = "5."
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration runner = "processes"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration shards = "2"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration processes_grace_period = "5."
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration log_encoding = "utf-8"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration output_junit_file = "none"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration ci = "false"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Configuration output_file = "/Users/ac/Documents/Senior Year/cs3110/Final Project/cs-3110-final-project/_build/oUnit-$(suite_name)-$(shard_id).log"
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Using 2 workers maximum.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Starting worker number Andreas-MacBook-Pro.local#01.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Worker Andreas-MacBook-Pro.local#01 started.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Starting worker number Andreas-MacBook-Pro.local#02.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Worker Andreas-MacBook-Pro.local#02 started.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:1:is an invalid amount, test suite for final project:0:AAA is invalid currency.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:0:AAA is invalid currency.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:1:is an invalid amount, test suite for final project:0:AAA is invalid currency.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:1:is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:1:is an invalid amount, test suite for final project:0:AAA is invalid currency.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:0:AAA is invalid currency is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:1:is an invalid amount, test suite for final project:0:AAA is invalid currency.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:0:AAA is invalid currency.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:1:is an invalid amount, test suite for final project:0:AAA is invalid currency.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:2:   is an invalid amount, test suite for final project:1:is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:2:   is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:2:   is an invalid amount, test suite for final project:1:is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:1:is an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:2:   is an invalid amount, test suite for final project:1:is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:1:is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:2:   is an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:2:   is an invalid amount, test suite for final project:1:is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:2:   is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:3:asdfis an invalid amount, test suite for final project:2:   is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:3:asdfis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:4:0is an invalid amount, test suite for final project:3:asdfis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:4:0is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:4:0is an invalid amount, test suite for final project:3:asdfis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:3:asdfis an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:4:0is an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:4:0is an invalid amount, test suite for final project:3:asdfis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:3:asdfis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:4:0is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:4:0is an invalid amount, test suite for final project:3:asdfis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:6:2.2is an invalid amount, test suite for final project:5:2.20is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:5:2.20is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:6:2.2is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:6:2.2is an invalid amount, test suite for final project:5:2.20is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:5:2.20is an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:6:2.2is an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:6:2.2is an invalid amount, test suite for final project:5:2.20is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:5:2.20is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:6:2.2is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:6:2.2is an invalid amount, test suite for final project:5:2.20is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:8:2.2222 USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:8:2.2222 USDis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:8:2.2222 USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:7:2.222is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:8:2.2222 USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:8:2.2222 USDis an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:8:2.2222 USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:7:2.222is an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:8:2.2222 USDis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:8:2.2222 USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:7:2.222is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:9:USDis an invalid amount, test suite for final project:7:2.222is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:9:USDis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:10:5.55  CADis an invalid amount, test suite for final project:9:USDis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:10:5.55  CADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:10:5.55  CADis an invalid amount, test suite for final project:9:USDis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:9:USDis an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:10:5.55  CADis an invalid amount, test suite for final project:9:USDis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:9:USDis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:10:5.55  CADis an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:10:5.55  CADis an invalid amount, test suite for final project:9:USDis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:10:5.55  CADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:11:   4 . 4 4 C A D is an invalid amount, test suite for final project:10:5.55  CADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:12:4. 44 CADis an invalid amount, test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:12:4. 44 CADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:12:4. 44 CADis an invalid amount, test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:11:   4 . 4 4 C A D is an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:12:4. 44 CADis an invalid amount, test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:12:4. 44 CADis an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:12:4. 44 CADis an invalid amount, test suite for final project:11:   4 . 4 4 C A D is an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:12:4. 44 CADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:13:3.33 C ADis an invalid amount, test suite for final project:12:4. 44 CADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:13:3.33 C ADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:14:acc1 balance is 0.0 USD.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:13:3.33 C ADis an invalid amount is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:13:3.33 C ADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:14:acc1 balance is 0.0 USD is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:14:acc1 balance is 0.0 USD, test suite for final project:13:3.33 C ADis an invalid amount.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:14:acc1 balance is 0.0 USD.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:15:100.24 USD is a valid deposit, test suite for final project:14:acc1 balance is 0.0 USD.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:16:depositing twice is a valid deposit, test suite for final project:15:100.24 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:15:100.24 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:16:depositing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:16:depositing twice is a valid deposit, test suite for final project:15:100.24 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:15:100.24 USD is a valid deposit is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:16:depositing twice is a valid deposit is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:16:depositing twice is a valid deposit, test suite for final project:15:100.24 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:15:100.24 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:16:depositing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:16:depositing twice is a valid deposit, test suite for final project:15:100.24 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:18:depositing different currency is invalid, test suite for final project:17:1.04 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:18:depositing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:18:depositing different currency is invalid, test suite for final project:17:1.04 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:17:1.04 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:18:depositing different currency is invalid, test suite for final project:17:1.04 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 E: Test test suite for final project:17:1.04 USD is a valid deposit has failed.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 E: expected: 1.04 USD but got: 1.4 USD in test test suite for final project:17:1.04 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 E: Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 E: Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 E: 
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:18:depositing different currency is invalid, test suite for final project:17:1.04 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:17:1.04 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:18:depositing different currency is invalid, test suite for final project:17:1.04 USD is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:19:20.20 USD is a valid withdrawal, test suite for final project:18:depositing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Test test suite for final project:18:depositing different currency is invalid is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:19:20.20 USD is a valid withdrawal.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:19:20.20 USD is a valid withdrawal, test suite for final project:18:depositing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:18:depositing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 E: Test test suite for final project:19:20.20 USD is a valid withdrawal has failed.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 E: expected: 102.03 USD but got: 102.3 USD in test test suite for final project:19:20.20 USD is a valid withdrawal.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 E: Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 E: Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 E: 
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:19:20.20 USD is a valid withdrawal, test suite for final project:18:depositing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:19:20.20 USD is a valid withdrawal.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:20:withdrawing twice is a valid deposit, test suite for final project:19:20.20 USD is a valid withdrawal.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Still 2 tests running : test suite for final project:21:withdrawing different currency is invalid, test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:21:withdrawing different currency is invalid, test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: Start test test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Still 2 tests running : test suite for final project:21:withdrawing different currency is invalid, test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:21:withdrawing different currency is invalid, test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:21:withdrawing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Still 2 tests running : test suite for final project:21:withdrawing different currency is invalid, test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:21:withdrawing different currency is invalid, test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 E: Test test suite for final project:20:withdrawing twice is a valid deposit has failed.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 E: expected: 81.04 USD but got: 81.4 USD in test test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 E: Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 E: Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 E: 
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Still 2 tests running : test suite for final project:21:withdrawing different currency is invalid, test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:21:withdrawing different currency is invalid, test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#01 I: End test test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Still 2 tests running : test suite for final project:21:withdrawing different currency is invalid, test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 2 tests running: test suite for final project:21:withdrawing different currency is invalid, test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Still 1 tests running : test suite for final project:21:withdrawing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 1 tests running: test suite for final project:21:withdrawing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:21:withdrawing different currency is invalid is successful.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Still 1 tests running : test suite for final project:21:withdrawing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 1 tests running: test suite for final project:21:withdrawing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:21:withdrawing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Still 1 tests running : test suite for final project:21:withdrawing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 1 tests running: test suite for final project:21:withdrawing different currency is invalid.
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: 0 tests running: .
+2022-10-17T01:14:28+00:00 Andreas-MacBook-Pro.local#00 I: Worker Andreas-MacBook-Pro.local#01 has ended.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Worker Andreas-MacBook-Pro.local#02 has ended.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Used 2 worker during test execution.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Run 11 tests with shard Andreas-MacBook-Pro.local#02.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Run 11 tests with shard Andreas-MacBook-Pro.local#01.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Check health of shard Andreas-MacBook-Pro.local#02, 1 times.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Check health of shard Andreas-MacBook-Pro.local#01, 4 times.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: ==============
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Summary:
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:21:withdrawing different currency is invalid is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: Test test suite for final project:20:withdrawing twice is a valid deposit has failed.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: expected: 81.04 USD but got: 81.4 USD in test test suite for final project:20:withdrawing twice is a valid deposit.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: 
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: Test test suite for final project:19:20.20 USD is a valid withdrawal has failed.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: expected: 102.03 USD but got: 102.3 USD in test test suite for final project:19:20.20 USD is a valid withdrawal.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: 
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:18:depositing different currency is invalid is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: Test test suite for final project:17:1.04 USD is a valid deposit has failed.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: expected: 1.04 USD but got: 1.4 USD in test test suite for final project:17:1.04 USD is a valid deposit.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 E: 
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:16:depositing twice is a valid deposit is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:15:100.24 USD is a valid deposit is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:14:acc1 balance is 0.0 USD is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:13:3.33 C ADis an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:12:4. 44 CADis an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:11:   4 . 4 4 C A D is an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:10:5.55  CADis an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:9:USDis an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:7:2.222is an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:8:2.2222 USDis an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:6:2.2is an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:5:2.20is an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:4:0is an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:3:asdfis an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:2:   is an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:1:is an invalid amount is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Test test suite for final project:0:AAA is invalid currency is successful.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Ran: 22 tests in: 0.11 seconds.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Cases: 22.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Tried: 22.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Errors: 0.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Failures: 3.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Skip: 0.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Todo: 0.
+2022-10-17T01:14:29+00:00 Andreas-MacBook-Pro.local#00 I: Timeout: 0.
