@@ -126,7 +126,18 @@ let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
 
 let username acc = acc.username
 let balance acc = unparse_amount acc.balance
-let display acc = raise (Failure "Unimplemented: Account.display")
+
+let print_info name info = name ^ ": " ^ info
+
+let rec print_list = function 
+| [] -> ()
+| h :: t -> print_endline h; print_list t
+
+let transaction acc = ["Transaction History" ; "Initial Value :" ^ (balance acc)]
+let display acc = print_endline "Account Information" in
+                  let _ = print_endline print_info "Account username" (username acc) in
+                  let _ = print_endline print_info "Balance" (balance acc) in
+                  print_endline print_list transaction acc
 
 let deposit acc amt =
   let a = parse_amount amt in
