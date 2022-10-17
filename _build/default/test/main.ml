@@ -44,6 +44,8 @@ let balance_tests =
 let acc2 = deposit acc1 "100.24 USD"
 let acc3 = deposit acc2 "21.99 USD"
 let acc4 = deposit acc1 "1.04 USD"
+(*this test case also doesn't pass because of decimal error as mentioned in
+  slack *)
 
 let deposit_amount_tests =
   [
