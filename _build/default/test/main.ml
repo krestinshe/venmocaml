@@ -38,7 +38,7 @@ let acc1 = make ~balance:"0.00 USD" "test" "test"
 let balance_tests =
   [
     ( "acc1 balance is 0.0 USD" >:: fun _ ->
-      assert_equal "0.0 USD" (balance acc1) ~printer:(fun x -> x) );
+      assert_equal "0.00 USD" (balance acc1) ~printer:(fun x -> x) );
   ]
 
 let acc2 = deposit acc1 "100.24 USD"

@@ -1,0 +1,30 @@
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Start test test suite for final project:1:is an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Test test suite for final project:1:is an invalid amount is successful.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: End test test suite for final project:1:is an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Start test test suite for final project:4:0is an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Test test suite for final project:4:0is an invalid amount is successful.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: End test test suite for final project:4:0is an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Start test test suite for final project:6:2.2is an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Test test suite for final project:6:2.2is an invalid amount is successful.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: End test test suite for final project:6:2.2is an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Start test test suite for final project:8:2.2222 USDis an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Test test suite for final project:8:2.2222 USDis an invalid amount is successful.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: End test test suite for final project:8:2.2222 USDis an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Start test test suite for final project:10:5.55  CADis an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Test test suite for final project:10:5.55  CADis an invalid amount is successful.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: End test test suite for final project:10:5.55  CADis an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Start test test suite for final project:12:4. 44 CADis an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Test test suite for final project:12:4. 44 CADis an invalid amount is successful.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: End test test suite for final project:12:4. 44 CADis an invalid amount.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Start test test suite for final project:14:acc1 balance is 0.0 USD.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Test test suite for final project:14:acc1 balance is 0.0 USD is successful.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: End test test suite for final project:14:acc1 balance is 0.0 USD.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Start test test suite for final project:15:100.24 USD is a valid deposit.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Test test suite for final project:15:100.24 USD is a valid deposit is successful.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: End test test suite for final project:15:100.24 USD is a valid deposit.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Start test test suite for final project:18:depositing different currency is invalid.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Test test suite for final project:18:depositing different currency is invalid is successful.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: End test test suite for final project:18:depositing different currency is invalid.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Start test test suite for final project:19:20.20 USD is a valid withdrawal.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: Test test suite for final project:19:20.20 USD is a valid withdrawal is successful.
+2022-10-17T20:25:38+00:00 dhcp-vl2042-10352.redrover.cornell.edu#02 I: End test test suite for final project:19:20.20 USD is a valid withdrawal.

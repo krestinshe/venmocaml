@@ -127,20 +127,19 @@ let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
   { username; password; balance = parse_amount balance }
 
 let username acc = acc.username
+let password acc = acc.password
 let balance acc = unparse_amount acc.balance
-let display = raise (Failure "Unimplemented: Account.display")
-let transaction = raise (Failure "Unimplemented: Account.transaction")
-(* let print_info name info = name ^ ": " ^ info
 
-   let rec print_list = function | [] -> () | h :: t -> print_endline h;
-   print_list t
+(*let print_info name info = name ^ ": " ^ info
 
-   let transaction acc = ["Transaction History" ; "Initial Value :" ^ (balance
-   acc)] let display acc = print_endline "Account Information" in let _ =
-   print_endline print_info "Account username" (username acc) in let _ =
-   print_endline print_info "Balance" (balance acc) in print_endline print_list
-   transaction acc*)
+  let rec print_list = function | [] -> () | h :: t -> print_endline h;
+  print_list t
 
+  let transaction acc = ["Transaction History" ; "Initial Value :" ^ (balance
+  acc)] let display acc = print_endline "Account Information" in let _ =
+  print_endline print_info "Account username" (username acc) in let _ =
+  print_endline print_info "Balance" (balance acc) in print_endline print_list
+  transaction acc *)
 let deposit acc amt =
   let a = parse_amount amt in
   if a.currency = acc.balance.currency then
