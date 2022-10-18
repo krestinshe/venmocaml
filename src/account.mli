@@ -25,6 +25,10 @@ exception InvalidWithdrawal of string
 (** Placeholder until exchange rates are established. Raised when a user
     attempts to withdraw a currency that is different from its balance. *)
 
+val from_json : Yojson.Basic.t -> t
+(** [from_json j] is the account that [j] represents. Requires: [j] is a valid
+    JSON account representation. *)
+
 val make : ?balance:string -> string -> string -> t
 (** [make ~balance:balance username password] is the account with username
     [username], password [password], and balance set to the amount represented
@@ -40,7 +44,7 @@ val balance : t -> string
 (** [balance acc] is the current balance of account [acc] with the understanding
     that a user can have a negative balance. *)
 
-val display : t -> unit
+(* val display : t -> unit *)
 (** [display acc] prints the account, with its username, balance, and
     transaction history.*)
 

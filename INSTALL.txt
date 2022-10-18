@@ -1,1 +1,2 @@
 1. Run dune build.
+2. Install the yojson and ANSITerminal libraries (opam install yojson ANSITerminal) *** edit this idk if it's right

@@ -1,6 +1,10 @@
 open OUnit2
 open Account
 
+let data_dir_prefix = "data" ^ Filename.dir_sep
+let zero = Yojson.Basic.from_file (data_dir_prefix ^ "zero_bal.json")
+let pos = Yojson.Basic.from_file (data_dir_prefix ^ "pos_bal.json")
+
 let invalid_amount_test (input : string) : test =
   input ^ "is an invalid amount" >:: fun _ ->
   assert_raises (InvalidAmount input) (fun () ->
@@ -39,6 +43,24 @@ let balance_tests =
   [
     ( "acc1 balance is 0.0 USD" >:: fun _ ->
       assert_equal "0.00 USD" (balance acc1) ~printer:(fun x -> x) );
+  ]
+
+let from_json_tests =
+  [
+    ( "balance of from_json zero is 0.00 USD" >:: fun _ ->
+      assert_equal "0.00 USD" (balance (from_json zero)) ~printer:(fun x -> x)
+    );
+    ( "username of from_json zero is zero balance" >:: fun _ ->
+      assert_equal "zero balance"
+        (username (from_json zero))
+        ~printer:(fun x -> x) );
+    ( "username of from_json pos is positive balance" >:: fun _ ->
+      assert_equal "positive balance"
+        (username (from_json zero))
+        ~printer:(fun x -> x) );
+    ( "balance of from_json pos is 3110.00 USD" >:: fun _ ->
+      assert_equal "3110.00 USD" (balance (from_json pos)) ~printer:(fun x -> x)
+    );
   ]
 
 let acc2 = deposit acc1 "100.24 USD"

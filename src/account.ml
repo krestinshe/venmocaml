@@ -1,9 +1,10 @@
 (* for some reason OCaml kept raising errors for unused variables/values/fields
    so I couldn't "dune build" or test; this is to temporarily avoid that
    problem *)
-[@@@warnerror "-unused-value-declaration"]
-[@@@warnerror "-unused-field"]
-[@@@warnerror "-unused-var-strict"]
+(* [@@@warnerror "-unused-value-declaration"] [@@@warnerror "-unused-field"]
+   [@@@warnerror "-unused-var-strict"] *)
+
+open Yojson.Basic.Util
 
 (** [currency] is the type that represents a currency. *)
 type currency =
@@ -123,6 +124,17 @@ let unparse_amount (a : amount) : string =
   in
   number ^ string_of_currency a.currency
 
+let from_json j =
+  let bal =
+    if j |> member "balance" = `Null then { number = (0, 0); currency = USD }
+    else j |> member "balance" |> to_string |> parse_amount
+  in
+  {
+    username = j |> member "username" |> to_string;
+    password = j |> member "password" |> to_string;
+    balance = bal;
+  }
+
 let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
   { username; password; balance = parse_amount balance }
 
@@ -140,6 +152,7 @@ let balance acc = unparse_amount acc.balance
   print_endline print_info "Account username" (username acc) in let _ =
   print_endline print_info "Balance" (balance acc) in print_endline print_list
   transaction acc *)
+
 let deposit acc amt =
   let a = parse_amount amt in
   if a.currency = acc.balance.currency then
