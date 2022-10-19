@@ -44,7 +44,7 @@ val balance : t -> string
 (** [balance acc] is the current balance of account [acc] with the understanding
     that a user can have a negative balance. *)
 
-(* val display : t -> unit *)
+val display : t -> unit 
 (** [display acc] prints the account, with its username, balance, and
     transaction history.*)
 
