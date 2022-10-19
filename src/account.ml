@@ -34,8 +34,6 @@ type t = {
   history : string list;
 }
 
-exception InvalidUsername of string
-exception IncorrectPassword
 exception InvalidAmount of string
 exception InvalidCurrency of string
 exception InvalidDeposit of string
@@ -148,27 +146,25 @@ let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
 let username acc = acc.username
 let password acc = acc.password
 let balance acc = unparse_amount acc.balance
-
 let print_info name info = name ^ ": " ^ info
- 
-let rec print_list = function
- | [] -> ()
- | h :: t ->
-     print_endline h;
-     print_list t
- 
-let history acc = acc.history
- 
-let display acc =
- print_string "Account Information";
- print_newline ();
- print_string (print_info "Account username" (username acc));
- print_newline ();
- print_string (print_info "Balance" (balance acc));
- print_newline ();
- print_newline ();
- print_list (history acc)
 
+let rec print_list = function
+  | [] -> ()
+  | h :: t ->
+      print_endline h;
+      print_list t
+
+let history acc = acc.history
+
+let display acc =
+  print_string "Account Information";
+  print_newline ();
+  print_string (print_info "Account username" (username acc));
+  print_newline ();
+  print_string (print_info "Balance" (balance acc));
+  print_newline ();
+  print_newline ();
+  print_list (history acc)
 
 let deposit acc amt =
   let a = parse_amount amt in

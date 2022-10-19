@@ -3,14 +3,6 @@
 type t
 (** The abstract type of values representing accounts. *)
 
-exception InvalidUsername of string
-(** Raised when a user attempts to create an account with a username that is
-    already associated with an existing account. *)
-
-exception IncorrectPassword
-(** Raised when a user attempts to perform an action and enters the incorrect
-    password when prompted. *)
-
 exception InvalidAmount of string
 (** Raised when a user attempts to perform an action with an invalid amount. *)
 
@@ -44,7 +36,7 @@ val balance : t -> string
 (** [balance acc] is the current balance of account [acc] with the understanding
     that a user can have a negative balance. *)
 
-val display : t -> unit 
+val display : t -> unit
 (** [display acc] prints the account, with its username, balance, and
     transaction history.*)
 

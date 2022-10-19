@@ -1,2 +1,8 @@
-1. Run dune build.
-2. Install the yojson and ANSITerminal libraries (opam install yojson ANSITerminal) *** edit this idk if it's right
+# Installation instructions
+1. Unzip cs-3110-final-project.zip
+2. Open cs-3110-final-project in Visual Studio Code
+3. Run "dune build" in the terminal
+4. Run "make start" in terminal
+5. Follow the prompts in the terminal to interact with the VenmOCaml system
+
+*do we need to tell them to install the yojson and ANSITerminal libraries? 

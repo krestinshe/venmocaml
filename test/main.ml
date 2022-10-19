@@ -1,5 +1,5 @@
 open OUnit2
-open Account
+open Venmo.Account
 
 let data_dir_prefix = "data" ^ Filename.dir_sep
 let zero = Yojson.Basic.from_file (data_dir_prefix ^ "zero_bal.json")
