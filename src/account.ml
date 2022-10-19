@@ -30,6 +30,7 @@ type t = {
   username : string;
   password : string;
   balance : amount;
+  history : string list;
 }
 
 exception InvalidUsername of string
@@ -122,7 +123,7 @@ let unparse_amount (a : amount) : string =
   number ^ string_of_currency a.currency
 
 let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
-  { username; password; balance = parse_amount balance }
+  { username; password; balance = parse_amount balance; history = ["Transaction History" ; "Initial Value :" ^ "0.00 USD"]}
 
 let username acc = acc.username
 let balance acc = unparse_amount acc.balance
@@ -133,11 +134,16 @@ let rec print_list = function
 | [] -> ()
 | h :: t -> print_endline h; print_list t
 
-let transaction acc = ["Transaction History" ; "Initial Value :" ^ (balance acc)]
-let display acc = print_endline "Account Information" in
-                  let _ = print_endline print_info "Account username" (username acc) in
-                  let _ = print_endline print_info "Balance" (balance acc) in
-                  print_endline print_list transaction acc
+let history acc = acc.history
+
+let display acc = (print_string "Account Information";
+                  print_newline ();
+                  print_string (print_info "Account username" (username acc));
+                  print_newline ();
+                  print_string (print_info "Balance" (balance acc)); 
+                  print_newline ();
+                  print_newline ();
+                  print_list (history acc);)
 
 let deposit acc amt =
   let a = parse_amount amt in
@@ -153,6 +159,8 @@ let deposit acc amt =
               (fst amt_num + fst acc_num + 1, snd amt_num + snd acc_num - 100);
             currency = a.currency;
           };
+          history = history acc @ ["Made Deposit: "^ amt]
+
       }
     else
       {
@@ -162,6 +170,7 @@ let deposit acc amt =
             number = (fst amt_num + fst acc_num, snd amt_num + snd acc_num);
             currency = a.currency;
           };
+        history = history acc @ ["Made Deposit: "^ amt]
       }
   else raise (InvalidDeposit amt)
 
@@ -179,6 +188,8 @@ let withdraw acc amt =
               (fst acc_num - fst amt_num - 1, snd acc_num - snd amt_num + 100);
             currency = a.currency;
           };
+        history = history acc @ ["Withdrawal: "^ amt]
+
       }
     else
       {
@@ -188,5 +199,7 @@ let withdraw acc amt =
             number = (fst acc_num - fst amt_num, snd acc_num - snd amt_num);
             currency = a.currency;
           };
+        history = history acc @ ["Withdrawal: "^ amt]
+
       }
   else raise (InvalidWithdrawal amt)
