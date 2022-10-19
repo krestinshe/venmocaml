@@ -134,7 +134,7 @@ let from_json j =
     username = j |> member "username" |> to_string;
     password = j |> member "password" |> to_string;
     balance = bal;
-    history = j |> member "history" |> to_list;
+    history = j |> member "history" |> to_list |> List.map to_string;
   }
 
 let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
@@ -150,17 +150,25 @@ let password acc = acc.password
 let balance acc = unparse_amount acc.balance
 
 let print_info name info = name ^ ": " ^ info
+ 
+let rec print_list = function
+ | [] -> ()
+ | h :: t ->
+     print_endline h;
+     print_list t
+ 
+let history acc = acc.history
+ 
+let display acc =
+ print_string "Account Information";
+ print_newline ();
+ print_string (print_info "Account username" (username acc));
+ print_newline ();
+ print_string (print_info "Balance" (balance acc));
+ print_newline ();
+ print_newline ();
+ print_list (history acc)
 
-let rec print_list = function 
-| [] -> ()
-| h :: t -> print_endline h; print_list t
-
-let transaction acc = ["Transaction History" ; "Initial Value :" ^ (balance acc)]
-
-let display acc = print_endline "Account Information" in
-                  let _ = print_endline print_info "Account username" (username acc) in
-                  let _ = print_endline print_info "Balance" (balance acc) in
-                  print_endline print_list transaction acc
 
 let deposit acc amt =
   let a = parse_amount amt in
