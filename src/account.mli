@@ -55,6 +55,3 @@ val deposit : t -> string -> t
 val withdraw : t -> string -> t
 (** [withdraw acc amt] removes [amt] from the balance of the account [acc] with
     the precondition that amt > 0. *)
-
-val transaction : t -> string list
-(** [transaction acc] returns a string list of the history of withdrawals and deposits*)
