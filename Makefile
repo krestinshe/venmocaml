@@ -14,7 +14,7 @@ utop:
 test:
 	OCAMLRUNPARAM=b dune exec test/main.exe
 
-play:
+start:
 	OCAMLRUNPARAM=b dune exec bin/main.exe
 
 check:
@@ -24,12 +24,12 @@ finalcheck:
 	@bash check.sh final
 
 zip:
-	rm -f account.zip
-	zip -r account.zip . -x@exclude.lst
+	rm -f venmo.zip
+	zip -r venmo.zip . -x@exclude.lst
 
 clean:
 	dune clean
-	rm -f account.zip
+	rm -f venmo.zip
 
 doc:
 	dune build @doc
