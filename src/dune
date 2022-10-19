@@ -1,2 +1,3 @@
 (library
- (name account))
+ (name account)
+ (libraries yojson ANSITerminal))

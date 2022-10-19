@@ -1,9 +1,10 @@
 (* for some reason OCaml kept raising errors for unused variables/values/fields
    so I couldn't "dune build" or test; this is to temporarily avoid that
    problem *)
-[@@@warnerror "-unused-value-declaration"]
-[@@@warnerror "-unused-field"]
-[@@@warnerror "-unused-var-strict"]
+(* [@@@warnerror "-unused-value-declaration"] [@@@warnerror "-unused-field"]
+   [@@@warnerror "-unused-var-strict"] *)
+
+open Yojson.Basic.Util
 
 (** [currency] is the type that represents a currency. *)
 type currency =
@@ -118,9 +119,23 @@ let parse_amount (s : string) : amount =
 let unparse_amount (a : amount) : string =
   let number =
     match a.number with
-    | a, b -> string_of_int a ^ "." ^ string_of_int b ^ " "
+    | a, b ->
+        if b < 10 then string_of_int a ^ ".0" ^ string_of_int b ^ " "
+        else string_of_int a ^ "." ^ string_of_int b ^ " "
   in
   number ^ string_of_currency a.currency
+
+let from_json j =
+  let bal =
+    if j |> member "balance" = `Null then { number = (0, 0); currency = USD }
+    else j |> member "balance" |> to_string |> parse_amount
+  in
+  {
+    username = j |> member "username" |> to_string;
+    password = j |> member "password" |> to_string;
+    balance = bal;
+    history = j |> member "history" |> to_list;
+  }
 
 let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
   {
@@ -131,26 +146,21 @@ let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
   }
 
 let username acc = acc.username
+let password acc = acc.password
 let balance acc = unparse_amount acc.balance
+
 let print_info name info = name ^ ": " ^ info
 
-let rec print_list = function
-  | [] -> ()
-  | h :: t ->
-      print_endline h;
-      print_list t
+let rec print_list = function 
+| [] -> ()
+| h :: t -> print_endline h; print_list t
 
-let history acc = acc.history
+let transaction acc = ["Transaction History" ; "Initial Value :" ^ (balance acc)]
 
-let display acc =
-  print_string "Account Information";
-  print_newline ();
-  print_string (print_info "Account username" (username acc));
-  print_newline ();
-  print_string (print_info "Balance" (balance acc));
-  print_newline ();
-  print_newline ();
-  print_list (history acc)
+let display acc = print_endline "Account Information" in
+                  let _ = print_endline print_info "Account username" (username acc) in
+                  let _ = print_endline print_info "Balance" (balance acc) in
+                  print_endline print_list transaction acc
 
 let deposit acc amt =
   let a = parse_amount amt in
