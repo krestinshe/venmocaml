@@ -135,7 +135,7 @@ let from_json j =
     history = j |> member "history" |> to_list |> List.map to_string;
   }
 
-let make ?(balance = "0.00 USD") (username : string) (password : string) : t =
+let create ?(balance = "0.00 USD") (username : string) (password : string) : t =
   {
     username;
     password;

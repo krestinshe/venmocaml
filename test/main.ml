@@ -8,15 +8,15 @@ let pos = Yojson.Basic.from_file (data_dir_prefix ^ "pos_bal.json")
 let invalid_amount_test (input : string) : test =
   input ^ "is an invalid amount" >:: fun _ ->
   assert_raises (InvalidAmount input) (fun () ->
-      make ~balance:input "test" "test")
+      create ~balance:input "test" "test")
 
 let invalid_currency_tests =
   [
     ( "AAA is invalid currency" >:: fun _ ->
       assert_raises (InvalidCurrency "AAA") (fun () ->
-          make ~balance:"5.00 AAA" "test" "test") )
+          create ~balance:"5.00 AAA" "test" "test") )
     (* ( "usd is valid currency" >:: fun _ -> assert_raises (InvalidCurrency
-       "usd") (fun () -> make ~balance:"5.00 usd" "test" "test") ); *);
+       "usd") (fun () -> create ~balance:"5.00 usd" "test" "test") ); *);
   ]
 
 let invalid_amount_tests =
@@ -37,7 +37,7 @@ let invalid_amount_tests =
       "3.33 C AD";
     ]
 
-let acc1 = make ~balance:"0.00 USD" "test" "test"
+let acc1 = create ~balance:"0.00 USD" "test" "test"
 
 let balance_tests =
   [

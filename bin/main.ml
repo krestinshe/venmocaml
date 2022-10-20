@@ -44,7 +44,7 @@ let create st =
       let pw = read_line () in
       (* print_endline "Confirm password"; print_string "> "; if read_line () =
          pw then *)
-      let acc = make un pw in
+      let acc = create un pw in
       print_endline "Account successfully created!";
       display acc;
       add_account st acc

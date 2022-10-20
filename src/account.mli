@@ -21,8 +21,8 @@ val from_json : Yojson.Basic.t -> t
 (** [from_json j] is the account that [j] represents. Requires: [j] is a valid
     JSON account representation. *)
 
-val make : ?balance:string -> string -> string -> t
-(** [make ~balance:balance username password] is the account with username
+val create : ?balance:string -> string -> string -> t
+(** [create ~balance:balance username password] is the account with username
     [username], password [password], and balance set to the amount represented
     by [balance] (or 0. by default). *)
 
