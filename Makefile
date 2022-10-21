@@ -27,12 +27,12 @@ finalcheck:
 	@bash check.sh final
 
 zip:
-	rm -f venmo.zip
-	zip -r venmo.zip . -x@exclude.lst
+	rm -f venmocaml.zip
+	zip -r venmocaml.zip . -x@exclude.lst
 
 clean:
 	dune clean
-	rm -f venmo.zip
+	rm -f venmocaml.zip
 
 doc:
 	dune build @doc
