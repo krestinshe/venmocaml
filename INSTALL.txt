@@ -1,8 +1,8 @@
 # Installation instructions
-1. Unzip cs-3110-final-project.zip
-2. Open cs-3110-final-project in Visual Studio Code
+1. Unzip venmocaml.zip
+2. Open venmocaml in Visual Studio Code
+2.5 Install yojson and ANSITerminal and other libraries included in the textbook 
+    installation instructions, if not already installed
 3. Run "dune build" in the terminal
 4. Run "make start" in terminal
 5. Follow the prompts in the terminal to interact with the VenmOCaml system
-
-*do we need to tell them to install the yojson and ANSITerminal libraries? 
