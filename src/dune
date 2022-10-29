@@ -1,3 +1,5 @@
 (library
  (name venmo)
- (libraries yojson ANSITerminal))
+ (libraries yojson ANSITerminal)
+ (instrumentation
+  (backend bisect_ppx)))

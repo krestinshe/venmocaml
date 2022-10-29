@@ -13,11 +13,11 @@ let data_dir_prefix = "data" ^ Filename.dir_sep
     commands *)
 let instruction () =
   print_endline "Enter a command:";
-  print_endline "Create a new account: create";
-  print_endline "Log into an account: log in";
-  print_endline "Make a deposit: deposit";
-  print_endline "Pay an account: pay";
-  print_endline "Request money from an account: request";
+  print_endline "Create a new account [create]";
+  print_endline "Log into an account [log in]";
+  print_endline "Make a deposit [deposit]";
+  print_endline "Pay an account [pay]";
+  print_endline "Request money from an account [request]";
   print_string "> ";
   read_line ()
 
@@ -44,6 +44,8 @@ let create st =
       let pw = read_line () in
       (* print_endline "Confirm password"; print_string "> "; if read_line () =
          pw then *)
+      (* let user enter balance if desired *)
+      (* create a security question *)
       let acc = create un pw in
       print_endline "Account successfully created!";
       display acc;
@@ -63,7 +65,7 @@ let create st =
           display acc;
           add_account st acc)
   | _ ->
-      print_endline "Please enter a valid command (file/manual/back):";
+      print_endline "Please enter a valid command [file/manual/back]:";
       print_string "> "
 
 (** [main ()] prompts for the game to play, then starts it. *)
