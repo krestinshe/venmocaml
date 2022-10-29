@@ -1,3 +1,5 @@
+(* type transaction = *)
+
 type t = {
   mutable current_account : Account.t option;
   mutable accounts : Account.t array;
