@@ -39,7 +39,7 @@ let create st =
       let pw = read_line () in
       (* print_endline "Confirm password"; print_string "> "; if read_line () =
          pw then *)
-      let acc = create un pw in
+      let acc = create 0 un pw in
       print_endline "Account successfully created!";
       display acc;
       add_account st acc
@@ -52,6 +52,7 @@ let create st =
           let acc =
             Venmo.Account.from_json
               (Yojson.Basic.from_file (data_dir_prefix ^ file_name ^ ".json"))
+              0
           in
           check_username st (username acc);
           print_endline "Account successfully created!";

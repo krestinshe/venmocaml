@@ -100,17 +100,16 @@ let withdraw_amount_tests =
 let test_state = init_state
 let _ = add_account test_state acc1
 
-(*let check_addacc_tests = []*)
-let check_username_tests =
+let state_tests =
   [
+    ( "current account of initial state is None" >:: fun _ ->
+      assert_equal None (current_account init_state) );
     ( "username already exists raises InvalidUsername" >:: fun _ ->
       assert_raises (InvalidUsername "test") (fun () ->
           check_username test_state "test") );
     ( "username doesn't exist is valid" >:: fun _ ->
       assert_equal () (check_username test_state "not test") );
   ]
-
-let state_tests = List.flatten [ check_username_tests ]
 
 let suite =
   "test suite for final project"

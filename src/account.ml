@@ -1,9 +1,3 @@
-(* for some reason OCaml kept raising errors for unused variables/values/fields
-   so I couldn't "dune build" or test; this is to temporarily avoid that
-   problem *)
-(* [@@@warnerror "-unused-value-declaration"] [@@@warnerror "-unused-field"]
-   [@@@warnerror "-unused-var-strict"] *)
-
 open Yojson.Basic.Util
 
 (** [currency] is the type that represents a currency. *)
@@ -18,14 +12,10 @@ type amount = {
   number : float;
   currency : currency;
 }
-(** [amount] is the type that represents an amount of money.
-
-    The [number] field is a pair (d, c), in which [d] is the number of whole
-    units of currency (before the decimal point), and [c] is the number of
-    "cents", i.e., units of currency / 100 (after the decimal point). The value
-    represented by [number] is d + c / 100.
-
-    The [currency] field represents the currency that the amount of money is in. *)
+(** [amount] is the type that represents an amount of money. The [number] field
+    is float, rounded to the nearest hundredth, which represents the units of
+    currency. The [currency] field represents the currency that the amount of
+    money is in. *)
 
 type t = {
   id : int;
@@ -48,6 +38,7 @@ exception InvalidWithdrawal of string
     - [currency_of_string "EUR"] is [EUR].
     - [currency_of_string "AAA"] raises [InvalidCurrency "AAA"].
     - [currency_of_string ""] raises [InvalidCurrency ""]. *)
+
 let currency_of_string s =
   match String.uppercase_ascii s with
   | "USD" -> USD
@@ -61,6 +52,7 @@ let currency_of_string s =
 
     - [string_of_currency USD] is ["USD"].
     - [string_of_currency EUR] is ["EUR"].*)
+
 let string_of_currency c =
   match c with
   | USD -> "USD"
@@ -80,53 +72,53 @@ let string_of_currency c =
    | CAD -> {1*c, USD}*)
 
 (** [parse_amount s] parses a player's input into an [amount], as follows. The
-    sequence of numbers before the "." in [s] becomes the first element of the
-    [number] field. The sequence of numbers after the "." become the second
-    element in the [number] field. The word after the space is translated into a
-    [currency] type and becomes the [currency] field. Examples:
-
-    - [parse_amount "0.00 USD"] is {number = (0, 0); currency = USD}
-    - [parse_amount "10.99 CAN"] is {number = (10, 99); currency = CAN}.
+    sequence of numbers before the space in [s] is converted to a float and 
+    rounded to the hundredth of a unit, and is the contents of the [number] 
+    field. The sequence of letters after the space is translated into a 
+    [currency] type and becomes the [currency] field. 
 
     Requires: [s] contains only alphanumeric (A-Z, a-z, 0-9) and space
     characters (only ASCII character code 32; not tabs or newlines, etc.).
 
     Raises: [InvalidAmount] if [s] does not represent a valid amount. A string
-    representing a valid amount must contain the components, with nothing between:
-      - a consecutive sequence of numeric characters, 
-      - followed by one period, 
-      - followed by up to 2 consecutive numeric characters, 
-      - followed by one space, 
-      - followed by a 3-character string that represents a valid currency 
-        (i.e., is the name of a constructor of the [currency] type) 
+    representing a valid amount must contain a consecutive sequence of numeric 
+    characters and at most one period. Optionally, it may be followed by a 
+    3-character string that represents a valid currency (i.e., is the name of a 
+    constructor of the [currency] type), provided it is separated from the 
+    numeric sequence by at least one space and no non-spaces. 
     
     Examples: 
-      - [parse_amount "0.00"] raises InvalidAmount "0.00"
+      - [parse_amount "0.00 USD"] is {number = 0.; currency = USD}
+      - [parse_amount "10.99 CAD"] is {number = 10.99; currency = CAD}
+      - [parse_amount "0.00   CAD"] is {number = 0.; currency = CAD}
+      - [parse_amount "0.00"] is {number = 0.; currency = USD}
       - [parse_amount "USD"] raises InvalidAmount "USD"
       - [parse_amount " "] raises InvalidAmount " "
       - [parse_amount "0   .   00 USD"] raises InvalidAmount "0   .   00 USD"
-      - [parse_amount "0.00   CAD"] raises InvalidAmount "0.00   CAD"
-      *)
+  *)
 
 let round_num (n : float) : float = Float.round (n *. 100.) /. 100.
 
 let parse_amount (s : string) : amount =
   let split = String.split_on_char ' ' (String.trim s) in
-  let amt =
-    match split with
-    | [] -> raise (InvalidAmount s)
-    | [ n ] ->
-        { number = round_num (float_of_string (String.trim n)); currency = USD }
-    | [ n; c ] ->
-        {
-          number = round_num (float_of_string (String.trim n));
-          currency = currency_of_string c;
-        }
-    | _ -> raise (InvalidAmount s)
-  in
-  match amt with
-  | amt -> if amt.number < 0. then raise (InvalidAmount s) else amt
-  | exception Failure s -> raise (InvalidAmount s)
+  try
+    let amt =
+      match split with
+      | [] -> raise (InvalidAmount s)
+      | [ n ] ->
+          {
+            number = round_num (float_of_string (String.trim n));
+            currency = USD;
+          }
+      | [ n; c ] ->
+          {
+            number = round_num (float_of_string (String.trim n));
+            currency = currency_of_string c;
+          }
+      | _ -> raise (InvalidAmount s)
+    in
+    if amt.number < 0. then raise (InvalidAmount s) else amt
+  with Failure f -> raise (InvalidAmount s)
 
 (* let first_split = String.split_on_char ' ' (String.trim s) in let
    second_split = match first_split with | [] -> raise (InvalidAmount s) | h ::
