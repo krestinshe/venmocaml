@@ -68,6 +68,16 @@ let string_of_currency c =
   | RMB -> "RMB"
   | CAD -> "CAD"
 
+(**The following functions allow for currency conversion based on the conversion
+   rates as of 10/26/2022
+  
+   let to_USD n c = match c with
+   | USD -> {c, USD}
+   | EUR -> {1*c, USD}
+   | KRW -> {1*c, USD}
+   | RMB -> {1*c, USD}
+   | CAD -> {1*c, USD}*)
+
 (** [parse_amount s] parses a player's input into an [amount], as follows. The
     sequence of numbers before the "." in [s] becomes the first element of the
     [number] field. The sequence of numbers after the "." become the second

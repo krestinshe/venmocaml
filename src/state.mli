@@ -27,11 +27,15 @@ val current_account : t -> Account.t option
 (** [current_room_id st] is the account that the user is currently logged into
     in state [st]. *)
 
-val accounts : t -> Account.t list
-(** [accounts st] is a set-like list of the accounts that have been created in
+val accounts : t -> Account.t array
+(** [accounts st] is a set-like array of the accounts that have been created in
     state [st]. The adventurer has visited a room [rm] if their current room
     location is or has ever been [rm]. *)
 
 val add_account : t -> Account.t -> unit
 (** [add_account st acc] adds [acc] to the list of accounts in [st] and returns
     [()]. *)
+
+(* val make_payment : t -> int -> int -> string -> unit (**[make_payment st
+   paying_acc paid_acc p] adds [p] to account [paid_acc] by removing value [p]
+   from [paying_acc]*) *)
