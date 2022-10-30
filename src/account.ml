@@ -29,6 +29,7 @@ exception InvalidAmount of string
 exception InvalidCurrency of string
 exception InvalidDeposit of string
 exception InvalidWithdrawal of string
+exception InvalidConversion
 
 (** [currency_of_string s] converts [s] to a [currency], and raises
     [InvalidCurrency s] if [s] is not the name of a constructor of [currency].
@@ -61,15 +62,48 @@ let string_of_currency c =
   | RMB -> "RMB"
   | CAD -> "CAD"
 
-(**The following functions allow for currency conversion based on the conversion
-   rates as of 10/26/2022
-  
-   let to_USD n c = match c with
-   | USD -> {c, USD}
-   | EUR -> {1*c, USD}
-   | KRW -> {1*c, USD}
-   | RMB -> {1*c, USD}
-   | CAD -> {1*c, USD}*)
+(*The following functions allow for currency conversion based on the conversion
+  rates as of 10/29/2022 *)
+
+(*[to_usd n c] converts number [n] of currency [c] to an USD amount*)
+let to_usd n c =
+  if c = EUR then { number = n; currency = USD }
+  else if c = KRW then { number = n *. 0.0007; currency = USD }
+  else if c = RMB then { number = n *. 0.14; currency = USD }
+  else if c = CAD then { number = n *. 0.73; currency = USD }
+  else raise InvalidConversion
+
+(*[to_eur n c] converts number [n] of currency [c] to an EUR amount*)
+let to_eur n c =
+  if c = USD then { number = n; currency = EUR }
+  else if c = KRW then { number = n *. 0.00071; currency = EUR }
+  else if c = RMB then { number = n *. 0.14; currency = EUR }
+  else if c = CAD then { number = n *. 0.74; currency = EUR }
+  else raise InvalidConversion
+
+(*[to_krw n c] converts number [n] of currency [c] to an KRW amount*)
+let to_krw n c =
+  if c = USD then { number = n *. 1422.; currency = KRW }
+  else if c = EUR then { number = n *. 1417.09; currency = KRW }
+  else if c = RMB then { number = n *. 196.07; currency = KRW }
+  else if c = CAD then { number = n *. 1041.84; currency = KRW }
+  else raise InvalidConversion
+
+(*[to_rmb n c] converts number [n] of currency [c] to an RMB amount*)
+let to_rmb n c =
+  if c = USD then { number = n *. 7.25; currency = RMB }
+  else if c = EUR then { number = n *. 7.23; currency = RMB }
+  else if c = KRW then { number = n *. 0.0051; currency = RMB }
+  else if c = CAD then { number = n *. 5.31; currency = RMB }
+  else raise InvalidConversion
+
+(*[to_cad n c] converts number [n] of currency [c] to an CAD amount*)
+let to_cad n c =
+  if c = USD then { number = n *. 1.36; currency = CAD }
+  else if c = EUR then { number = n *. 1.36; currency = CAD }
+  else if c = KRW then { number = n *. 0.00096; currency = CAD }
+  else if c = RMB then { number = n *. 0.19; currency = CAD }
+  else raise InvalidConversion
 
 (** [parse_amount s] parses a player's input into an [amount], as follows. The
     sequence of numbers before the space in [s] is converted to a float and 
@@ -130,7 +164,7 @@ let parse_amount (s : string) : amount =
    exception Failure s -> raise (InvalidAmount s))*)
 
 let unparse_amount (a : amount) : string =
-  string_of_float a.number ^ string_of_currency a.currency
+  string_of_float a.number ^ " " ^ string_of_currency a.currency
 
 let from_json j id =
   let bal =

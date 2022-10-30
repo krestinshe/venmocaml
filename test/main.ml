@@ -38,8 +38,8 @@ let acc1 = create ~balance:"0.00 USD" 0 "test" "test"
 
 let balance_tests =
   [
-    ( "acc1 balance is 0.0 USD" >:: fun _ ->
-      assert_equal "0.00 USD" (balance acc1) ~printer:(fun x -> x) );
+    ( "acc1 balance is 0. USD" >:: fun _ ->
+      assert_equal "0. USD" (balance acc1) ~printer:(fun x -> x) );
   ]
 
 let from_json_tests =

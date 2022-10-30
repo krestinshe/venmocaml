@@ -17,6 +17,9 @@ exception InvalidWithdrawal of string
 (** Placeholder until exchange rates are established. Raised when a user
     attempts to withdraw a currency that is different from its balance. *)
 
+exception InvalidConversion
+(** Raised when a user attempts to complete an invalid conversion*)
+
 val from_json : Yojson.Basic.t -> int -> t
 (** [from_json j] is the account that [j] represents. Requires: [j] is a valid
     JSON account representation. *)
