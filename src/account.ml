@@ -7,6 +7,7 @@ type currency =
   | KRW
   | RMB
   | CAD
+  | CML
 
 type amount = {
   number : float;
@@ -22,6 +23,7 @@ type t = {
   username : string;
   password : string;
   balance : amount;
+  home_currency : currency;
   history : string list;
 }
 
@@ -47,6 +49,7 @@ let currency_of_string s =
   | "KRW" -> KRW
   | "RMB" -> RMB
   | "CAD" -> CAD
+  | "CML" -> CML
   | _ -> raise (InvalidCurrency s)
 
 (** [string_of_currency c] converts [c] to a [string]. Examples:
@@ -61,6 +64,7 @@ let string_of_currency c =
   | KRW -> "KRW"
   | RMB -> "RMB"
   | CAD -> "CAD"
+  | CML -> "CML"
 
 (*The following functions allow for currency conversion based on the conversion
   rates as of 10/29/2022 *)
@@ -71,6 +75,7 @@ let to_usd n c =
   else if c = KRW then { number = n *. 0.0007; currency = USD }
   else if c = RMB then { number = n *. 0.14; currency = USD }
   else if c = CAD then { number = n *. 0.73; currency = USD }
+  else if c = CML then { number = n /. 3110.; currency = USD }
   else raise InvalidConversion
 
 (*[to_eur n c] converts number [n] of currency [c] to an EUR amount*)
@@ -79,6 +84,7 @@ let to_eur n c =
   else if c = KRW then { number = n *. 0.00071; currency = EUR }
   else if c = RMB then { number = n *. 0.14; currency = EUR }
   else if c = CAD then { number = n *. 0.74; currency = EUR }
+  else if c = CML then { number = n /. 3110.; currency = EUR }
   else raise InvalidConversion
 
 (*[to_krw n c] converts number [n] of currency [c] to an KRW amount*)
@@ -87,6 +93,7 @@ let to_krw n c =
   else if c = EUR then { number = n *. 1417.09; currency = KRW }
   else if c = RMB then { number = n *. 196.07; currency = KRW }
   else if c = CAD then { number = n *. 1041.84; currency = KRW }
+  else if c = CML then { number = n *. 1422. /. 3110.; currency = KRW }
   else raise InvalidConversion
 
 (*[to_rmb n c] converts number [n] of currency [c] to an RMB amount*)
@@ -95,6 +102,7 @@ let to_rmb n c =
   else if c = EUR then { number = n *. 7.23; currency = RMB }
   else if c = KRW then { number = n *. 0.0051; currency = RMB }
   else if c = CAD then { number = n *. 5.31; currency = RMB }
+  else if c = CML then { number = n *. 7.25 /. 3110.; currency = RMB }
   else raise InvalidConversion
 
 (*[to_cad n c] converts number [n] of currency [c] to an CAD amount*)
@@ -103,6 +111,15 @@ let to_cad n c =
   else if c = EUR then { number = n *. 1.36; currency = CAD }
   else if c = KRW then { number = n *. 0.00096; currency = CAD }
   else if c = RMB then { number = n *. 0.19; currency = CAD }
+  else if c = CML then { number = n *. 1.36 /. 3110.; currency = CAD }
+  else raise InvalidConversion
+
+let to_cml n c =
+  if c = USD then { number = n *. 3110.; currency = CML }
+  else if c = EUR then { number = n *. 3110.; currency = CML }
+  else if c = KRW then { number = n *. 0.0007 *. 3110.; currency = CML }
+  else if c = CAD then { number = n *. 0.73 *. 3110.; currency = CML }
+  else if c = RMB then { number = n *. 0.14 *. 3110.; currency = CML }
   else raise InvalidConversion
 
 (** [parse_amount s] parses a player's input into an [amount], as follows. The
@@ -131,6 +148,8 @@ let to_cad n c =
       - [parse_amount "0   .   00 USD"] raises InvalidAmount "0   .   00 USD"
   *)
 
+(*[round_num n] rounds [n] to the hundredths place and is used in displaying the
+  balance amount*)
 let round_num (n : float) : float = Float.round (n *. 100.) /. 100.
 
 let parse_amount (s : string) : amount =
@@ -139,14 +158,10 @@ let parse_amount (s : string) : amount =
     let amt =
       match split with
       | [] -> raise (InvalidAmount s)
-      | [ n ] ->
-          {
-            number = round_num (float_of_string (String.trim n));
-            currency = USD;
-          }
+      | [ n ] -> { number = float_of_string (String.trim n); currency = USD }
       | [ n; c ] ->
           {
-            number = round_num (float_of_string (String.trim n));
+            number = float_of_string (String.trim n);
             currency = currency_of_string c;
           }
       | _ -> raise (InvalidAmount s)
@@ -176,16 +191,19 @@ let from_json j id =
     username = j |> member "username" |> to_string;
     password = j |> member "password" |> to_string;
     balance = bal;
+    home_currency =
+      j |> member "home currency" |> to_string |> currency_of_string;
     history = j |> member "history" |> to_list |> List.map to_string;
   }
 
-let create ?(balance = "0.00 USD") (id : int) (username : string)
-    (password : string) : t =
+let create ?(balance = "0.00 USD") (home_curr : string) (id : int)
+    (username : string) (password : string) : t =
   {
     id;
     username;
     password;
     balance = parse_amount balance;
+    home_currency = currency_of_string home_curr;
     history = [ "Transaction History"; "Initial Value :" ^ "0.00 USD" ];
   }
 
@@ -219,8 +237,7 @@ let deposit acc amt =
     let amt_num = a.number in
     {
       acc with
-      balance =
-        { number = round_num (acc_num +. amt_num); currency = a.currency };
+      balance = { number = acc_num +. amt_num; currency = a.currency };
     } (*history = history acc @ [ "Made Deposit: " ^ amt ]*)
   else raise (InvalidDeposit amt)
 
@@ -231,7 +248,6 @@ let withdraw acc amt =
     let amt_num = a.number in
     {
       acc with
-      balance =
-        { number = round_num (acc_num -. amt_num); currency = a.currency };
+      balance = { number = acc_num -. amt_num; currency = a.currency };
     } (*history = history acc @ [ "Withdrawal: " ^ amt ];*)
   else raise (InvalidWithdrawal amt)
