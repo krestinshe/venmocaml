@@ -1,0 +1,30 @@
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:1:is an invalid amount.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:1:is an invalid amount is successful.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:1:is an invalid amount.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:3:asdfis an invalid amount.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:3:asdfis an invalid amount is successful.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:3:asdfis an invalid amount.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:5:5.55  CADis an invalid amount.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:5:5.55  CADis an invalid amount is successful.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:5:5.55  CADis an invalid amount.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:7:4. 44 CADis an invalid amount.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:7:4. 44 CADis an invalid amount is successful.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:7:4. 44 CADis an invalid amount.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:9:acc1 balance is 0. USD.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:9:acc1 balance is 0. USD is successful.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:9:acc1 balance is 0. USD.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:11:depositing twice is a valid deposit.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:11:depositing twice is a valid deposit is successful.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:11:depositing twice is a valid deposit.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:13:20.20 USD is a valid withdrawal.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:13:20.20 USD is a valid withdrawal is successful.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:13:20.20 USD is a valid withdrawal.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:14:withdrawing twice is a valid deposit.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:14:withdrawing twice is a valid deposit is successful.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:14:withdrawing twice is a valid deposit.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:17:username doesn't exist is valid.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:17:username doesn't exist is valid is successful.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:17:username doesn't exist is valid.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Start test test suite for final project:18:pay in home currency: paid account.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: Test test suite for final project:18:pay in home currency: paid account is successful.
+2022-11-05T04:09:10+00:00 Andreas-MacBook-Pro.local#02 I: End test test suite for final project:18:pay in home currency: paid account.

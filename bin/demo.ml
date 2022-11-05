@@ -39,7 +39,10 @@ let create st =
       let pw = read_line () in
       (* print_endline "Confirm password"; print_string "> "; if read_line () =
          pw then *)
-      let acc = create 0 un pw in
+      print_endline "Select a currency (USD, EUR, KRW, RMB, CAD, CML):";
+      print_string ">";
+      let home_curr = read_line () in
+      let acc = create home_curr 0 un pw in
       print_endline "Account successfully created!";
       display acc;
       add_account st acc
