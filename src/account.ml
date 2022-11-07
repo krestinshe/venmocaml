@@ -25,6 +25,7 @@ type t = {
   balance : amount;
   home_currency : currency;
   history : string list;
+  active : bool;
 }
 
 exception InvalidAmount of string
@@ -145,7 +146,9 @@ let to_cml n c =
     numeric sequence by at least one space and no non-spaces. 
     
     Examples: 
-      - [parse_amount "0.00 USD"] is {number = 0.; currency = USD}
+      - [parse_amount "5.00 USD"] is {number = 0.; currency = USD}
+      - [parse_amount "5 USD"] is {number = 5.; currency = USD}
+      - [parse_amount "5"] is {number = 5.; currency = USD}
       - [parse_amount "10.99 CAD"] is {number = 10.99; currency = CAD}
       - [parse_amount "0.00   CAD"] is {number = 0.; currency = CAD}
       - [parse_amount "0.00"] is {number = 0.; currency = USD}
@@ -154,9 +157,9 @@ let to_cml n c =
       - [parse_amount "0   .   00 USD"] raises InvalidAmount "0   .   00 USD"
   *)
 
-(*[round_num n] rounds [n] to the hundredths place and is used in displaying the
-  balance amount*)
-let round_num (n : float) : float = Float.round (n *. 100.) /. 100.
+(*[round_num n] rounds [n] to the hundredths place. It is used in preparing an
+  amount to be displayed to the user as a rounded number. *)
+(* let round_num (n : float) : float = Float.round (n *. 100.) /. 100. *)
 
 let parse_amount (s : string) : amount =
   let split = String.split_on_char ' ' (String.trim s) in
@@ -175,17 +178,16 @@ let parse_amount (s : string) : amount =
     if amt.number < 0. then raise (InvalidAmount s) else amt
   with Failure f -> raise (InvalidAmount s)
 
-(* let first_split = String.split_on_char ' ' (String.trim s) in let
-   second_split = match first_split with | [] -> raise (InvalidAmount s) | h ::
-   t -> String.split_on_char '.' h @ t in match second_split with | [] | [ _ ] |
-   [ _; _ ] | _ :: _ :: _ :: _ :: _ -> raise (InvalidAmount s) | [ d; c; curr ]
-   -> ( let d' = int_of_string d in let c' = int_of_string c in let amt = {
-   number = (d', c'); currency = currency_of_string curr } in match amt with |
-   amt -> if d' < 0 || c' < 0 || c' > 99 then raise (InvalidAmount s) else amt |
-   exception Failure s -> raise (InvalidAmount s))*)
+(** [unparse_amount amt] returns a string representing an amount, rounded to the
+    nearest hundredth.
+
+    NOTE: Right now [unparse_amount] does not work with very big numbers (starts
+    bugging above ~10^23) *)
 
 let unparse_amount (a : amount) : string =
-  string_of_float a.number ^ " " ^ string_of_currency a.currency
+  Printf.sprintf "%.2f" (Float.round (a.number *. 100.) /. 100.)
+  ^ " "
+  ^ string_of_currency a.currency
 
 let from_json j id =
   let bal =
@@ -200,22 +202,27 @@ let from_json j id =
     home_currency =
       j |> member "home currency" |> to_string |> currency_of_string;
     history = j |> member "history" |> to_list |> List.map to_string;
+    active = true;
   }
 
-let create ?(balance = "0.00 USD") (home_curr : string) (id : int)
-    (username : string) (password : string) : t =
+let create (id : int) (username : string) (password : string)
+    ?(balance = "0.00 USD") (home_curr : string) : t =
   {
     id;
     username;
     password;
     balance = parse_amount balance;
     home_currency = currency_of_string home_curr;
-    history = [ "Transaction History"; "Initial Value :" ^ "0.00 USD" ];
+    history = [];
+    active = true;
   }
 
 let username acc = acc.username
 let password acc = acc.password
 let balance acc = unparse_amount acc.balance
+let is_active acc = acc.active
+let deactivate acc = { acc with active = false }
+let history acc = acc.history
 let print_info name info = name ^ ": " ^ info
 
 let rec print_list = function
@@ -224,16 +231,12 @@ let rec print_list = function
       print_endline h;
       print_list t
 
-let history acc = acc.history
-
 let display acc =
-  print_string "Account Information";
+  print_endline "Account Information";
+  print_endline (print_info "Account username" (username acc));
+  print_endline (print_info "Balance" (balance acc));
   print_newline ();
-  print_string (print_info "Account username" (username acc));
-  print_newline ();
-  print_string (print_info "Balance" (balance acc));
-  print_newline ();
-  print_newline ();
+  print_endline "Transaction History";
   print_list (history acc)
 
 let to_homecurr acc parsed_amt =

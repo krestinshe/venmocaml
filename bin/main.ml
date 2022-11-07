@@ -3,6 +3,7 @@ open Account
 open State
 
 let data_dir_prefix = "data" ^ Filename.dir_sep
+let running_id = ref 0
 
 (** [instruction] prints a menu of commands users can input to interact with the
     Venmo system and prompts the user to enter a command.
@@ -22,6 +23,8 @@ let instruction () =
   read_line ()
 
 exception InvalidCommand of string
+
+(* let confirm_password () = *)
 
 (** [create st] prompts the user to create an account from a file or by manually
     enter the username and password. If the username is associated with an
@@ -44,9 +47,13 @@ let create st =
       let pw = read_line () in
       (* print_endline "Confirm password"; print_string "> "; if read_line () =
          pw then *)
+      print_endline "Select a currency (USD, EUR, KRW, RMB, CAD, CML):";
+      print_string ">";
+      let home_curr = read_line () in
       (* let user enter balance if desired *)
       (* create a security question *)
-      let acc = create 0 (* for now *) un pw in
+      let acc = create !running_id un pw home_curr in
+      incr running_id;
       print_endline "Account successfully created!";
       display acc;
       add_account st acc
@@ -59,8 +66,9 @@ let create st =
           let acc =
             Venmo.Account.from_json
               (Yojson.Basic.from_file (data_dir_prefix ^ file_name ^ ".json"))
-              0 (* for now *)
+              !running_id
           in
+          incr running_id;
           check_username st (username acc);
           print_endline "Account successfully created!";
           display acc;

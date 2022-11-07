@@ -1,5 +1,8 @@
 (**Representation of Venmo account*)
 
+type amount
+(** The abstract type of values representing amounts. *)
+
 type t
 (** The abstract type of values representing accounts. *)
 
@@ -24,10 +27,10 @@ val from_json : Yojson.Basic.t -> int -> t
 (** [from_json j] is the account that [j] represents. Requires: [j] is a valid
     JSON account representation. *)
 
-val create : ?balance:string -> string -> int -> string -> string -> t
-(** [create ~balance:balance home_curr username password] is the account with
-    home currency [home_curr] username [username], password [password], and
-    balance set to the amount represented by [balance] (or 0. by default). *)
+val create : int -> string -> string -> ?balance:string -> string -> t
+(** [create id username password ~balance:balance home_curr] is the account with
+    unique identifier [id], username [username], password [password], balance
+    [balance] (or 0. by default), home currency [home_curr], and is active. *)
 
 val username : t -> string
 (** [username acc] is the username of account [acc]. *)
@@ -38,6 +41,14 @@ val username : t -> string
 val balance : t -> string
 (** [balance acc] is the current balance of account [acc] with the understanding
     that a user can have a negative balance. *)
+
+val is_active : t -> bool
+(** [is_active acc] returns true if the account is active; otherwise, it returns
+    false. *)
+
+val deactivate : t -> t
+(** [deactivate acc] returns a copy of [acc] that is inactive if [acc] is
+    active, and does nothing if [acc] is already inactive. *)
 
 val display : t -> unit
 (** [display acc] prints the account, with its username, balance, and

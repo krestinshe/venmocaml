@@ -1,6 +1,9 @@
 {
   "username": "positive balance",
   "password": "encrypted",
-  "balance": "3110.00 USD",
-  "history": ["Transaction History", "Initial Value : 3110.00 USD" ]
+  "balance": "3110.00 CML",
+  "home currency": "CML",
+  "history": [
+    "Deposited 3110.00 CML"
+  ]
 }

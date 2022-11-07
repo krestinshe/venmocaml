@@ -2,20 +2,33 @@ open OUnit2
 open Venmo.Account
 open Venmo.State
 
+(*****************************************************************************
+  Creating accounts for testing
+  ******************************************************************************)
+let acc1 = create 0 "test" "test" ~balance:"0.00 USD" "USD"
+let acc2 = deposit acc1 "100.24 USD"
+let acc3 = deposit acc2 "21.99 USD"
+let acc4 = deposit acc1 "1.04 USD"
+(*this test case also doesn't pass because of decimal error as mentioned in
+  slack *)
+
 let data_dir_prefix = "data" ^ Filename.dir_sep
 let zero = Yojson.Basic.from_file (data_dir_prefix ^ "zero_bal.json")
 let pos = Yojson.Basic.from_file (data_dir_prefix ^ "pos_bal.json")
 
+(*****************************************************************************
+  Begin tests
+  ******************************************************************************)
 let invalid_amount_test (input : string) : test =
   input ^ "is an invalid amount" >:: fun _ ->
   assert_raises (InvalidAmount input) (fun () ->
-      create ~balance:input "USD" 0 "test" "test")
+      create 0 "test" "test" ~balance:input "USD")
 
 let invalid_currency_tests =
   [
     ( "AAA is invalid currency" >:: fun _ ->
       assert_raises (InvalidCurrency "AAA") (fun () ->
-          create ~balance:"5.00 AAA" "USD" 0 "test" "test") )
+          create 0 "test" "test" ~balance:"5.00 AAA" "USD") )
     (* ( "usd is valid currency" >:: fun _ -> assert_raises (InvalidCurrency
        "usd") (fun () -> create ~balance:"5.00 usd" "test" "test") ); *);
   ]
@@ -34,12 +47,16 @@ let invalid_amount_tests =
       "3.33 C AD";
     ]
 
-let acc1 = create ~balance:"0.00 USD" "USD" 0 "test" "test"
-
 let balance_tests =
   [
-    ( "acc1 balance is 0. USD" >:: fun _ ->
-      assert_equal "0. USD" (balance acc1) ~printer:(fun x -> x) );
+    ( "acc1 balance is 0.00 USD" >:: fun _ ->
+      assert_equal "0.00 USD" (balance acc1) ~printer:(fun x -> x) );
+    ( "acc2 balance is 100.24 USD" >:: fun _ ->
+      assert_equal "100.24 USD" (balance acc2) ~printer:(fun x -> x) );
+    ( "acc3 balance is 122.23 USD" >:: fun _ ->
+      assert_equal "122.23 USD" (balance acc3) ~printer:(fun x -> x) );
+    ( "acc4 balance is 1.04 USD" >:: fun _ ->
+      assert_equal "1.04 USD" (balance acc4) ~printer:(fun x -> x) );
   ]
 
 let from_json_tests =
@@ -61,12 +78,6 @@ let from_json_tests =
         ~printer:(fun x -> x) );
   ]
 
-let acc2 = deposit acc1 "100.24 USD"
-let acc3 = deposit acc2 "21.99 USD"
-let acc4 = deposit acc1 "1.04 USD"
-(*this test case also doesn't pass because of decimal error as mentioned in
-  slack *)
-
 let deposit_amount_tests =
   [
     ( "100.24 USD is a valid deposit" >:: fun _ ->
@@ -79,8 +90,9 @@ let deposit_amount_tests =
 
 let withdraw1 = withdraw acc3 "20.20 USD"
 
-(*let withdraw1 = withdraw acc3 "20.00 USD" (*this works but the above gives an
-  error*)*)
+(* let withdraw1 = withdraw acc3 "20.00 USD" (*this works but the above gives an
+   error *)*)
+
 let withdraw2 = withdraw withdraw1 "20.99 USD"
 
 let withdraw_amount_tests =
