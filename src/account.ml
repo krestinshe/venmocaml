@@ -200,6 +200,19 @@ let from_json j id =
     active = true;
   }
 
+let to_json acc : Yojson.Basic.t =
+  match acc with
+  | { id; username; password; balance; home_currency; history; active } ->
+      `Assoc
+        [
+          ("username", `String username);
+          ("password", `String password);
+          ("balance", `String (unparse_amount balance));
+          ("home currency", `String (string_of_currency home_currency));
+          ("history", `List (List.map (fun s -> `String s) history));
+          ("active", `String (string_of_bool active));
+        ]
+
 let create (id : int) (username : string) (password : string)
     ?(balance = "0.00 USD") (home_curr : string) : t =
   {

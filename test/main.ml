@@ -28,9 +28,10 @@ let invalid_currency_tests =
   [
     ( "AAA is invalid currency" >:: fun _ ->
       assert_raises (InvalidCurrency "AAA") (fun () ->
-          create 0 "test" "test" ~balance:"5.00 AAA" "USD") )
-    (* ( "usd is valid currency" >:: fun _ -> assert_raises (InvalidCurrency
-       "usd") (fun () -> create ~balance:"5.00 usd" "test" "test") ); *);
+          create 0 "test" "test" ~balance:"5.00 AAA" "USD") );
+    ( "usd is valid currency" >:: fun _ ->
+      assert_equal "5.00 USD"
+        (balance (create 0 ~balance:"5.00 usd" "test" "test" "USD")) );
   ]
 
 let invalid_amount_tests =
@@ -39,7 +40,6 @@ let invalid_amount_tests =
       "";
       "   ";
       "asdf";
-      (*"0"; "2.20"; "2.2"; "2.222"; "2.2222 USD";*)
       "USD";
       "5.55  CAD";
       "   4 . 4 4 C A D ";
@@ -58,6 +58,12 @@ let balance_tests =
     ( "acc4 balance is 1.04 USD" >:: fun _ ->
       assert_equal "1.04 USD" (balance acc4) ~printer:(fun x -> x) );
   ]
+  @ List.map
+      (fun b ->
+        b ^ "parses to 2.20 USD" >:: fun _ ->
+        assert_equal "2.20 USD"
+          (balance (create 0 ~balance:b "test" "test" "USD")))
+      [ "2.20"; "2.2"; "2.202"; "2.2022 USD" ]
 
 let from_json_tests =
   [
@@ -89,10 +95,6 @@ let deposit_amount_tests =
   ]
 
 let withdraw1 = withdraw acc3 "20.20 USD"
-
-(* let withdraw1 = withdraw acc3 "20.00 USD" (*this works but the above gives an
-   error *)*)
-
 let withdraw2 = withdraw withdraw1 "20.99 USD"
 
 let withdraw_amount_tests =
