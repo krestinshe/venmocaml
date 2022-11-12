@@ -156,11 +156,6 @@ let to_cml n c =
       - [parse_amount " "] raises InvalidAmount " "
       - [parse_amount "0   .   00 USD"] raises InvalidAmount "0   .   00 USD"
   *)
-
-(*[round_num n] rounds [n] to the hundredths place. It is used in preparing an
-  amount to be displayed to the user as a rounded number. *)
-(* let round_num (n : float) : float = Float.round (n *. 100.) /. 100. *)
-
 let parse_amount (s : string) : amount =
   let split = String.split_on_char ' ' (String.trim s) in
   try

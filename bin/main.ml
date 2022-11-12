@@ -5,6 +5,8 @@ open State
 let data_dir_prefix = "data" ^ Filename.dir_sep
 let running_id = ref 0
 
+(* let check_esc = match read_line () with *)
+
 (** [instruction] prints a menu of commands users can input to interact with the
     Venmo system and prompts the user to enter a command.
 

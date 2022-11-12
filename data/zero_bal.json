@@ -1,4 +1,6 @@
 {
   "username": "zero balance",
-  "password": "encrypted"
+  "password": "encrypted",
+  "home currency": "USD",
+  "history": ""
 }
