@@ -25,8 +25,28 @@ let instruction () =
   read_line ()
 
 exception InvalidCommand of string
+exception PasswordMismatch
+exception InvalidPassword
 
-(* let confirm_password () = *)
+let verify_password pw =
+  if
+    (String.contains pw '!' || String.contains pw '@' || String.contains pw '#'
+   || String.contains pw '&' || String.contains pw '*' || String.contains pw ' '
+    )
+    && pw <> String.lowercase_ascii pw
+    && pw <> String.uppercase_ascii pw
+    && (String.contains pw '1' || String.contains pw '2'
+      || String.contains pw '3' || String.contains pw '4'
+      || String.contains pw '5' || String.contains pw '6'
+      || String.contains pw '7' || String.contains pw '1'
+      || String.contains pw '8' || String.contains pw '9'
+      || String.contains pw '0')
+    && String.length pw >= 8
+  then ()
+  else raise InvalidPassword
+
+let confirm_password pw pw_attempt =
+  if pw_attempt = pw then () else raise PasswordMismatch
 
 (** [create st] prompts the user to create an account from a file or by manually
     enter the username and password. If the username is associated with an
@@ -44,11 +64,19 @@ let create st =
       print_string "> ";
       let un = read_line () in
       check_username st un;
-      print_endline "Set a password:";
+      print_endline
+        "Set a password \n\
+         (Must have no spaces, contain at least 8 characters, and include at \
+         least 1 capital letter, 1 lower case letter, 1 number, and 1 special \
+         character of !, @,\
+        \ #, &, or *):";
       print_string "> ";
       let pw = read_line () in
-      (* print_endline "Confirm password"; print_string "> "; if read_line () =
-         pw then *)
+      verify_password pw;
+      print_endline "Confirm password";
+      print_string "> ";
+      let pw' = read_line () in
+      confirm_password pw pw';
       print_endline "Select a currency (USD, EUR, KRW, RMB, CAD, CML):";
       print_string ">";
       let home_curr = read_line () in

@@ -227,7 +227,7 @@ let create (id : int) (username : string) (password : string)
 
 let username acc = acc.username
 let password acc = acc.password
-let check_password str acc = (str = password acc)
+let check_password str acc = str = password acc
 let balance acc = unparse_amount acc.balance
 let is_active acc = acc.active
 let deactivate acc = { acc with active = false }

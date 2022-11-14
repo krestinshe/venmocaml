@@ -68,6 +68,6 @@ let execute_transaction st t =
 let logout st = st.current_account <- None
 let acc st un = (accounts st).(find_un st un)
 let login_state st un pass = Account.check_password pass (acc st un)
-let login_system st un pass = if (login_state st un pass) then st.current_account <-(Some (acc st un))
 
-
+let login_system st un pass =
+  if login_state st un pass then st.current_account <- Some (acc st un)
