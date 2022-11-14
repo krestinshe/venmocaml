@@ -4,7 +4,7 @@
     including the accounts that have been created, a history of transactions,
     and functions that cause the state to change. *)
 
-type transaction
+(* type transaction *)
 (** The abstract type of values representing a VenmOCaml transaction. *)
 
 type t
@@ -34,7 +34,7 @@ val accounts : t -> Account.t array
 (** [accounts st] is a set-like array of the accounts that have been created in
     state [st]. *)
 
-val transactions : t -> transaction list
+(* val transactions : t -> transaction list *)
 (** [transactions st] is a list of the transactions that have been made in state
     [st], ordered from least recent to most recent. *)
 
@@ -52,5 +52,9 @@ val make_payment : t -> int -> int -> string -> unit
    account identified by [paying_acc_id]*)
 
 val login_system : t -> string -> string -> unit
-(** [login_system st un pass] changes current account of the state if the username and password input matches
-    one of the accounts in the state*)
+(** [login_system st un pass] changes current account of the state if the
+    username and password input matches one of the accounts in the state*)
+
+val to_file : t -> unit
+(** [to_file st] converts the state [st] to a JSON object and stores it in
+    "data/data.json". *)

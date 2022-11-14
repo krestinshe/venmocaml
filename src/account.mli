@@ -3,6 +3,9 @@
 type amount
 (** The abstract type of values representing amounts. *)
 
+type transaction
+(** The abstract type of values representing VenmOCaml transations. *)
+
 type t
 (** The abstract type of values representing accounts. *)
 
@@ -26,6 +29,9 @@ exception InvalidConversion
 val from_json : Yojson.Basic.t -> int -> t
 (** [from_json j] is the account that [j] represents. Requires: [j] is a valid
     JSON account representation. *)
+
+val to_json : t -> Yojson.Basic.t
+(** [to_json acc] is the Yojson that represents [acc]. *)
 
 val create : int -> string -> string -> ?balance:string -> string -> t
 (** [create id username password ~balance:balance home_curr] is the account with

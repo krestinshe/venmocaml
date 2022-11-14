@@ -1,31 +1,21 @@
 open Account
 
-type transaction =
-  | Pay of {
-      payer : string; (* username of the payer *)
-      payee : string; (* username of the payee *)
-      amount : string;
-    }
-  | Request of {
-      payer : string;
-      payee : string;
-      amount : string;
-      accepted : bool;
-    }
-
 type t = {
   mutable current_account : Account.t option;
   mutable accounts : Account.t array;
-  mutable transactions : transaction list;
+      (* mutable transactions : Account.transaction list; *)
 }
 
 exception InvalidUsername of string
 exception IncorrectPassword
 
-let init_state = { current_account = None; accounts = [||]; transactions = [] }
+let init_state =
+  { current_account = None; accounts = [||] (*transactions = []*) }
+
 let current_account st = st.current_account
 let accounts st = st.accounts
-let transactions st = st.transactions
+
+(* let transactions st = st.transactions *)
 let add_account st acc = st.accounts <- Array.append [| acc |] st.accounts
 
 let delete_account st id =
@@ -48,22 +38,16 @@ let rec array_find a p n =
 
 let find_un st un = array_find st.accounts (fun a -> username a = un) 0
 
-let execute_transaction st t =
-  match t with
-  | Pay { payer; payee; amount } ->
-      (try check_username st payer
-       with InvalidUsername payer -> failwith "Invalid payer username");
-      (try check_username st payee
-       with InvalidUsername payee -> failwith "Invalid payee username");
-      make_payment st (find_un st payer) (find_un st payee) amount
-  | Request { payer; payee; amount; accepted } ->
-      (try check_username st payer
-       with InvalidUsername payer -> failwith "Invalid payer username");
-      (try check_username st payee
-       with InvalidUsername payee -> failwith "Invalid payee username");
-      if accepted then
-        make_payment st (find_un st payer) (find_un st payee) amount
-      else ()
+(* let execute_transaction st (t : Account.transaction) = match t with | Pay {
+   payer; payee; amount } -> (try check_username st payer with InvalidUsername
+   payer -> failwith "Invalid payer username"); (try check_username st payee
+   with InvalidUsername payee -> failwith "Invalid payee username");
+   make_payment st (find_un st payer) (find_un st payee) amount | Request {
+   payer; payee; amount; accepted } -> (try check_username st payer with
+   InvalidUsername payer -> failwith "Invalid payer username"); (try
+   check_username st payee with InvalidUsername payee -> failwith "Invalid payee
+   username"); if accepted then make_payment st (find_un st payer) (find_un st
+   payee) amount else () *)
 
 let logout st = st.current_account <- None
 let acc st un = (accounts st).(find_un st un)
@@ -71,3 +55,26 @@ let login_state st un pass = Account.check_password pass (acc st un)
 
 let login_system st un pass =
   if login_state st un pass then st.current_account <- Some (acc st un)
+
+(********************************************************************** Writing
+  to json
+  **********************************************************************)
+let to_json st : Yojson.Basic.t =
+  `Assoc
+    [
+      ( "current account",
+        `String
+          (match current_account st with
+          | None -> "none"
+          | Some acc -> username acc) );
+      ("accounts", `List Array.(to_list (map Account.to_json (accounts st))))
+      (* ("transactions", ) *);
+    ]
+
+let test = true
+
+let to_file st =
+  let file = if test then "data/test_data.json" else "data/data.json" in
+  let oc = open_out file in
+  Yojson.Basic.to_channel oc (to_json st);
+  close_out oc

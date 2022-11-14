@@ -136,6 +136,9 @@ let state_pay_tests =
 
 let state_request_tests = []
 
+let state_to_file_tests =
+  [ ("test_state to file" >:: fun _ -> assert_equal () (to_file test_state)) ]
+
 let suite =
   "test suite for final project"
   >::: List.flatten
@@ -148,6 +151,7 @@ let suite =
            state_account_tests;
            state_pay_tests;
            state_request_tests;
+           state_to_file_tests;
          ]
 
 let _ = run_test_tt_main suite

@@ -18,18 +18,42 @@ type amount = {
     currency. The [currency] field represents the currency that the amount of
     money is in. *)
 
+type transaction =
+  | Pay of {
+      payer : string; (* username of the payer *)
+      payee : string; (* username of the payee *)
+      amount : string;
+    }
+  | Request of {
+      payer : string;
+      payee : string;
+      amount : string;
+      accepted : bool;
+    }
+  | Deposit of {
+      (* could also model this as a payment to oneself instead of defining a new
+         constructor *)
+      account : string;
+      amount : string;
+    }
+  | Withdraw of {
+      account : string;
+      amount : string;
+    }
+
 type t = {
   id : int;
   username : string;
   password : string;
   balance : amount;
   home_currency : currency;
-  history : string list;
+  history : transaction list;
   active : bool;
 }
 
 exception InvalidAmount of string
 exception InvalidCurrency of string
+exception InvalidTransaction
 exception InvalidDeposit of string
 exception InvalidWithdrawal of string
 exception InvalidConversion
@@ -176,27 +200,94 @@ let parse_amount (s : string) : amount =
 (** [unparse_amount amt] returns a string representing an amount, rounded to the
     nearest hundredth.
 
-    NOTE: Right now [unparse_amount] does not work with very big numbers (starts
-    bugging above ~10^23) *)
+    NOTE: [unparse_amount] does not work with very big numbers (~> 10^23) *)
 
 let unparse_amount (a : amount) : string =
   Printf.sprintf "%.2f" (Float.round (a.number *. 100.) /. 100.)
   ^ " "
   ^ string_of_currency a.currency
 
+let string_of_transaction (t : transaction) : string =
+  match t with
+  | Deposit { amount } -> "Deposited " ^ amount
+  | Withdraw { amount } -> "Withdrew " ^ amount
+  | Pay { payee; amount } -> "Paid " ^ amount ^ " to " ^ payee
+  | Request { payer; amount } -> "Requested " ^ amount ^ " from " ^ payer
+
+(** [transaction_of_string s un] parses a string that describes a transaction
+    into a [transaction] involving the account with username [un] and
+    potentially another account. Input: A string that represents a valid
+    transaction. A string representing a valid transaction must contain the
+    following words (and no more), separated by spaces, in the following order:
+
+    - a word describing the transaction type (one of "Deposited", "Withdrew",
+      "Paid", or "Requested")
+    - 2 words representing a valid amount
+    - and 0 or 2 words representing the other party in a transaction:
+    - ... if the first word was "Paid", then the word "to" followed by a valid
+      username representing the payee
+    - ... if the first word was "Requested", then the word "from" followed by a
+      valid username representing the payer (requestee)
+    - ... if the first word was "Deposited" or "Withdrew", then 0 words
+
+    Raises: [InvalidTransaction] if [s] does not represent a valid transaction.
+
+    Examples:
+
+    - [transaction_of_string "Deposited 5.00 USD" un] is
+      [Deposit {account = un; amount = "5.00 USD"}]
+    - [transaction_of_string "Deposited 5.00USD" un] raises [InvalidTransaction]
+    - [transaction_of_string "Withdrew 311.0 CML" un] is
+      [Withdraw {account = un; amount = "311.00 CML"}]
+    - [transaction_of_string "Paid 30.00 CAD to user1" un] is
+      [Pay {payer = un; payee = "user1"; amount = "30.00 CAD"}]
+    - [transaction_of_string "Paid 30.00 CAD user1" un] raises
+      [InvalidTransaction]
+    - [transaction_of_string "Requested 30.00 CAD from user1" un] is
+      [Request {payer = "user1"; payee = un; amount = "30.00 CAD"; accepted = false}]
+    - [transaction_of_string "Requested 30.00 CAD to user1" un] raises
+      [InvalidTransaction]
+    - [transaction_of_string "Deposited 5.00 USD to user1" un] raises
+      [InvalidTransaction] *)
+let transaction_of_string (s : string) (un : string) : transaction =
+  let split = String.split_on_char ' ' (String.trim s) in
+  match split with
+  | [] | [ _ ] | [ _; _ ] -> raise InvalidTransaction
+  | action :: number :: curr :: tail -> (
+      let amt = String.trim (String.trim number ^ String.trim curr) in
+      match action with
+      | "Deposited" -> Deposit { account = un; amount = amt }
+      | "Withdrew" -> Withdraw { account = un; amount = amt }
+      | "Paid" -> (
+          match tail with
+          | [ _to; payee ] ->
+              if _to <> "to" then raise InvalidTransaction
+              else Pay { payer = un; payee; amount = amt }
+          | _ -> raise InvalidTransaction)
+      | "Requested" -> (
+          match tail with
+          | [ _from; payer ] ->
+              if _from <> "from" then raise InvalidTransaction
+              else Request { payer; payee = un; amount = amt; accepted = false }
+          | _ -> raise InvalidTransaction)
+      | _ -> raise InvalidTransaction)
+
 let from_json j id =
   let bal =
     if j |> member "balance" = `Null then { number = 0.00; currency = USD }
     else j |> member "balance" |> to_string |> parse_amount
   in
+  let un = j |> member "username" |> to_string in
   {
     id;
-    username = j |> member "username" |> to_string;
+    username = un;
     password = j |> member "password" |> to_string;
     balance = bal;
     home_currency =
       j |> member "home currency" |> to_string |> currency_of_string;
-    history = j |> member "history" |> to_list |> List.map to_string;
+    history =
+      j |> member "history" |> to_list |> List.map to_string
+      |> List.map (transaction_of_string un);
     active = true;
   }
 
@@ -209,7 +300,9 @@ let to_json acc : Yojson.Basic.t =
           ("password", `String password);
           ("balance", `String (unparse_amount balance));
           ("home currency", `String (string_of_currency home_currency));
-          ("history", `List (List.map (fun s -> `String s) history));
+          ( "history",
+            `List
+              (List.map (fun t -> `String (string_of_transaction t)) history) );
           ("active", `String (string_of_bool active));
         ]
 
@@ -246,7 +339,7 @@ let display acc =
   print_endline (print_info "Balance" (balance acc));
   print_newline ();
   print_endline "Transaction History";
-  print_list (history acc)
+  print_list (List.map string_of_transaction (history acc))
 
 let to_homecurr acc parsed_amt =
   match acc.home_currency with
