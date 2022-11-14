@@ -48,6 +48,9 @@ let rec array_find a p n =
 
 let find_un st un = array_find st.accounts (fun a -> username a = un) 0
 
+let make_deposit st un p =
+  st.accounts.(find_un st un) <- deposit st.accounts.(find_un st un) p
+
 let execute_transaction st t =
   match t with
   | Pay { payer; payee; amount } ->
