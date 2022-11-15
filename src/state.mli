@@ -46,8 +46,13 @@ val delete_account : t -> int -> unit
 (** [delete_account st acc] makes the account identified by [id] inactive in
     [st] and returns [()]. *)
 
+val make_deposit : t -> string -> string -> unit
+(** [make_dposit st un p] increases the balance of the account with username
+    [un]*)
+
 val make_payment : t -> int -> int -> string -> unit
-(**[make_payment st paying_acc_id paid_acc_id p] adds [p] to the balance of
+(**[make_payment st
+  paying_acc_id paid_acc_id p] adds [p] to the balance of
    account identified by [paid_acc_id] and removes [p] from the balance of the
    account identified by [paying_acc_id]*)
 

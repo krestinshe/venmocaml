@@ -38,16 +38,18 @@ let rec array_find a p n =
 
 let find_un st un = array_find st.accounts (fun a -> username a = un) 0
 
-(* let execute_transaction st (t : Account.transaction) = match t with | Pay {
-   payer; payee; amount } -> (try check_username st payer with InvalidUsername
-   payer -> failwith "Invalid payer username"); (try check_username st payee
-   with InvalidUsername payee -> failwith "Invalid payee username");
-   make_payment st (find_un st payer) (find_un st payee) amount | Request {
-   payer; payee; amount; accepted } -> (try check_username st payer with
-   InvalidUsername payer -> failwith "Invalid payer username"); (try
-   check_username st payee with InvalidUsername payee -> failwith "Invalid payee
-   username"); if accepted then make_payment st (find_un st payer) (find_un st
-   payee) amount else () *)
+let make_deposit st un p =
+  st.accounts.(find_un st un) <- deposit st.accounts.(find_un st un) p
+
+(* let execute_transaction st t = match t with | Pay { payer; payee; amount } ->
+   (try check_username st payer with InvalidUsername payer -> failwith "Invalid
+   payer username"); (try check_username st payee with InvalidUsername payee ->
+   failwith "Invalid payee username"); make_payment st (find_un st payer)
+   (find_un st payee) amount | Request { payer; payee; amount; accepted } ->
+   (try check_username st payer with InvalidUsername payer -> failwith "Invalid
+   payer username"); (try check_username st payee with InvalidUsername payee ->
+   failwith "Invalid payee username"); if accepted then make_payment st (find_un
+   st payer) (find_un st payee) amount else () *)
 
 let logout st = st.current_account <- None
 let acc st un = (accounts st).(find_un st un)
