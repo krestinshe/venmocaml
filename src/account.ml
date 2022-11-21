@@ -47,21 +47,13 @@ type notification_status = NotAccepted | Accepted
 
 type notification = PaymentRequest of transaction
 
-(*let add_notification acc not = acc.notification_inbox < - Array.append [| not|] acc.notification_inbox
-  let notif_clear acc = acc.notification_inbox <- []
-
-  let string_of_notif notif = match notif with
-   | PaymentRequest Request {payer; payee; amount} -> payee ^ " requested " ^ payer ^ " " ^ amount
-   | PaymentRequest n -> raises (Failure "invalid transaction for notification")
-*)
-
 type t = {
   id : int;
   username : string;
   password : string;
   balance : amount;
   home_currency : currency;
-  history : transaction list;
+  mutable history : transaction list;
   active : bool;
   mutable notification_inbox : notification list;
 }
@@ -428,7 +420,13 @@ let withdraw acc amt =
     acc with
     balance = { number = acc_num -. amt_num; currency = acc.home_currency };
   }
+let withdraw_transaction acc amt = Withdraw {account = acc.username; amount = amt}
 
+let deposit_transaction acc amt = Deposit {account= acc.username; amount = amt}
+
+let pay_transaction payer payee amount = Pay {payer = payer; payee = payee; amount = amount}
+
+let request_transaction payer payee amount accepted = Request {payer = payer; payee= payee; amount = amount; accepted = accepted}
 
 (* let withdraw acc amt = let a = parse_amount amt in if a.currency =
    acc.balance.currency then let acc_num = acc.balance.number in let amt_num =
@@ -448,3 +446,4 @@ let withdraw acc amt =
 
   let notif_clear acc = acc.notification_inbox <- [] 
 
+  let update_history acc trans = acc.history <- acc.history @ trans

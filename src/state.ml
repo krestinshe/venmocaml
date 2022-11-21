@@ -86,8 +86,10 @@ let add_notif_inbox st payer notif = Account.add_notification (st.accounts.(find
 
 (**
     notification inbox :
-     notification inbox exist in account.ml t type. Whenever, the account makes a request, 
+     notification inbox exist in account.ml t type. Whenever the account makes a request, 
      it returns a notification and this notification will be added to the payer's notification_inbox. 
      For now, the user can only clear all of the requests in the inbox
 
+  updating history: will be updated in main program. Whenever a transaction occurs, it will add the transaction to 
+  current account's history using update_history function
 *)
