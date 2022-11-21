@@ -1,0 +1,45 @@
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:0:AAA is invalid currency.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:0:AAA is invalid currency is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:0:AAA is invalid currency.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:2:is an invalid amount.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:2:is an invalid amount is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:2:is an invalid amount.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:4:asdfis an invalid amount.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:4:asdfis an invalid amount is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:4:asdfis an invalid amount.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:6:5.55  CADis an invalid amount.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:6:5.55  CADis an invalid amount is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:6:5.55  CADis an invalid amount.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:8:4. 44 CADis an invalid amount.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:8:4. 44 CADis an invalid amount is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:8:4. 44 CADis an invalid amount.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:10:acc1 balance is 0.00 USD.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:10:acc1 balance is 0.00 USD is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:10:acc1 balance is 0.00 USD.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:12:acc3 balance is 122.23 USD.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:12:acc3 balance is 122.23 USD is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:12:acc3 balance is 122.23 USD.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:14:2.20parses to 2.20 USD.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:14:2.20parses to 2.20 USD is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:14:2.20parses to 2.20 USD.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:16:2.202parses to 2.20 USD.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:16:2.202parses to 2.20 USD is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:16:2.202parses to 2.20 USD.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:18:100.24 USD is a valid deposit.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:18:100.24 USD is a valid deposit is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:18:100.24 USD is a valid deposit.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:20:1.04 USD is a valid deposit.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:20:1.04 USD is a valid deposit is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:20:1.04 USD is a valid deposit.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:22:withdrawing twice is a valid deposit.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:22:withdrawing twice is a valid deposit is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:22:withdrawing twice is a valid deposit.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:24:username already exists raises InvalidUsername.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:24:username already exists raises InvalidUsername is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:24:username already exists raises InvalidUsername.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:26:pay in home currency: paid account.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:26:pay in home currency: paid account is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:26:pay in home currency: paid account.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Start test test suite for final project:27:pay in different currency.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: Test test suite for final project:27:pay in different currency is successful.
+2022-11-14T21:24:54+00:00 dhcp-vl2041-2761.eduroam.cornell.edu#01 I: End test test suite for final project:27:pay in different currency.

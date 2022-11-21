@@ -79,6 +79,3 @@ val add_notification : t -> notification -> unit
 
 val notif_clear : t -> unit
 (** [notif_clear] clears the notification inbox of acc*)
-
-val make_request : t -> string -> string -> notification
-(** [make_request t payer amount] requests payer [amount] value of money and returns a notification*)
