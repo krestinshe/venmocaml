@@ -72,7 +72,7 @@ let to_json st : Yojson.Basic.t =
       ("accounts", `List Array.(to_list (map Account.to_json (accounts st))))
       (* ("transactions", ) *);
     ]
- 
+
 let test = true
 
 let to_file st =
@@ -80,16 +80,19 @@ let to_file st =
   let oc = open_out file in
   Yojson.Basic.to_channel oc (to_json st);
   close_out oc
-  
-let add_notif_inbox st payer notif = Account.add_notification (st.accounts.(find_un st payer)) notif 
-  
+
+let add_notif_inbox st payer notif =
+  Account.add_notification st.accounts.(find_un st payer) notif
+
+(** notification inbox : notification inbox exist in account.ml t type.
+    Whenever, the account makes a request, it returns a notification and this
+    notification will be added to the payer's notification_inbox. For now, the
+    user can only clear all of the requests in the inbox *)
 
 (**
     notification inbox :
-     notification inbox exist in account.ml t type. Whenever the account makes a request, 
+     notification inbox exist in account.ml t type. Whenever, the account makes a request, 
      it returns a notification and this notification will be added to the payer's notification_inbox. 
      For now, the user can only clear all of the requests in the inbox
 
-  updating history: will be updated in main program. Whenever a transaction occurs, it will add the transaction to 
-  current account's history using update_history function
 *)

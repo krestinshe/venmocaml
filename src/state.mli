@@ -60,6 +60,9 @@ val login_system : t -> string -> string -> unit
 (** [login_system st un pass] changes current account of the state if the
     username and password input matches one of the accounts in the state*)
 
+val logout : t -> unit
+(** [logout st] removes the current account of the state*)
+
 val to_file : t -> unit
 (** [to_file st] converts the state [st] to a JSON object and stores it in
     "data/data.json". *)

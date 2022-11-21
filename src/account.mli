@@ -63,8 +63,10 @@ val deactivate : t -> t
     active, and does nothing if [acc] is already inactive. *)
 
 val display : t -> unit
-(** [display acc] prints the account, with its username, balance, and
-    transaction history.*)
+(** [display acc] prints the account, with its username, and balance.*)
+
+val display_history : t -> unit
+(** [display acc] prints the account's transaction history.*)
 
 val deposit : t -> string -> t
 (** [deposit acc amt] adds [amt] to the balance of the account [acc] with the
@@ -75,10 +77,12 @@ val withdraw : t -> string -> t
     the precondition that amt > 0. *)
 
 val add_notification : t -> notification -> unit
-(** [add_notification acc not] adds notification not into notification_inbox in t*)
+(** [add_notification acc not] adds notification not into notification_inbox in
+    t*)
 
 val notif_clear : t -> unit
 (** [notif_clear] clears the notification inbox of acc*)
 
 val make_request : t -> string -> string -> notification
-(** [make_request t payer amount] requests payer [amount] value of money and returns a notification*)
+(** [make_request t payer amount] requests payer [amount] value of money and
+    returns a notification*)
