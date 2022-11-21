@@ -252,9 +252,10 @@ let string_of_transaction (t : transaction) : string =
 let transaction_of_string (s : string) (un : string) : transaction =
   let split = String.split_on_char ' ' (String.trim s) in
   match split with
-  | [] | [ _ ] | [ _; _ ] -> raise InvalidTransaction
+  | [] | [ _ ] | [ _; _ ] -> failwith "is it here"
   | action :: number :: curr :: tail -> (
-      let amt = String.trim (String.trim number ^ String.trim curr) in
+      let amt = String.trim (String.trim number ^ " " ^ String.trim curr) in
+      print_endline amt;
       match action with
       | "Deposited" -> Deposit { account = un; amount = amt }
       | "Withdrew" -> Withdraw { account = un; amount = amt }
@@ -287,7 +288,7 @@ let from_json j id =
       j |> member "home currency" |> to_string |> currency_of_string;
     history =
       j |> member "history" |> to_list |> List.map to_string
-      |> List.map (transaction_of_string un);
+      |> List.map (fun s -> transaction_of_string s un);
     active = true;
   }
 
