@@ -1,1 +1,23 @@
-{"current account":"none","accounts":[{"username":"test","password":"test","balance":"51.12 USD","home currency":"USD","history":[],"active":"true"},{"username":"test","password":"test","balance":"49.12 USD","home currency":"USD","history":[],"active":"true"}]}
+{
+  "current account": "none",
+  "accounts": [
+    {
+      "username": "test",
+      "password": "test",
+      "balance": "51.12 USD",
+      "home currency": "USD",
+      "history": [],
+      "active": "true",
+      "notification inbox": []
+    },
+    {
+      "username": "test",
+      "password": "test",
+      "balance": "49.12 USD",
+      "home currency": "USD",
+      "history": [],
+      "active": "true",
+      "notification inbox": []
+    }
+  ]
+}
