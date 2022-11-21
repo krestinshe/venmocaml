@@ -65,7 +65,7 @@ type t = {
   password : string;
   balance : amount;
   home_currency : currency;
-  history : transaction list;
+  mutable history : transaction list;
   active : bool;
   mutable notification_inbox : notification list;
 }
@@ -450,6 +450,14 @@ let withdraw acc amt =
     acc with
     balance = { number = acc_num -. amt_num; currency = acc.home_currency };
   }
+
+let withdraw_transaction acc amt =
+  Withdraw { account = acc.username; amount = amt }
+
+let deposit_transaction acc amt =
+  Deposit { account = acc.username; amount = amt }
+
+let pay_transaction payer payee amount = Pay { payer; payee; amount }
 
 let make_request t payer amount =
   PaymentRequest

@@ -88,3 +88,11 @@ let add_notif_inbox st payer notif =
     Whenever, the account makes a request, it returns a notification and this
     notification will be added to the payer's notification_inbox. For now, the
     user can only clear all of the requests in the inbox *)
+
+(**
+    notification inbox :
+     notification inbox exist in account.ml t type. Whenever, the account makes a request, 
+     it returns a notification and this notification will be added to the payer's notification_inbox. 
+     For now, the user can only clear all of the requests in the inbox
+
+*)
