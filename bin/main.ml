@@ -14,14 +14,36 @@ let running_id = ref 0
 
     Eventual goal: create src/command.ml and Command.parse_command to parse the
     commands *)
-let instruction () =
+let start_instruction () =
+  print_endline "Enter a command:";
+  print_endline "Create a new account [create]";
+  print_endline "Log into an account [log in]";
+  print_endline "End session [end]";
+  print_string "> ";
+  read_line ()
+
+let transaction_instruction () =
+  print_endline "Enter a command:";
+  print_endline "View balance [balance]";
+  print_endline "View transaction history [hist]";
+  print_endline "Make a deposit [deposit]";
+  print_endline "Pay an account [pay]";
+  print_endline "Request money from an account [request]";
+  print_endline "Logout of an account [log out]";
+  print_endline "End session [end]";
+  print_string "> ";
+  read_line ()
+
+let full_instruction () =
   print_endline "Enter a command:";
   print_endline "Create a new account [create]";
   print_endline "Log into an account [log in]";
   print_endline "View balance [balance]";
+  print_endline "View transaction history [hist]";
   print_endline "Make a deposit [deposit]";
   print_endline "Pay an account [pay]";
   print_endline "Request money from an account [request]";
+  print_endline "Logout of an account [log out]";
   print_endline "End session [end]";
   print_string "> ";
   read_line ()
@@ -57,73 +79,77 @@ let confirm_password pw pw_attempt =
     existing account, an InvalidUsername exception is thrown. Otherwise, it
     prompts the user to create the password. It then displays the newly created
     account and adds it to the existing accounts. *)
-let menu (st : State.t) : unit =
-  match String.trim (instruction ()) with
-  | "create" -> failwith "Unimplemented create" (*create st*)
-  | "log in" -> failwith "Unimplemented: Main.main" (*login*)
-  | "balance" -> failwith "Unimplemented: Main.main" (*balance*)
-  | "deposit" -> failwith "Unimplemented: Main.main" (*deposit*)
-  | "pay" -> failwith "Unimplemented: Main.main"
-  | "request" -> failwith "Unimplemented: Main.main"
-  | "end" -> print_endline "Goodbye!"
+
+let rec acc_menu (st : State.t) : unit =
+  match String.trim (start_instruction ()) with
+  | "create" -> create st
+  | "log in" -> login st
+  | "end" ->
+      print_endline "🐫 Goodbye! 🐫";
+      exit 0
   | invalid_command -> raise (InvalidCommand invalid_command)
 
-let balance st =
-  print_string "Current balance: ";
-  match current_account st with
-  | None -> raise (InvalidCommand "Not logged in")
-  | Some acc -> print_string (balance acc)
+and transaction_menu (st : State.t) : unit =
+  match String.trim (transaction_instruction ()) with
+  | "balance" -> balance st
+  | "hist" -> display_hist st
+  | "deposit" -> deposit st
+  | "pay" -> failwith "Unimplemented: Main.main"
+  | "request" -> failwith "Unimplemented: Main.main"
+  | "log out" -> logout st
+  | "end" ->
+      print_endline "🐫 Goodbye! 🐫";
+      exit 0
+  | invalid_command -> raise (InvalidCommand invalid_command)
 
-let deposit st =
-  print_endline "Enter username to proceed: ";
-  print_string "> ";
-  let un = read_line () in
-  balance st;
-  print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
-  print_string "> ";
-  let amt = read_line () in
-  make_deposit st un amt;
-  print_endline ("Amount" ^ amt ^ "has been deposited");
-  balance st
-(*next ()*)
+and full_menu (st : State.t) : unit =
+  match String.trim (transaction_instruction ()) with
+  | "create" -> create st
+  | "log in" -> login st
+  | "balance" -> balance st
+  | "hist" -> display_hist st
+  | "deposit" -> deposit st
+  | "pay" -> failwith "Unimplemented: Main.main"
+  | "request" -> failwith "Unimplemented: Main.main"
+  | "log out" -> logout st
+  | "end" ->
+      print_endline "🐫 Goodbye! 🐫";
+      exit 0
+  | invalid_command -> raise (InvalidCommand invalid_command)
 
-let init_deposit st un : unit =
-  print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
-  print_string "> ";
-  let amt = read_line () in
-  make_deposit st un amt;
-  print_endline ("Amount" ^ amt ^ "has been deposited");
-  ()
-
-let create (st : State.t) =
+and create (st : State.t) =
   print_endline "To return to menu, type [go menu]";
-  (* insert go_menu when working*)
   print_endline
     "Would you like to create an account from a file or manually? [file/manual]";
   print_string "> ";
-  match read_line () with
+  let line = read_line () in
+  match line with
+  | "go menu" -> acc_menu st
   | exception End_of_file -> ()
   | "file" -> (
       print_endline "Enter a file name:";
       print_string "> ";
-      match read_line () with
+      let line = read_line () in
+      match line with
+      | "go menu" -> acc_menu st
       | exception End_of_file -> ()
       | file_name ->
-          let acc =
-            Venmo.Account.from_json
-              (Yojson.Basic.from_file (data_dir_prefix ^ file_name ^ ".json"))
-              !running_id
-          in
-          incr running_id;
-          check_username st (username acc);
-          print_endline "Account successfully created!";
-          display acc;
-          add_account st acc)
+          (let acc =
+             Venmo.Account.from_json
+               (Yojson.Basic.from_file (data_dir_prefix ^ file_name ^ ".json"))
+               !running_id
+           in
+           incr running_id;
+           check_username st (username acc);
+           print_endline "Account successfully created!";
+           display acc;
+           add_account st acc);
+          full_menu st)
   | "manual" ->
       print_endline "Choose a username:";
       print_string "> ";
       let un = read_line () in
-      if go_menu un then menu st;
+      if go_menu un then acc_menu st;
       check_username st un;
       print_endline
         "Set a password \n\
@@ -133,71 +159,116 @@ let create (st : State.t) =
         \ #, &, or *):";
       print_string "> ";
       let pw = read_line () in
+      if go_menu pw then acc_menu st;
       verify_password pw;
       print_endline "Confirm password";
       print_string "> ";
       let pw' = read_line () in
+      if go_menu pw' then acc_menu st;
       confirm_password pw pw';
       print_endline "Select a currency (USD, EUR, KRW, RMB, CAD, CML):";
       print_string ">";
       let home_curr = read_line () in
+      if go_menu home_curr then acc_menu st;
       print_endline "Would you like to make an initial deposit? [yes/no]";
       print_string "> ";
       let init_deposit = read_line () in
+      if go_menu init_deposit then acc_menu st;
       if init_deposit = "yes" then begin
         print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
         print_string "> ";
         let init_bal = read_line () in
-        let acc = create !running_id un pw ~balance:init_bal home_curr in
+        if go_menu init_bal then acc_menu st;
+        let acc =
+          Account.create !running_id un pw ~balance:init_bal home_curr
+        in
         incr running_id;
         print_endline "Account successfully created!";
         display acc;
-        add_account st acc
+        add_account st acc;
+        full_menu st
       end
       else
         (* create a security question *)
-        let acc = create !running_id un pw home_curr in
+        let acc = Account.create !running_id un pw home_curr in
         incr running_id;
         print_endline "Account successfully created!";
         display acc;
-        add_account st acc
+        add_account st acc;
+        full_menu st
   | _ ->
       print_endline "Please enter a valid command [file/manual/back]:";
       print_string "> "
 
-(*next ()*)
+and balance st =
+  print_endline "To return to menu, type [go menu]";
+  print_string "Current balance: ";
+  match current_account st with
+  | None -> raise (InvalidCommand "Not logged in")
+  | Some acc ->
+      print_string (Account.balance acc);
+      transaction_menu st
 
-let login st =
+and deposit st =
+  print_endline "To return to menu, type [go menu]";
+  print_endline "Enter username to proceed: ";
+  print_string "> ";
+  let un = read_line () in
+  if go_menu un then acc_menu st;
+  balance st;
+  print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
+  print_string "> ";
+  let amt = read_line () in
+  if go_menu amt then acc_menu st;
+  make_deposit st un amt;
+  print_endline ("Amount" ^ amt ^ "has been deposited");
+  balance st;
+  transaction_menu st
+
+and init_deposit st un : unit =
+  print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
+  print_string "> ";
+  let amt = read_line () in
+  if go_menu amt then acc_menu st;
+  make_deposit st un amt;
+  print_endline ("Amount" ^ amt ^ "has been deposited");
+  ()
+
+and login st =
   print_endline "To return to menu, type [go menu]";
   print_endline "Enter username:";
   print_string "> ";
   let un = read_line () in
+  if go_menu un then acc_menu st;
   print_endline "Enter password:";
   print_string "> ";
   let pw = read_line () in
+  if go_menu pw then acc_menu st;
   login_system st un pw;
-  print_endline ("Successfully logged in! Welcome back " ^ un)
+  print_endline ("Successfully logged in! Welcome back " ^ un);
+  print_newline ();
+  transaction_menu st
+
+and logout st =
+  State.logout st;
+  print_endline "Successfully logged out!";
+  print_newline ();
+  acc_menu st
+
 (*next ()*)
+and display_hist st =
+  match current_account st with
+  | None -> raise (InvalidCommand "Not logged in")
+  | Some acc ->
+      display_history acc;
+      transaction_menu st
 
 (** [main ()] prompts for the game to play, then starts it. *)
 let main () =
-  let _ = print_endline "Welcome to the VenmOCaml demo!" in
+  let _ = print_endline "🐫 Welcome to the VenmOCaml demo! 🐫" in
   let curr_st = ref Venmo.State.init_state in
-  begin
-    match String.trim (instruction ()) with
-    | "create" -> create !curr_st
-    | "log in" -> login !curr_st
-    | "balance" -> balance !curr_st
-    | "deposit" -> deposit !curr_st
-    | "pay" -> failwith "Unimplemented: Main.main"
-    | "request" -> failwith "Unimplemented: Main.main"
-    | "end" -> print_endline "Goodbye!"
-    | invalid_command -> raise (InvalidCommand invalid_command)
-  end;
+  acc_menu !curr_st;
   print_endline ""
-(* game keeps going *)
-
-(*failwith "Unimplemented: Main.main"*)
 
 (* Execute the game engine. *)
 let () = main ()

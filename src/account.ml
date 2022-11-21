@@ -41,19 +41,23 @@ type transaction =
       amount : string;
     }
 
-type notifications = FriendRequest | PaymentRequest
+type notifications =
+  | FriendRequest
+  | PaymentRequest
 
-type notification_status = NotAccepted | Accepted 
+type notification_status =
+  | NotAccepted
+  | Accepted
 
 type notification = PaymentRequest of transaction
 
-(*let add_notification acc not = acc.notification_inbox < - Array.append [| not|] acc.notification_inbox
-  let notif_clear acc = acc.notification_inbox <- []
+(*let add_notification acc not = acc.notification_inbox < - Array.append [|
+  not|] acc.notification_inbox let notif_clear acc = acc.notification_inbox <-
+  []
 
-  let string_of_notif notif = match notif with
-   | PaymentRequest Request {payer; payee; amount} -> payee ^ " requested " ^ payer ^ " " ^ amount
-   | PaymentRequest n -> raises (Failure "invalid transaction for notification")
-*)
+  let string_of_notif notif = match notif with | PaymentRequest Request {payer;
+  payee; amount} -> payee ^ " requested " ^ payer ^ " " ^ amount |
+  PaymentRequest n -> raises (Failure "invalid transaction for notification") *)
 
 type t = {
   id : int;
@@ -288,40 +292,42 @@ let transaction_of_string (s : string) (un : string) : transaction =
           | _ -> raise InvalidTransaction)
       | _ -> raise InvalidTransaction)
 
+(** [notif_of_string s un] parses a string that describes a notification to
+    [notification]. Input: A string that represents a valid notification. A
+    string representing a valid transaction must contain the following words
+    (and no more), separated by spaces, in the following order:
 
+    - a word describing the payer will be the first word
+    - second word will always be "requested"
+    - a word describing the payee will be the third word
+    - last two words will be the amount -accepted will always be false since it
+      is in the notification list
 
-    (**  [notif_of_string s un] parses a string that describes a notification
-    to [notification]. Input: A string that represents a valid
-      notification. A string representing a valid transaction must contain the
-      following words (and no more), separated by spaces, in the following order:
-  
-      - a word describing the payer will be the first word 
-      - second word will always be "requested"
-      - a word describing the payee will be the third word
-      - last two words will be the amount
-      -accepted will always be false since it is in the notification list
-  
-      Raises: [InvalidTransaction] if [s] does not represent a valid request transaction.
-  
-      Examples:
-  
-      - [transaction_of_string "user1 requested user2 3.00 USD"] is
-        [PaymentRequest (Request {payer = user1; payee = user2; amount = "3.00 USD"; accepted = false })]
-      -anything else will raise an error
-        *)
+    Raises: [InvalidTransaction] if [s] does not represent a valid request
+    transaction.
 
-      let notif_of_string str = 
-        let split = String.split_on_char ' ' (String.trim str) in
-        match split with
-        | [] | [ _ ] | [ _; _ ] | [_; _;_] | [_; _; _; _]-> failwith "is it here"
-        | payee :: req :: payer :: amount :: curr:: tail -> let amt = String.trim (String.trim amount ^ " " ^ String.trim curr) in 
-        PaymentRequest (Request {payer = payer; payee = payee; amount =amt; accepted = false })
-                                        
-      let string_of_notif notif = match notif with
-      | PaymentRequest Request {payer; payee; amount} -> payee ^ " requested " ^ payer ^ " " ^ amount
-      | PaymentRequest n -> raise (Failure "invalid transaction for notification")
+    Examples:
 
-     (*let notif_of_string *)
+    - [transaction_of_string "user1 requested user2 3.00 USD"] is
+      [PaymentRequest (Request {payer = user1; payee = user2; amount = "3.00 USD"; accepted = false })]
+      \-anything else will raise an error *)
+
+let notif_of_string str =
+  let split = String.split_on_char ' ' (String.trim str) in
+  match split with
+  | [] | [ _ ] | [ _; _ ] | [ _; _; _ ] | [ _; _; _; _ ] ->
+      failwith "is it here"
+  | payee :: req :: payer :: amount :: curr :: tail ->
+      let amt = String.trim (String.trim amount ^ " " ^ String.trim curr) in
+      PaymentRequest (Request { payer; payee; amount = amt; accepted = false })
+
+let string_of_notif notif =
+  match notif with
+  | PaymentRequest (Request { payer; payee; amount }) ->
+      payee ^ " requested " ^ payer ^ " " ^ amount
+  | PaymentRequest n -> raise (Failure "invalid transaction for notification")
+
+(*let notif_of_string *)
 let from_json j id =
   let bal =
     if j |> member "balance" = `Null then { number = 0.00; currency = USD }
@@ -339,12 +345,25 @@ let from_json j id =
       j |> member "history" |> to_list |> List.map to_string
       |> List.map (fun s -> transaction_of_string s un);
     active = true;
-    notification_inbox = j |> member "notification inbox" |> to_list |> List.map to_string |> List.map (fun s -> notif_of_string s)
+    notification_inbox =
+      j
+      |> member "notification inbox"
+      |> to_list |> List.map to_string
+      |> List.map (fun s -> notif_of_string s);
   }
 
 let to_json acc : Yojson.Basic.t =
   match acc with
-  | { id; username; password; balance; home_currency; history; active; notification_inbox } ->
+  | {
+   id;
+   username;
+   password;
+   balance;
+   home_currency;
+   history;
+   active;
+   notification_inbox;
+  } ->
       `Assoc
         [
           ("username", `String username);
@@ -355,10 +374,11 @@ let to_json acc : Yojson.Basic.t =
             `List
               (List.map (fun t -> `String (string_of_transaction t)) history) );
           ("active", `String (string_of_bool active));
-          ("notification inbox",
-          `List 
-                (List.map (fun not ->`String (string_of_notif not)) notification_inbox ));
-          
+          ( "notification inbox",
+            `List
+              (List.map
+                 (fun not -> `String (string_of_notif not))
+                 notification_inbox) );
         ]
 
 let create (id : int) (username : string) (password : string)
@@ -371,7 +391,7 @@ let create (id : int) (username : string) (password : string)
     home_currency = currency_of_string home_curr;
     history = [];
     active = true;
-   notification_inbox = []
+    notification_inbox = [];
   }
 
 let username acc = acc.username
@@ -390,12 +410,17 @@ let rec print_list = function
       print_list t
 
 let display acc =
+  print_newline ();
   print_endline "Account Information";
   print_endline (print_info "Account username" (username acc));
   print_endline (print_info "Balance" (balance acc));
+  print_newline ()
+
+let display_history acc =
   print_newline ();
   print_endline "Transaction History";
-  print_list (List.map string_of_transaction (history acc))
+  print_list (List.map string_of_transaction (history acc));
+  print_newline ()
 
 let to_homecurr acc parsed_amt =
   match acc.home_currency with
@@ -429,22 +454,17 @@ let withdraw acc amt =
     balance = { number = acc_num -. amt_num; currency = acc.home_currency };
   }
 
-
 (* let withdraw acc amt = let a = parse_amount amt in if a.currency =
    acc.balance.currency then let acc_num = acc.balance.number in let amt_num =
    a.number in { acc with balance = { number = acc_num -. amt_num; currency =
    a.currency }; } (*history = history acc @ [ "Withdrawal: " ^ amt ];*) else
    raise (InvalidWithdrawal amt)*)
 
+let make_request t payer amount =
+  PaymentRequest
+    (Request { payer = username t; payee = payer; amount; accepted = false })
 
-   let make_request t payer amount = PaymentRequest (Request  {
-    payer = username t;
-    payee = payer;
-    amount = amount;
-    accepted = false;
-  }  )
+let add_notification acc not =
+  acc.notification_inbox <- not :: acc.notification_inbox
 
-  let add_notification acc not = acc.notification_inbox <- not :: acc.notification_inbox 
-
-  let notif_clear acc = acc.notification_inbox <- [] 
-
+let notif_clear acc = acc.notification_inbox <- []
