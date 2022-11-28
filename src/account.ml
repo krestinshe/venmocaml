@@ -274,8 +274,7 @@ let transaction_of_string (s : string) (un : string) : transaction =
   | [] | [ _ ] | [ _; _ ] -> raise InvalidTransaction
   | action :: number :: curr :: tail -> (
       let amt = String.trim (String.trim number ^ " " ^ String.trim curr) in
-      print_endline amt;
-      match action with
+      match String.trim action with
       | "Deposited" -> Deposit { account = un; amount = amt }
       | "Withdrew" -> Withdraw { account = un; amount = amt }
       | "Paid" -> (

@@ -4,7 +4,7 @@
     including the accounts that have been created, a history of transactions,
     and functions that cause the state to change. *)
 
-(* type transaction *)
+type transaction
 (** The abstract type of values representing a VenmOCaml transaction. *)
 
 type t
@@ -34,7 +34,7 @@ val accounts : t -> Account.t array
 (** [accounts st] is a set-like array of the accounts that have been created in
     state [st]. *)
 
-(* val transactions : t -> transaction list *)
+val transactions : t -> transaction list
 (** [transactions st] is a list of the transactions that have been made in state
     [st], ordered from least recent to most recent. *)
 
@@ -48,7 +48,7 @@ val delete_account : t -> int -> unit
 
 val make_deposit : t -> string -> string -> unit
 (** [make_dposit st un p] increases the balance of the account with username
-    [un]*)
+    [un] by [p]*)
 
 val make_payment : t -> int -> int -> string -> unit
 (**[make_payment st
