@@ -128,17 +128,24 @@ let state_pay_tests =
     ( "pay in home currency: paid account" >:: fun _ ->
       assert_equal "50.12 USD" (balance after_pay_acc1) ~printer:(fun x -> x) );
     (let _ = make_payment test_state 1 0 "3110 CML" in
-     "pay in different currency" >:: fun _ ->
+     "pay in CML to USD account" >:: fun _ ->
      assert_equal "51.12 USD"
        (balance (accounts test_state).(0))
-       ~printer:(fun x -> x));
+       ~printer:(fun x -> x))
+    (*ADD CURRENCY CONVERSIONS*);
   ]
 
-let state_request_tests = [
+let state_request_tests = []
 
-
-
-]
+let transaction_tests =
+  [
+    (let transaction_test_acc =
+       create 0 "test" "test" ~balance:"0.00 USD" "USD"
+     in
+     "original transaction list is empty" >:: fun _ ->
+     assert_equal "\nTransaction History\n\n"
+       (display_history transaction_test_acc) ~printer:(fun x -> x));
+  ]
 
 let state_to_file_tests =
   [ ("test_state to file" >:: fun _ -> assert_equal () (to_file test_state)) ]
@@ -156,6 +163,7 @@ let suite =
            state_pay_tests;
            state_request_tests;
            state_to_file_tests;
+           transaction_tests;
          ]
 
 let _ = run_test_tt_main suite

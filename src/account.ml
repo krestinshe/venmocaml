@@ -400,26 +400,34 @@ let balance acc = unparse_amount acc.balance
 let is_active acc = acc.active
 let deactivate acc = { acc with active = false }
 let history acc = acc.history
-let print_info name info = name ^ ": " ^ info
+let string_of_info name info = name ^ ": " ^ info
 
-let rec print_list = function
-  | [] -> ()
-  | h :: t ->
-      print_endline h;
-      print_list t
+(*let rec print_list = function | [] -> () | h :: t -> print_endline h;
+  print_list t
+
+  let display acc = print_newline (); print_endline "Account Information";
+  print_endline (string_of_info "Account Username" (username acc));
+  print_endline (string_of_info "Balance" (balance acc)); print_newline ()
+
+  let display_history acc = print_newline (); print_endline "Transaction
+  History"; print_list (List.map string_of_transaction (history acc));
+  print_newline ()*)
+
+let rec list_to_string str = function
+  | [] -> str
+  | h :: t -> list_to_string (str ^ h ^ "\n") t
 
 let display acc =
-  print_newline ();
-  print_endline "Account Information";
-  print_endline (print_info "Account Username" (username acc));
-  print_endline (print_info "Balance" (balance acc));
-  print_newline ()
+  "\n" ^ "Account Information\n"
+  ^ string_of_info "Account Username" (username acc)
+  ^ "\n"
+  ^ string_of_info "Balance" (balance acc)
+  ^ "\n"
 
 let display_history acc =
-  print_newline ();
-  print_endline "Transaction History";
-  print_list (List.map string_of_transaction (history acc));
-  print_newline ()
+  "\n" ^ "Transaction History\n"
+  ^ list_to_string "" (List.map string_of_transaction (history acc))
+  ^ "\n"
 
 let to_homecurr acc parsed_amt =
   match acc.home_currency with

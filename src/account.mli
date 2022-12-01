@@ -61,12 +61,18 @@ val is_active : t -> bool
 val deactivate : t -> t
 (** [deactivate acc] returns a copy of [acc] that is inactive if [acc] is
     active, and does nothing if [acc] is already inactive. *)
+(* val display : t -> unit (** [display acc] prints the account, with its
+   username, and balance.*)
 
-val display : t -> unit
-(** [display acc] prints the account, with its username, and balance.*)
+   val display_history : t -> unit (** [display acc] prints the account's
+   transaction history.*)*)
 
-val display_history : t -> unit
-(** [display acc] prints the account's transaction history.*)
+val display : t -> string
+(** [display acc] returns a string of the account, with its username, and
+    balance.*)
+
+val display_history : t -> string
+(** [display acc] returns a string of the account's transaction history.*)
 
 val deposit : t -> string -> t
 (** [deposit acc amt] adds [amt] to the balance of the account [acc] with the
