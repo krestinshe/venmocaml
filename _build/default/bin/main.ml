@@ -265,7 +265,7 @@ and display_hist st =
   match current_account st with
   | None -> raise (InvalidCommand "Not logged in")
   | Some acc ->
-      print_endline (display_history acc);
+      print_endline (display_history (current (current_account st)));
       transaction_menu st
 
 and pay st =
@@ -335,7 +335,7 @@ and notification_inbox st =
                           begin 
        let i = ref 0 in 
        let new_inbox = ref [] in
-    while (!i < (length_notif acc)-1) do
+    while (!i < (length_notif acc)) do
       if ((notif_accepted (List.nth (notif_inbox acc) !i) = false)) then begin
         print_endline (string_of_notif (List.nth (notif_inbox acc) !i)); 
         print_endline "Will you accept the payment request? [yes/no]";
@@ -344,20 +344,22 @@ and notification_inbox st =
         let notif = (List.nth (notif_inbox acc) !i) in
         if (answer = "yes") then begin 
           (State.make_payment st (notif_payer notif) (notif_payee notif) (notif_amount notif));
-          i := !i +1;
-          new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) true ) :: !new_inbox
+          new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) true ) :: !new_inbox;
+          i := !i +1
         end 
         else if ( answer = "no") then 
           begin (print_endline "You can accpet the payment request later unless you clear the inbox."); 
           new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) true ) :: !new_inbox;
           i := !i +1;
            end
-          else raise (InvalidCommand "Command nonexist");
+        else raise (InvalidCommand "Command nonexist");
       end 
-    else i := !i +1;
-     new_inbox := (List.nth (notif_inbox acc) !i) :: !new_inbox
+    else begin
+      new_inbox := (List.nth (notif_inbox acc) !i) :: !new_inbox;
+      i := !i +1 end
+     
   done;
- acc_new_inbox acc !new_inbox;
+ acc_new_inbox (current (current_account st)) !new_inbox;
  transaction_menu st
 end
 else raise (InvalidCommand "Command nonexist") 
