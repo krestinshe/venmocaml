@@ -344,6 +344,8 @@ and notification_inbox st =
         let notif = (List.nth (notif_inbox acc) !i) in
         if (answer = "yes") then begin 
           (State.make_payment st (notif_payer notif) (notif_payee notif) (notif_amount notif));
+          add_transaction (current (current_account st)) (pay_transaction acc (notif_payee notif) (notif_amount notif)); 
+          add_transaction (find_account st (notif_payee notif)) (received_transaction (username acc) (notif_amount notif)); 
           new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) true ) :: !new_inbox;
           i := !i +1
         end 
