@@ -493,3 +493,47 @@ let add_notification acc not =
 
 let add_transaction acc tran = acc.history <- tran :: acc.history
 let notif_clear acc = acc.notification_inbox <- []
+
+let length_notif acc = List.length acc.notification_inbox
+
+let notif_inbox acc = acc.notification_inbox 
+
+ 
+
+(*let rec go_over_notif acc st = let i = 0 in 
+while (i < length_notif acc) do
+  if (notif_accepted (List.nth (notif_inbox acc) i)) then begin
+  print_endline (string_of_notif (List.nth (notif_inbox acc) i)); 
+  print_endline "Will you accept the payment request? [yes/no]";
+  print_string ">";
+  let answer = read_line () in 
+  let notif = (List.nth (notif_inbox acc) i) in
+  if (answer = "yes") then begin (State.make_payment st (notif_payer notif) (notif_payee notif) (notif_amount notif)); end
+  else if ( answer = "no") then begin (print_endline "You can accpet the payment request unless you clear the inbox."); end 
+  else failwith "Invalid command"
+end
+done*)
+
+let notif_payer notif = match notif with
+| PaymentRequest
+(Request { payer; payee; amount; accepted }) -> payer
+| _ -> failwith "Invalid notif"
+
+let notif_payee notif = match notif with
+| PaymentRequest
+(Request { payer; payee; amount; accepted }) -> payee
+| _ -> failwith "Invalid notif"
+
+let notif_amount notif = match notif with
+| PaymentRequest
+(Request { payer; payee; amount; accepted }) -> amount
+| _ -> failwith "Invalid notif"
+
+let notif_accepted notif = match notif with
+| PaymentRequest
+(Request { payer; payee; amount; accepted }) -> accepted
+| _ -> failwith "Invalid notif"
+
+let acc_new_inbox acc inbox = acc.notification_inbox <- inbox
+
+let make_notif payer payee amount accepted = PaymentRequest (Request {payer = payer; payee = payee; amount = amount; accepted = accepted})

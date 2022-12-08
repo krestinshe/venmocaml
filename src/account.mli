@@ -102,4 +102,23 @@ val make_request : t -> string -> string -> notification
 
 val pay_transaction : t -> string -> string -> transaction
 
+val length_notif : t -> int
+
+val notif_inbox : t -> notification list
+
+val notif_payer : notification -> string
+
+val notif_payee : notification -> string
+
+val notif_amount : notification -> string
+
+val notif_accepted : notification -> bool 
+
+val string_of_notif : notification -> string
+
+val acc_new_inbox : t -> notification list -> unit
+
+val make_notif : string -> string -> string -> bool -> notification
+
+
 

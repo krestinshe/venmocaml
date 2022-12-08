@@ -70,3 +70,5 @@ val add_notif_inbox : t -> string -> Account.notification -> unit
 (** [add_notif_inbox st payer notif] adds the notification to the payer's notification inbox*)
 
 val find_account : t -> string -> Account.t
+
+val current : 'a option -> 'a

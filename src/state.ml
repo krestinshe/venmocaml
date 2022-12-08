@@ -126,12 +126,14 @@ let find_account st username = st.accounts.(find_un st username)
 
 let make_payment st paying_acc_id paid_acc_id p =
   st.accounts.(find_un st paying_acc_id) <- withdraw st.accounts.(find_un st paying_acc_id) p;
-  st.accounts.(find_un st paid_acc_id) <- deposit st.accounts.(find_un st paid_acc_id) p
+  st.accounts.(find_un st paid_acc_id) <- deposit st.accounts.(find_un st paid_acc_id) p;
+  st.current_account <- Some st.accounts.(find_un st paying_acc_id)
 
 
 
 let make_deposit st un p =
-  st.accounts.(find_un st un) <- deposit st.accounts.(find_un st un) p
+  st.accounts.(find_un st un) <- deposit st.accounts.(find_un st un) p;
+  st.current_account <- Some (st.accounts.(find_un st un)) 
 
 let to_json st : Yojson.Basic.t =
   `Assoc
@@ -195,6 +197,12 @@ let login_system st un pass =
 
 let add_notif_inbox st payer notif =
   Account.add_notification st.accounts.(find_un st payer) notif
+
+ let current acc = match acc with 
+ | Some s -> s
+ | None -> failwith "current_account doesn't exist"
+
+
 
 (** notification inbox : notification inbox exist in account.ml t type.
     Whenever, the account makes a request, it returns a notification and this

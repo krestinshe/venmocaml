@@ -223,12 +223,12 @@ and deposit st =
       let amt = read_line () in
       if go_menu amt then acc_menu st;
       make_deposit st (username acc) amt; 
-      add_transaction acc (deposit_transaction acc amt); 
+      add_transaction (current (current_account st)) (deposit_transaction acc amt); 
       print_endline ("Amount " ^ amt ^ " has been deposited");
       print_newline ();
-      balance st;
+      balance st; 
       print_newline ();
-      transaction_menu st
+      transaction_menu st 
 
 and init_deposit st un : unit =
   print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
@@ -281,7 +281,7 @@ and pay st =
   let amt = read_line () in
   if go_menu amt then acc_menu st;
   make_payment st (username acc) payee amt; 
-  add_transaction acc (pay_transaction acc payee amt); 
+  add_transaction (current (current_account st)) (pay_transaction acc payee amt); 
   add_transaction (find_account st payee) (received_transaction (username acc) amt); 
   print_endline ("Amount " ^ amt ^ " has been paid to " ^ payee);
   print_newline ();
@@ -305,22 +305,8 @@ and request st =
                 transaction_menu st;
 
 
-  (* print_endline "To return to menu, type [go menu]";
-  print_endline "Enter the username of the user that you want to request money";
-  let payee = read_line () in 
-  print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
-  print_string "> ";
-  let amt = read_line () in
-  if go_menu amt then acc_menu st;
-  make_deposit st (username acc) amt; 
-  add_transaction acc (deposit_transaction acc amt); 
-  print_endline ("Amount " ^ amt ^ " has been deposited");
-  print_newline ();
-  balance st;
-  print_newline ();
-  transaction_menu st*)
 
-and notification_inbox st =
+and notification_inbox st = 
  match current_account st with 
  | None -> raise (InvalidCommand "Not logged in")
  | Some acc ->  
@@ -328,32 +314,55 @@ and notification_inbox st =
     print_string "> ";
     let command = read_line () in
     if command = "display" then 
-      begin (
+      begin 
     print_endline (display_notif acc);
     print_endline "Would you like to clear you inbox? [yes/no]" ;
     print_string "> ";
     let answer = read_line () in 
                               if (answer = "yes") then begin 
-                                (notif_clear acc); end
-                              else if (answer != "no") then begin transaction_menu st end
+                                (notif_clear acc); 
+                               transaction_menu st;
+                              end
+                              else if (answer != "no") then begin 
+                               transaction_menu st;
+                            end
                               else (print_endline "invalid answer");
                                     transaction_menu st; 
                             
                             
-    )end                          
-    else if (command = "go over") then begin (print_endline "not implemented yet");
-                                       transaction_menu st; end
-    else raise (InvalidCommand "Command nonexist") 
+    end                          
+    else if (command = "go over") then
+                          begin 
+       let i = ref 0 in 
+       let new_inbox = ref [] in
+    while (!i < (length_notif acc)-1) do
+      if ((notif_accepted (List.nth (notif_inbox acc) !i) = false)) then begin
+        print_endline (string_of_notif (List.nth (notif_inbox acc) !i)); 
+        print_endline "Will you accept the payment request? [yes/no]";
+        print_string ">";
+        let answer = read_line () in 
+        let notif = (List.nth (notif_inbox acc) !i) in
+        if (answer = "yes") then begin 
+          (State.make_payment st (notif_payer notif) (notif_payee notif) (notif_amount notif));
+          i := !i +1;
+          new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) true ) :: !new_inbox
+        end 
+        else if ( answer = "no") then 
+          begin (print_endline "You can accpet the payment request later unless you clear the inbox."); 
+          new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) true ) :: !new_inbox;
+          i := !i +1;
+           end
+          else raise (InvalidCommand "Command nonexist");
+      end 
+    else i := !i +1;
+     new_inbox := (List.nth (notif_inbox acc) !i) :: !new_inbox
+  done;
+ acc_new_inbox acc !new_inbox;
+ transaction_menu st
+end
+else raise (InvalidCommand "Command nonexist") 
 
 
-
-  (*
-     current account of the state adds notification to the payer's account
-
-     1. searching up payer's account in the account 
-     2. if no account exists, print error
-    
-  *)
 
 (** [main ()] prompts for the game to play, then starts it. *)
 let main () =

@@ -268,18 +268,18 @@ let state_account_tests =
   ]
 
 let _ = add_account test_state acc2
-let pay_acc1 = make_payment test_state 0 1 "50.12 USD"
+(*let pay_acc1 = make_payment test_state 0 1 "50.12 USD"*)
 let after_pay_acc1 = (accounts test_state).(0)
 
 let state_pay_tests =
   [
     ( "pay in home currency: paid account" >:: fun _ ->
       assert_equal "50.12 USD" (balance after_pay_acc1) ~printer:(fun x -> x) );
-    (let _ = make_payment test_state 1 0 "3110 CML" in
+    (*(let _ = make_payment test_state 1 0 "3110 CML" in
      "pay in CML to USD account" >:: fun _ ->
      assert_equal "51.12 USD"
        (balance (accounts test_state).(0))
-       ~printer:(fun x -> x));
+       ~printer:(fun x -> x));*)
   ]
 
 let state_request_tests = []
