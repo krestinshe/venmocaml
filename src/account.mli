@@ -75,6 +75,7 @@ val display_history : t -> string
 (** [display acc] returns a string of the account's transaction history.*)
 
 val display_notif : t -> string
+(** [display acc] returns a string of the account's notification inbox*)
 
 val deposit : t -> string -> t
 (** [deposit acc amt] adds [amt] to the balance of the account [acc] with the
@@ -89,9 +90,13 @@ val add_notification : t -> notification -> unit
     t*)
 val deposit_transaction : t -> string -> transaction
 
+
 val add_transaction : t -> transaction -> unit
+(** [add_transaction acc tran] adds transaction tran into transaction history in
+    t*)
 
 val received_transaction : string -> string -> transaction
+(** [received_transaction payer amount] returns a transaction of received with the information of the payer and amount*)
 
 val notif_clear : t -> unit
 (** [notif_clear] clears the notification inbox of acc*)
@@ -101,24 +106,35 @@ val make_request : t -> string -> string -> notification
     returns a notification*)
 
 val pay_transaction : t -> string -> string -> transaction
+(** [pay_transaction acc payee amount] returns a transaction of paying with the information of the payee, payer, and amount*)
 
 val length_notif : t -> int
+(** [length_notif acc] returns the length of acc's notification inbox*)
 
 val notif_inbox : t -> notification list
+(** [notif_inbox acc] returns acc's notification inbox*)
 
 val notif_payer : notification -> string
+(** [notif_payer notif] returns notif's payer information*)
 
 val notif_payee : notification -> string
+(** [notif_payee notif] returns notif's payee information*)
+
 
 val notif_amount : notification -> string
+(** [notif_amount notif] returns notif's amount information*)
+
 
 val notif_accepted : notification -> bool 
+(** [notif_accepted notif] returns if notif is accepted *)
 
 val string_of_notif : notification -> string
+(** [string_of_notif notif] returns the string form of notification*)
 
 val acc_new_inbox : t -> notification list -> unit
+(** [acc_new_inbos acc new_notif] sets acc's notification list to new_notif*)
 
 val make_notif : string -> string -> string -> bool -> notification
-
+(** [make_notif payer payee amount accepted] returns a notification with the inputs*)
 
 

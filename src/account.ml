@@ -54,7 +54,7 @@ type notification_status =
   | NotAccepted
   | Accepted
 
-type notification = PaymentRequest of transaction
+type notification = PaymentRequest of transaction | FriendRequest of (string * string)
 
 (*let add_notification acc not = acc.notification_inbox < - Array.append [|
   not|] acc.notification_inbox let notif_clear acc = acc.notification_inbox <-
@@ -337,7 +337,7 @@ let string_of_notif notif =
   match notif with
   | PaymentRequest (Request { payer; payee; amount; accepted }) ->
       payee ^ " requested " ^ payer ^ " " ^ amount ^ " and transaction" ^ (if accepted then " accepted" else " not accepted")
-  | PaymentRequest n -> raise (Failure "invalid transaction for notification")
+  | _-> raise (Failure "invalid transaction for notification")
 
 (*let notif_of_string *)
 let from_json j id =
