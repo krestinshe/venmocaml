@@ -70,6 +70,7 @@ type t = {
   active : bool;
   mutable notification_inbox : notification list;
   mutable friend_list : string list;
+  mutable message_inbox : string list;
 }
 
 exception InvalidAmount of string
@@ -364,6 +365,8 @@ let from_json j id =
       |> to_list |> List.map to_string
       |> List.map (fun s -> notif_of_string s);
       friend_list = j |> member "friend list" |> to_list |> List.map to_string;
+
+      message_inbox = j |> member "message inbox" |> to_list |> List.map to_string;
   }
 
 let to_json acc : Yojson.Basic.t =
@@ -407,6 +410,7 @@ let create (id : int) (username : string) (password : string)
     active = true;
     notification_inbox = [];
     friend_list = [];
+    message_inbox = [];
   }
 
 let username acc = acc.username
@@ -451,7 +455,9 @@ let display_notif acc = "\n" ^ "Notification Inbox\n"
 let display_friends acc = "\n" ^ "Friends List\n"
 ^ list_to_string "" (acc.friend_list)
 ^ "\n"
-
+let display_message acc = "\n" ^ "Message Inbox\n"
+^ list_to_string "" (acc.message_inbox)
+^ "\n"
 
 let to_homecurr acc parsed_amt =
   match acc.home_currency with
@@ -501,6 +507,8 @@ let add_notification acc not =
 
 let add_transaction acc tran = acc.history <- tran :: acc.history
 let notif_clear acc = acc.notification_inbox <- []
+
+let message_clear acc = acc.message_inbox <- []
 
 let length_notif acc = List.length acc.notification_inbox
 
@@ -557,3 +565,5 @@ let friend_list acc = acc.friend_list
 let notif_type notif = match notif with 
 | PaymentRequest n -> true
 | FriendRequest n -> false
+
+let add_message acc str = acc.message_inbox <- str :: acc.message_inbox

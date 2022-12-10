@@ -79,6 +79,9 @@ val display_notif : t -> string
 
 val display_friends : t -> string
 (** [display acc] returns a string of the account's friends list*)
+val display_message : t -> string
+(** [display acc] returns a string of the account's message inbox*)
+
 
 val deposit : t -> string -> t
 (** [deposit acc amt] adds [amt] to the balance of the account [acc] with the
@@ -149,3 +152,7 @@ val remove_friend : t -> string -> unit
 val friend_list : t -> string list
 
 val notif_type : notification -> bool
+
+val add_message : t -> string -> unit
+
+val message_clear : t -> unit

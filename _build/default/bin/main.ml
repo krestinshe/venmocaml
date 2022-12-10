@@ -32,6 +32,7 @@ let transaction_instruction () =
   print_endline "View notification inbox [notification inbox]";
   print_endline "Send follow request [search friend]";
   print_endline "Friend activities [friend]";
+  print_endline "Receive/send messages [message]";
   print_endline "Logout of an account [log out]";
   print_endline "End session [end]";
   print_string "> ";
@@ -41,11 +42,6 @@ let full_instruction () =
   print_endline "Enter a command:";
   print_endline "Create a new account [create]";
   print_endline "Log into an account [log in]";
-  print_endline "View balance [balance]";
-  print_endline "View transaction history [hist]";
-  print_endline "Make a deposit [deposit]";
-  print_endline "Pay an account [pay]";
-  print_endline "Request money from an account [request]";
   print_endline "Logout of an account [log out]";
   print_endline "End session [end]";
   print_string "> ";
@@ -102,6 +98,7 @@ and transaction_menu (st : State.t) : unit =
   | "notification inbox" -> notification_inbox st
   | "search friend" -> search_friend st
   |"friend" -> friend_list_acc st
+  | "message" -> message st
   | "log out" -> logout st
   | "end" ->
       print_endline "🐫 Goodbye! 🐫";
@@ -365,7 +362,7 @@ and notification_inbox st =
                                 (notif_clear acc); 
                                transaction_menu st;
                               end
-                              else if (answer != "no") then begin 
+                              else if (answer = "no") then begin 
                                transaction_menu st;
                             end
                               else (print_endline "invalid answer");
@@ -463,6 +460,54 @@ match current_account st with
                                   else print_endline "Invalid command";
                                        transaction_menu st
                                     
+and message st = 
+match current_account st with 
+| None -> raise (InvalidCommand "Not logged in")
+| Some acc -> print_newline ();
+ print_endline "Welcome to your message inbox";
+ print_endline "You can view your inbox or send a message -> [view/send]";
+ print_string ">";
+ let answer = read_line () in 
+ if (answer = "view") then begin 
+  
+print_endline (display_message acc) ;
+print_newline ();
+print_endline "Would you like to clear your message inbox? [yes/no]";
+let clear = read_line () in 
+if (clear = "yes") then begin 
+  (message_clear acc); 
+ transaction_menu st;
+end
+else if (clear = "no") then begin 
+ transaction_menu st;
+end
+else (print_endline "Invalid Command");
+      transaction_menu st; 
+transaction_menu st 
+
+
+
+
+end
+ else if (answer = "send") then begin
+  print_newline ();
+ print_endline "Type the user's username that you want to send a message" ;
+ print_string ">";
+ let user = read_line () in 
+ match find_account st user with
+ | exception (Failure s) -> print_endline "username doesn't exist";
+                        transaction_menu st
+ | acc_friend ->  print_newline ();
+ print_endline "Type a message that you want to send";
+ let mess = read_line () in 
+ add_message (find_account st user) ((username acc)^": " ^ mess) ;
+ transaction_menu st
+ 
+ end
+ else begin 
+  print_endline "Invalid Command";
+  transaction_menu st
+ end
 
 (** [main ()] prompts for the game to play, then starts it. *)
 let main () =
