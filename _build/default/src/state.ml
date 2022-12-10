@@ -202,14 +202,6 @@ let add_notif_inbox st payer notif =
  | Some s -> s
  | None -> failwith "current_account doesn't exist"
 
+let add_friend_state st friend = add_friend (current (current_account st)) (username (find_account st friend)) 
 
-
-(** notification inbox : notification inbox exist in account.ml t type.
-    Whenever, the account makes a request, it returns a notification and this
-    notification will be added to the payer's notification_inbox. For now, the
-    user can only clear all of the requests in the inbox *)
-
-(** notification inbox : notification inbox exist in account.ml t type.
-    Whenever, the account makes a request, it returns a notification and this
-    notification will be added to the payer's notification_inbox. For now, the
-    user can only clear all of the requests in the inbox *)
+let remove_friend_state st friend = remove_friend (current (current_account st)) (username (find_account st friend))

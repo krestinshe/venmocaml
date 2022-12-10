@@ -77,6 +77,9 @@ val display_history : t -> string
 val display_notif : t -> string
 (** [display acc] returns a string of the account's notification inbox*)
 
+val display_friends : t -> string
+(** [display acc] returns a string of the account's friends list*)
+
 val deposit : t -> string -> t
 (** [deposit acc amt] adds [amt] to the balance of the account [acc] with the
     precondition that amt > 0 *)
@@ -115,7 +118,7 @@ val notif_inbox : t -> notification list
 (** [notif_inbox acc] returns acc's notification inbox*)
 
 val notif_payer : notification -> string
-(** [notif_payer notif] returns notif's payer information*)
+(** [notif_payer notif] returns notif's payer information or friend's friend username*)
 
 val notif_payee : notification -> string
 (** [notif_payee notif] returns notif's payee information*)
@@ -137,4 +140,12 @@ val acc_new_inbox : t -> notification list -> unit
 val make_notif : string -> string -> string -> bool -> notification
 (** [make_notif payer payee amount accepted] returns a notification with the inputs*)
 
+val make_notif_friend : string -> bool -> notification
 
+val add_friend : t -> string -> unit
+
+val remove_friend : t -> string -> unit
+
+val friend_list : t -> string list
+
+val notif_type : notification -> bool

@@ -3,7 +3,7 @@
 # Shared cache: disabled
 # Workspace root: /Users/nicoleku/3110/final_project
 # Auto-detected concurrency: 8
-$ /Users/nicoleku/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/s_/tqf7gsqs1_3_m3y4z563lllm0000gn/T/dune_9c0bec_output
+$ /Users/nicoleku/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/s_/tqf7gsqs1_3_m3y4z563lllm0000gn/T/dune_530705_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -114,5 +114,3 @@ $ /Users/nicoleku/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/s_/t
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /Users/nicoleku/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I /Users/nicoleku/.opam/cs3110-2022fa/lib/ANSITerminal -I /Users/nicoleku/.opam/cs3110-2022fa/lib/seq -I /Users/nicoleku/.opam/cs3110-2022fa/lib/yojson -I src/.venmo.objs/byte -I src/.venmo.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
-$ (cd _build/default && /Users/nicoleku/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o bin/main.exe /Users/nicoleku/.opam/cs3110-2022fa/lib/yojson/yojson.cmxa /Users/nicoleku/.opam/cs3110-2022fa/lib/ocaml/unix.cmxa -I /Users/nicoleku/.opam/cs3110-2022fa/lib/ocaml -I /Users/nicoleku/.opam/cs3110-2022fa/lib/ocaml /Users/nicoleku/.opam/cs3110-2022fa/lib/ANSITerminal/ANSITerminal.cmxa -I /Users/nicoleku/.opam/cs3110-2022fa/lib/ANSITerminal src/venmo.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)

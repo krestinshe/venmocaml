@@ -74,3 +74,9 @@ val find_account : t -> string -> Account.t
 
 val current : 'a option -> 'a
 (** [current some] returns the original value of 'a option*)
+
+val add_friend_state : t -> string -> unit
+(** [add_friend_state t friend] adds frined to t's friend list *)
+
+val remove_friend_state : t -> string -> unit
+(** [remove_friend_state t friend] removed friend in t's friend list *)

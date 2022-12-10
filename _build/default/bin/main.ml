@@ -30,6 +30,8 @@ let transaction_instruction () =
   print_endline "Pay an account [pay]";
   print_endline "Request money from an account [request]";
   print_endline "View notification inbox [notification inbox]";
+  print_endline "Send follow request [search friend]";
+  print_endline "Friend activities [friend]";
   print_endline "Logout of an account [log out]";
   print_endline "End session [end]";
   print_string "> ";
@@ -98,6 +100,8 @@ and transaction_menu (st : State.t) : unit =
   | "pay" -> pay st
   | "request" -> request st
   | "notification inbox" -> notification_inbox st
+  | "search friend" -> search_friend st
+  |"friend" -> friend_list_acc st
   | "log out" -> logout st
   | "end" ->
       print_endline "🐫 Goodbye! 🐫";
@@ -268,6 +272,44 @@ and display_hist st =
       print_endline (display_history (current (current_account st)));
       transaction_menu st
 
+ and friend_list_acc st = 
+      match current_account st with
+      | None -> raise (InvalidCommand "Not logged in")
+      | Some acc ->
+        
+          print_endline (display_friends (current (current_account st)));
+          print_newline();
+          print_endline "remove friend of see friend's activity [remove/activity]";
+          let select = read_line () in 
+          if (select = "activity") then begin
+          print_endline "Type the username of your friend";
+          let username = read_line () in 
+          if (List.mem username (friend_list acc) = false ) then begin print_endline (username ^ " doesn't exist in your friend list");
+                                                                                   transaction_menu st end
+              else begin 
+                 print_newline ();
+                 print_endline (display_history (find_account st username));
+                 print_newline();
+                transaction_menu st end
+              end
+      else if (select = "remove") then begin
+      
+        print_endline "Type the username of your friend";
+        let friend = read_line () in 
+        if (List.mem friend (friend_list acc) = false ) then begin print_endline (friend ^ " doesn't exist in your friend list");
+                                                                                 transaction_menu st end
+            else begin 
+               print_newline ();
+               remove_friend_state st friend;
+               remove_friend (find_account st (friend)) (username (current (current_account st)));
+               print_endline ("You removed " ^ friend ^ " as a friend");
+               print_newline();
+              transaction_menu st end
+            end
+    
+      else print_endline "Invalid command";
+          transaction_menu st
+
 and pay st =
   match current_account st with
   | None -> raise (InvalidCommand "Not logged in")
@@ -338,21 +380,42 @@ and notification_inbox st =
     while (!i < (length_notif acc)) do
       if ((notif_accepted (List.nth (notif_inbox acc) !i) = false)) then begin
         print_endline (string_of_notif (List.nth (notif_inbox acc) !i)); 
-        print_endline "Will you accept the payment request? [yes/no]";
+        print_newline ();
+        print_endline "Will you accept the payment/friend request? [yes/no]";
         print_string ">";
         let answer = read_line () in 
         let notif = (List.nth (notif_inbox acc) !i) in
         if (answer = "yes") then begin 
+          if (List.mem (notif_payer notif) (friend_list acc)) then begin print_endline ("You are already following user " ^ (notif_payer notif));
+                                                                                   transaction_menu st end
+        else
+          if (notif_type notif) then begin
           (State.make_payment st (notif_payer notif) (notif_payee notif) (notif_amount notif));
           add_transaction (current (current_account st)) (pay_transaction acc (notif_payee notif) (notif_amount notif)); 
           add_transaction (find_account st (notif_payee notif)) (received_transaction (username acc) (notif_amount notif)); 
           new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) true ) :: !new_inbox;
           i := !i +1
         end 
+    else begin add_friend_state st (notif_payer notif) ;
+                add_friend (find_account st (notif_payer notif)) (username(current (current_account st)) ) ;
+    new_inbox := (make_notif_friend (username (current (current_account st))) true ) :: !new_inbox;
+    add_notif_inbox st (notif_payer notif) (make_notif_friend (username (current (current_account st))) true); 
+          i := !i +1
+  end;
+  end
+
         else if ( answer = "no") then 
-          begin (print_endline "You can accpet the payment request later unless you clear the inbox."); 
-          new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) false ) :: !new_inbox;
-          i := !i +1;
+          begin (print_endline "You can accpet the request later unless you clear the inbox."); 
+          if (notif_type notif) then 
+            begin  new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) false ) :: !new_inbox;
+          i := !i +1; 
+        end
+          else 
+            begin 
+              new_inbox := (make_notif_friend (notif_payer notif)  false) :: !new_inbox ;
+              i := !i +1;
+            end
+          
            end
         else raise (InvalidCommand "Command nonexist");
       end 
@@ -367,6 +430,39 @@ end
 else raise (InvalidCommand "Command nonexist") 
 
 
+and search_friend st = 
+match current_account st with 
+| None -> raise (InvalidCommand "Not logged in")
+| Some acc -> 
+            print_endline "Search Friends";
+            print_endline "Type the username";
+            print_string ">";
+            let friend = read_line () in 
+             match find_account st friend with
+             | exception (Failure s) -> print_endline "username doesn't exist";
+                                    transaction_menu st
+             | acc_friend -> print_endline "Would you want to send a follow request to this user? [yes/no]";
+             print_string ">";
+
+                                   let answer = read_line () in 
+                                   if (answer = "yes") then begin 
+                                    if (List.mem friend (friend_list acc)) then begin print_endline ("You are already following user " ^ friend);
+                                                                                   transaction_menu st end
+                                   else
+                                    add_notif_inbox st friend (make_notif_friend (username acc) false); 
+                                    print_newline (); 
+
+                          
+                                    print_endline ("Requested to follow user "^ friend);
+                                    print_newline ();
+                                    transaction_menu st
+
+                                  end
+                                  else if (answer = "no") then begin 
+                                                              transaction_menu st end 
+                                  else print_endline "Invalid command";
+                                       transaction_menu st
+                                    
 
 (** [main ()] prompts for the game to play, then starts it. *)
 let main () =
