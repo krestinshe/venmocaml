@@ -52,9 +52,9 @@ val make_deposit : t -> string -> string -> unit
 
 val make_payment : t -> string -> string -> string -> unit
 (**[make_payment st
-  paying_acc_id paid_acc_id p] adds [p] to the balance of
-   account identified by [paid_acc_id] and removes [p] from the balance of the
-   account identified by [paying_acc_id]*)
+  paying_acc_un paid_acc_un p] adds [p] to the balance of
+   account with the username [paid_acc_un] and removes [p] from the balance of the
+   account identified with username [paying_acc_un]*)
 
 val login_system : t -> string -> string -> unit
 (** [login_system st un pass] changes current account of the state if the
@@ -76,7 +76,7 @@ val current : 'a option -> 'a
 (** [current some] returns the original value of 'a option*)
 
 val add_friend_state : t -> string -> unit
-(** [add_friend_state t friend] adds frined to t's friend list *)
+(** [add_friend_state t friend] adds friend to t's friend list *)
 
 val remove_friend_state : t -> string -> unit
 (** [remove_friend_state t friend] removed friend in t's friend list *)

@@ -98,7 +98,7 @@ type t = {
   mutable current_account : Account.t option;
   mutable accounts : Account.t array;
   mutable transactions : transaction list;
-} 
+}
 
 let init_state = { current_account = None; accounts = [||]; transactions = [] }
 let current_account st = st.current_account
@@ -115,25 +115,27 @@ let check_username st un =
   in
   if Array.mem un username_list then raise (InvalidUsername un)
 
- let rec array_find a p n =
-      if n > Array.length a - 1 then failwith "Not found"
-      else if p a.(n) then n
-      else array_find a p (n + 1)
-    
-let find_un st un = array_find st.accounts (fun a -> username a = un) 0
+let rec array_find a p n =
+  if n > Array.length a - 1 then failwith "Not found"
+  else if p a.(n) then n
+  else array_find a p (n + 1)
 
+let find_un st un = array_find st.accounts (fun a -> username a = un) 0
 let find_account st username = st.accounts.(find_un st username)
 
-let make_payment st paying_acc_id paid_acc_id p =
-  st.accounts.(find_un st paying_acc_id) <- withdraw st.accounts.(find_un st paying_acc_id) p;
-  st.accounts.(find_un st paid_acc_id) <- deposit st.accounts.(find_un st paid_acc_id) p;
-  st.current_account <- Some st.accounts.(find_un st paying_acc_id)
-
-
+let make_payment st paying_acc_un paid_acc_un p =
+  st.accounts.(find_un st paying_acc_un) <-
+    withdraw st.accounts.(find_un st paying_acc_un) p;
+  st.accounts.(find_un st paid_acc_un) <-
+    deposit
+      st.accounts.(find_un st paid_acc_un)
+      p (*; st.current_account <- Some st.accounts.(find_un st paying_acc_un)*)
 
 let make_deposit st un p =
-  st.accounts.(find_un st un) <- deposit st.accounts.(find_un st un) p;
-  st.current_account <- Some (st.accounts.(find_un st un)) 
+  st.accounts.(find_un st un) <-
+    deposit
+      st.accounts.(find_un st un)
+      p (*; st.current_account <- Some st.accounts.(find_un st un)*)
 
 let to_json st : Yojson.Basic.t =
   `Assoc
@@ -164,7 +166,7 @@ let execute_transaction st t =
        with InvalidUsername payer -> failwith "Invalid payer username");
       (try check_username st payee
        with InvalidUsername payee -> failwith "Invalid payee username");
-      make_payment st (payer) (payee) amount;
+      make_payment st payer payee amount;
       st.transactions <- t :: st.transactions
   | Request { payer; payee; amount; accepted } ->
       (try check_username st payer
@@ -172,7 +174,7 @@ let execute_transaction st t =
       (try check_username st payee
        with InvalidUsername payee -> failwith "Invalid payee username");
       if accepted then (
-        make_payment st (payer) (payee) amount;
+        make_payment st payer payee amount;
         st.transactions <- t :: st.transactions)
       else ()
   | Deposit { account; amount } ->
@@ -198,10 +200,15 @@ let login_system st un pass =
 let add_notif_inbox st payer notif =
   Account.add_notification st.accounts.(find_un st payer) notif
 
- let current acc = match acc with 
- | Some s -> s
- | None -> failwith "current_account doesn't exist"
+let current acc =
+  match acc with
+  | Some s -> s
+  | None -> failwith "current_account doesn't exist"
 
-let add_friend_state st friend = add_friend (current (current_account st)) (username (find_account st friend)) 
+let add_friend_state st friend =
+  add_friend (current (current_account st)) (username (find_account st friend))
 
-let remove_friend_state st friend = remove_friend (current (current_account st)) (username (find_account st friend))
+let remove_friend_state st friend =
+  remove_friend
+    (current (current_account st))
+    (username (find_account st friend))

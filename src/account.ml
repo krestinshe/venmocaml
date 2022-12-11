@@ -43,14 +43,15 @@ type transaction =
   | Received of {
       payer : string;
       amount : string;
-
-  }
+    }
 
 type notifications =
   | FriendRequest
   | PaymentRequest
 
-type notification = PaymentRequest of transaction | FriendRequest of (string * bool )
+type notification =
+  | PaymentRequest of transaction
+  | FriendRequest of (string * bool)
 
 (*let add_notification acc not = acc.notification_inbox < - Array.append [|
   not|] acc.notification_inbox let notif_clear acc = acc.notification_inbox <-
@@ -235,7 +236,7 @@ let string_of_transaction (t : transaction) : string =
   | Withdraw { amount } -> "Withdrew " ^ amount
   | Pay { payee; amount } -> "Paid " ^ amount ^ " to " ^ payee
   | Request { payer; amount } -> "Requested " ^ amount ^ " from " ^ payer
-  | Received {payer; amount} -> "Received " ^ amount ^ " from " ^ payer
+  | Received { payer; amount } -> "Received " ^ amount ^ " from " ^ payer
 
 (** [transaction_of_string s un] parses a string that describes a transaction
     into a [transaction] involving the account with username [un] and
@@ -294,13 +295,12 @@ let transaction_of_string (s : string) (un : string) : transaction =
               else Request { payer; payee = un; amount = amt; accepted = false }
           | _ -> raise InvalidTransaction)
       | "Received" -> (
-        match tail with
-        | [ _from; payer ] ->
-            if _from <> "from" then raise InvalidTransaction
-            else Received { payer= un; amount = amt; }
-        | _ -> raise InvalidTransaction)
+          match tail with
+          | [ _from; payer ] ->
+              if _from <> "from" then raise InvalidTransaction
+              else Received { payer = un; amount = amt }
+          | _ -> raise InvalidTransaction)
       | _ -> raise InvalidTransaction)
-
 
 (** [notif_of_string s un] parses a string that describes a notification to
     [notification]. Input: A string that represents a valid notification. A
@@ -325,21 +325,37 @@ let transaction_of_string (s : string) (un : string) : transaction =
 let notif_of_string str =
   let split = String.split_on_char ' ' (String.trim str) in
   match split with
-  | friend :: req :: "following:":: status :: not :: tail -> FriendRequest (friend, if (not = "accepted") then true else false)
-  | [] | [ _ ] | [ _; _ ] | [ _; _; _ ] | [ _; _; _; _ ] | [ _; _; _; _ ; _]| [ _; _; _; _ ; _; _] | [ _; _; _; _ ; _; _; _]->
-      failwith "Invalid Notification"
-  | payee :: req :: payer :: amount :: curr :: and_ :: transaction_ :: not :: tail->
-
+  | friend :: req :: "following:" :: status :: not :: tail ->
+      FriendRequest (friend, if not = "accepted" then true else false)
+  | []
+  | [ _ ]
+  | [ _; _ ]
+  | [ _; _; _ ]
+  | [ _; _; _; _ ]
+  | [ _; _; _; _; _ ]
+  | [ _; _; _; _; _; _ ]
+  | [ _; _; _; _; _; _; _ ] -> failwith "Invalid Notification"
+  | payee :: req :: payer :: amount :: curr :: and_ :: transaction_ :: not
+    :: tail ->
       let amt = String.trim (String.trim amount ^ " " ^ String.trim curr) in
-      PaymentRequest (Request { payer; payee; amount = amt; accepted = if (not = "accepted") then true else false})
-
+      PaymentRequest
+        (Request
+           {
+             payer;
+             payee;
+             amount = amt;
+             accepted = (if not = "accepted" then true else false);
+           })
 
 let string_of_notif notif =
   match notif with
   | PaymentRequest (Request { payer; payee; amount; accepted }) ->
-      payee ^ " requested " ^ payer ^ " " ^ amount ^ " and transaction" ^ (if accepted then " accepted" else " not accepted")
-  | FriendRequest (friend, accept) -> friend ^ " requested following: status" ^ if (accept) then " accepted" else " not accepted"
-  | _-> raise (Failure "invalid transaction for notification")
+      payee ^ " requested " ^ payer ^ " " ^ amount ^ " and transaction"
+      ^ if accepted then " accepted" else " not accepted"
+  | FriendRequest (friend, accept) ->
+      friend ^ " requested following: status"
+      ^ if accept then " accepted" else " not accepted"
+  | _ -> raise (Failure "invalid transaction for notification")
 
 (*let notif_of_string *)
 let from_json j id =
@@ -364,9 +380,8 @@ let from_json j id =
       |> member "notification inbox"
       |> to_list |> List.map to_string
       |> List.map (fun s -> notif_of_string s);
-      friend_list = j |> member "friend list" |> to_list |> List.map to_string;
-
-      message_inbox = j |> member "message inbox" |> to_list |> List.map to_string;
+    friend_list = j |> member "friend list" |> to_list |> List.map to_string;
+    message_inbox = j |> member "message inbox" |> to_list |> List.map to_string;
   }
 
 let to_json acc : Yojson.Basic.t =
@@ -448,16 +463,17 @@ let display_history acc =
   "\n" ^ "Transaction History\n"
   ^ list_to_string "" (List.map string_of_transaction (history acc))
   ^ "\n"
-let display_notif acc = "\n" ^ "Notification Inbox\n"
-^ list_to_string "" (List.map string_of_notif (acc.notification_inbox)) 
-^ "\n"
 
-let display_friends acc = "\n" ^ "Friends List\n"
-^ list_to_string "" (acc.friend_list)
-^ "\n"
-let display_message acc = "\n" ^ "Message Inbox\n"
-^ list_to_string "" (acc.message_inbox)
-^ "\n"
+let display_notif acc =
+  "\n" ^ "Notification Inbox\n"
+  ^ list_to_string "" (List.map string_of_notif acc.notification_inbox)
+  ^ "\n"
+
+let display_friends acc =
+  "\n" ^ "Friends List\n" ^ list_to_string "" acc.friend_list ^ "\n"
+
+let display_message acc =
+  "\n" ^ "Message Inbox\n" ^ list_to_string "" acc.message_inbox ^ "\n"
 
 let to_homecurr acc parsed_amt =
   match acc.home_currency with
@@ -494,76 +510,73 @@ let withdraw_transaction acc amt =
 let deposit_transaction acc amt =
   Deposit { account = acc.username; amount = amt }
 
-let pay_transaction acc payee amount = Pay { payer = acc.username; payee = payee; amount = amount }
+let pay_transaction acc payee amount =
+  Pay { payer = acc.username; payee; amount }
 
-let received_transaction payer amount = Received { payer = payer; amount = amount }
+let received_transaction payer amount = Received { payer; amount }
 
 let make_request t payer amount =
   PaymentRequest
-    (Request { payer = payer; payee = username t; amount; accepted = false })
+    (Request { payer; payee = username t; amount; accepted = false })
 
 let add_notification acc not =
   acc.notification_inbox <- not :: acc.notification_inbox
 
 let add_transaction acc tran = acc.history <- tran :: acc.history
 let notif_clear acc = acc.notification_inbox <- []
-
 let message_clear acc = acc.message_inbox <- []
-
 let length_notif acc = List.length acc.notification_inbox
+let notif_inbox acc = acc.notification_inbox
 
-let notif_inbox acc = acc.notification_inbox 
+(*let rec go_over_notif acc st = let i = 0 in while (i < length_notif acc) do if
+  (notif_accepted (List.nth (notif_inbox acc) i)) then begin print_endline
+  (string_of_notif (List.nth (notif_inbox acc) i)); print_endline "Will you
+  accept the payment request? [yes/no]"; print_string ">"; let answer =
+  read_line () in let notif = (List.nth (notif_inbox acc) i) in if (answer =
+  "yes") then begin (State.make_payment st (notif_payer notif) (notif_payee
+  notif) (notif_amount notif)); end else if ( answer = "no") then begin
+  (print_endline "You can accpet the payment request unless you clear the
+  inbox."); end else failwith "Invalid command" end done*)
 
- 
+let notif_payer notif =
+  match notif with
+  | PaymentRequest (Request { payer; payee; amount; accepted }) -> payer
+  | FriendRequest (friend, accept) -> friend
+  | _ -> failwith "Invalid notif"
 
-(*let rec go_over_notif acc st = let i = 0 in 
-while (i < length_notif acc) do
-  if (notif_accepted (List.nth (notif_inbox acc) i)) then begin
-  print_endline (string_of_notif (List.nth (notif_inbox acc) i)); 
-  print_endline "Will you accept the payment request? [yes/no]";
-  print_string ">";
-  let answer = read_line () in 
-  let notif = (List.nth (notif_inbox acc) i) in
-  if (answer = "yes") then begin (State.make_payment st (notif_payer notif) (notif_payee notif) (notif_amount notif)); end
-  else if ( answer = "no") then begin (print_endline "You can accpet the payment request unless you clear the inbox."); end 
-  else failwith "Invalid command"
-end
-done*)
+let notif_payee notif =
+  match notif with
+  | PaymentRequest (Request { payer; payee; amount; accepted }) -> payee
+  | _ -> failwith "Invalid notif"
 
-let notif_payer notif = match notif with
-| PaymentRequest
-(Request { payer; payee; amount; accepted }) -> payer
-| FriendRequest (friend, accept) -> friend
-| _ -> failwith "Invalid notif"
+let notif_amount notif =
+  match notif with
+  | PaymentRequest (Request { payer; payee; amount; accepted }) -> amount
+  | _ -> failwith "Invalid notif"
 
-let notif_payee notif = match notif with
-| PaymentRequest
-(Request { payer; payee; amount; accepted }) -> payee
-| _ -> failwith "Invalid notif"
-
-let notif_amount notif = match notif with
-| PaymentRequest
-(Request { payer; payee; amount; accepted }) -> amount
-| _ -> failwith "Invalid notif"
-
-let notif_accepted notif = match notif with
-| PaymentRequest
-(Request { payer; payee; amount; accepted }) -> accepted
-| FriendRequest (friend, accept) -> accept
-| _ -> failwith "Invalid notif"
+let notif_accepted notif =
+  match notif with
+  | PaymentRequest (Request { payer; payee; amount; accepted }) -> accepted
+  | FriendRequest (friend, accept) -> accept
+  | _ -> failwith "Invalid notif"
 
 let acc_new_inbox acc inbox = acc.notification_inbox <- inbox
 
-let make_notif payer payee amount accepted = PaymentRequest (Request {payer = payer; payee = payee; amount = amount; accepted = accepted})
+let make_notif payer payee amount accepted =
+  PaymentRequest (Request { payer; payee; amount; accepted })
+
 let make_notif_friend friend accepted = FriendRequest (friend, accepted)
 let add_friend acc friend = acc.friend_list <- friend :: acc.friend_list
-let find_friend friend x = (x != friend)
-let remove_friend acc friend = acc.friend_list <- List.filter (find_friend friend) acc.friend_list
+let find_friend friend x = x != friend
+
+let remove_friend acc friend =
+  acc.friend_list <- List.filter (find_friend friend) acc.friend_list
 
 let friend_list acc = acc.friend_list
 
-let notif_type notif = match notif with 
-| PaymentRequest n -> true
-| FriendRequest n -> false
+let notif_type notif =
+  match notif with
+  | PaymentRequest n -> true
+  | FriendRequest n -> false
 
 let add_message acc str = acc.message_inbox <- str :: acc.message_inbox

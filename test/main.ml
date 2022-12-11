@@ -9,6 +9,7 @@ let acc1 = create 0 "test" "test" ~balance:"0.00 USD" "USD"
 let acc2 = deposit acc1 "100.24 USD"
 let acc3 = deposit acc2 "21.99 USD"
 let acc4 = deposit acc1 "1.04 USD"
+let acc5 = create 0 "test" "test" ~balance:"0.00 USD" "USD"
 (*this test case also doesn't pass because of decimal error as mentioned in
   slack *)
 
@@ -19,6 +20,14 @@ let pos = Yojson.Basic.from_file (data_dir_prefix ^ "pos_bal.json")
 (*****************************************************************************
   Begin tests
   ******************************************************************************)
+
+let acc_tests =
+  [
+    ("active account" >:: fun _ -> assert_equal true (is_active acc1));
+    ( "deactivate account" >:: fun _ ->
+      assert_equal false (is_active (deactivate acc5)) );
+  ]
+
 let invalid_amount_test (input : string) : test =
   input ^ "is an invalid amount" >:: fun _ ->
   assert_raises (InvalidAmount input) (fun () ->
@@ -253,33 +262,64 @@ let withdraw_amount_tests =
       assert_equal "81.04 USD" (balance withdraw2) ~printer:(fun x -> x) );
   ]
 
-let test_state = init_state
-let _ = add_account test_state acc1
-
-let state_account_tests =
-  [
-    ( "current account of initial state is None" >:: fun _ ->
-      assert_equal None (current_account init_state) );
-    ( "username already exists raises InvalidUsername" >:: fun _ ->
-      assert_raises (InvalidUsername "test") (fun () ->
-          check_username test_state "test") );
-    ( "username doesn't exist is valid" >:: fun _ ->
-      assert_equal () (check_username test_state "not test") );
-  ]
-
-let _ = add_account test_state acc2
-(*let pay_acc1 = make_payment test_state 0 1 "50.12 USD"*)
-let after_pay_acc1 = (accounts test_state).(0)
-
 let state_pay_tests =
+  let state_acc1 = create 0 "state1" "state" ~balance:"0.00 USD" "USD" in
+  let state_acc2 = create 1 "state2" "state" ~balance:"100.00 USD" "USD" in
+  let state_acc3 = create 2 "state3" "state" ~balance:"3110.00 CML" "CML" in
+  let state_acc4 = create 3 "state4" "state" ~balance:"100.00 USD" "USD" in
+  let unchanged_acc = create 4 "state5" "state" ~balance:"100.00 USD" "USD" in
+  let state_pay_state = init_state in
+  let _ = add_account state_pay_state unchanged_acc in
+  let _ = add_account state_pay_state state_acc4 in
+  let _ = add_account state_pay_state state_acc3 in
+  let _ = add_account state_pay_state state_acc2 in
+  let _ = add_account state_pay_state state_acc1 in
+  let _ = make_payment state_pay_state "state2" "state1" "25.00 USD" in
+  let _ = make_payment state_pay_state "state3" "state4" "3110.00 CML" in
+  make_deposit state_pay_state "state3" "1.00 CML";
   [
-    ( "pay in home currency: paid account" >:: fun _ ->
-      assert_equal "50.12 USD" (balance after_pay_acc1) ~printer:(fun x -> x) );
-    (*(let _ = make_payment test_state 1 0 "3110 CML" in
-     "pay in CML to USD account" >:: fun _ ->
-     assert_equal "51.12 USD"
-       (balance (accounts test_state).(0))
-       ~printer:(fun x -> x));*)
+    ( "state pay in home currency" >:: fun _ ->
+      assert_equal "25.00 USD"
+        (balance (accounts state_pay_state).(0))
+        ~printer:(fun x -> x) );
+    ( "no initial current account" >:: fun _ ->
+      assert_equal None (current_account init_state) );
+    ( "pay in CML to USD account" >:: fun _ ->
+      assert_equal "101.00 USD"
+        (balance (accounts state_pay_state).(3))
+        ~printer:(fun x -> x) );
+    ( "make valid CML deposit" >:: fun _ ->
+      assert_equal "1.00 CML"
+        (balance (accounts state_pay_state).(2))
+        ~printer:(fun x -> x) );
+    ( "username already exists raises InvalidUsername" >:: fun _ ->
+      assert_raises (InvalidUsername "state1") (fun () ->
+          check_username state_pay_state "state1") );
+    ( "username doesn't exist is valid" >:: fun _ ->
+      assert_equal () (check_username state_pay_state "not state") );
+    ( "adding accounts increases account length correctly" >:: fun _ ->
+      assert_equal 5
+        (Array.length (accounts state_pay_state))
+        ~printer:string_of_int );
+    ( "initial state has no current account" >:: fun _ ->
+      assert_equal None (current_account state_pay_state) );
+    ( "login has correct current account" >:: fun _ ->
+      assert_equal unchanged_acc
+        (let _ = login_system state_pay_state "state5" "state" in
+         current (current_account state_pay_state))
+        ~printer:display );
+    ( "logout has correct current account" >:: fun _ ->
+      assert_equal None
+        (let _ = logout state_pay_state in
+         current_account state_pay_state) );
+    ( "add then remove friend" >:: fun _ ->
+      assert_equal 0
+        (List.length
+           (let _ = login_system state_pay_state "state2" "state" in
+            let _ = add_friend_state state_pay_state "state3" in
+            let _ = remove_friend_state state_pay_state "state3" in
+            friend_list unchanged_acc))
+        ~printer:string_of_int );
   ]
 
 let state_request_tests = []
@@ -295,18 +335,18 @@ let transaction_tests =
   ]
 
 let state_to_file_tests =
-  [ ("test_state to file" >:: fun _ -> assert_equal () (to_file test_state)) ]
+  [ ("init_state to file" >:: fun _ -> assert_equal () (to_file init_state)) ]
 
 let suite =
   "test suite for final project"
   >::: List.flatten
          [
+           acc_tests;
            invalid_currency_tests;
            invalid_amount_tests;
            balance_tests;
            deposit_amount_tests;
            withdraw_amount_tests;
-           state_account_tests;
            state_pay_tests;
            state_request_tests;
            state_to_file_tests;
