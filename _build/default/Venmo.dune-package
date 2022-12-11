@@ -1,0 +1,55 @@
+(lang dune 3.4)
+(name Venmo)
+(sections (lib .) (libexec .) (doc ../../doc/Venmo))
+(files
+ (lib
+  (META
+   account.ml
+   account.mli
+   dune-package
+   opam
+   state.ml
+   state.mli
+   venmo.a
+   venmo.cma
+   venmo.cmi
+   venmo.cmt
+   venmo.cmx
+   venmo.cmxa
+   venmo.ml
+   venmo__Account.cmi
+   venmo__Account.cmt
+   venmo__Account.cmti
+   venmo__Account.cmx
+   venmo__State.cmi
+   venmo__State.cmt
+   venmo__State.cmti
+   venmo__State.cmx))
+ (libexec (venmo.cmxs))
+ (doc (README.md)))
+(library
+ (name Venmo)
+ (kind normal)
+ (archives (byte venmo.cma) (native venmo.cmxa))
+ (plugins (byte venmo.cma) (native venmo.cmxs))
+ (native_archives venmo.a)
+ (requires yojson ANSITerminal)
+ (main_module_name Venmo)
+ (modes byte native)
+ (modules
+  (wrapped
+   (main_module_name Venmo)
+   (modules
+    ((name Account)
+     (obj_name venmo__Account)
+     (visibility public)
+     (impl)
+     (intf))
+    ((name State) (obj_name venmo__State) (visibility public) (impl) (intf)))
+   (alias_module
+    (name Venmo)
+    (obj_name venmo)
+    (visibility public)
+    (kind alias)
+    (impl))
+   (wrapped true))))

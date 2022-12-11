@@ -1,0 +1,6 @@
+description = ""
+requires = "ANSITerminal yojson"
+archive(byte) = "venmo.cma"
+archive(native) = "venmo.cmxa"
+plugin(byte) = "venmo.cma"
+plugin(native) = "venmo.cmxs"
