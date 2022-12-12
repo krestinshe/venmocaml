@@ -6,5 +6,8 @@
   "history": [
     "Deposited 3110.00 CML"
   ],
-  "notification inbox": []
+  "active": "true",
+  "notification inbox": [],
+  "friend list": [],
+  "message inbox": []
 }

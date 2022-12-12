@@ -5,17 +5,10 @@ open State
 let data_dir_prefix = "data" ^ Filename.dir_sep
 let running_id = ref 0
 
-(* let check_esc = match read_line () with *)
-
-(** [instruction] prints a menu of commands users can input to interact with the
-    Venmo system and prompts the user to enter a command.
-
-    As of now, requires user to input a valid command.
-
-    Eventual goal: create src/command.ml and Command.parse_command to parse the
-    commands *)
+(** [start_instruction ()] prints a menu of commands users can input to interact
+    with the Venmo system and prompts the user to enter a command.*)
 let start_instruction () =
-  print_endline "Enter a command:";
+  print_endline "\nEnter a command:";
   print_endline "Create a new account [create]";
   print_endline "Log into an account [log in]";
   print_endline "End session [end]";
@@ -23,7 +16,7 @@ let start_instruction () =
   read_line ()
 
 let transaction_instruction () =
-  print_endline "Enter a command:";
+  print_endline "\nEnter a command:";
   print_endline "View balance [balance]";
   print_endline "View transaction history [hist]";
   print_endline "Make a deposit [deposit]";
@@ -39,7 +32,7 @@ let transaction_instruction () =
   read_line ()
 
 let full_instruction () =
-  print_endline "Enter a command:";
+  print_endline "\nEnter a command:";
   print_endline "Create a new account [create]";
   print_endline "Log into an account [log in]";
   print_endline "Logout of an account [log out]";
@@ -86,7 +79,9 @@ let rec acc_menu (st : State.t) : unit =
   | "end" ->
       print_endline "🐫 Goodbye! 🐫";
       exit 0
-  | invalid_command -> raise (InvalidCommand invalid_command)
+  | invalid_command ->
+      print_endline "Invalid command!";
+      acc_menu st
 
 and transaction_menu (st : State.t) : unit =
   match String.trim (transaction_instruction ()) with
@@ -103,7 +98,9 @@ and transaction_menu (st : State.t) : unit =
   | "end" ->
       print_endline "🐫 Goodbye! 🐫";
       exit 0
-  | invalid_command -> raise (InvalidCommand invalid_command)
+  | invalid_command ->
+      print_endline "Invalid command!";
+      acc_menu st
 
 and full_menu (st : State.t) : unit =
   match String.trim (full_instruction ()) with
@@ -117,8 +114,36 @@ and full_menu (st : State.t) : unit =
   | "log out" -> logout st
   | "end" ->
       print_endline "🐫 Goodbye! 🐫";
+      to_file st;
       exit 0
-  | invalid_command -> raise (InvalidCommand invalid_command)
+  | invalid_command ->
+      print_endline "Invalid command!";
+      acc_menu st
+
+and set_password (st : State.t) =
+  print_endline
+    "\n\
+     Set a password \n\
+     (Must have no spaces, contain at least 8 characters, and include at least \
+     1 capital letter, 1 lower case letter, 1 number, and 1 special character \
+     of !, @,\
+    \ #, &, or *):";
+  print_string "> ";
+  let pw = read_line () in
+  if go_menu pw then acc_menu st;
+  (try verify_password pw
+   with InvalidPassword ->
+     print_endline "\nYour password does not meet the security requirements!";
+     ignore (set_password st));
+  print_endline "\nConfirm password: ";
+  print_string "> ";
+  let pw' = read_line () in
+  if go_menu pw' then acc_menu st;
+  (try confirm_password pw pw'
+   with PasswordMismatch ->
+     print_endline "\nYour passwords do not match!";
+     ignore (set_password st));
+  pw
 
 and create (st : State.t) =
   print_endline "To return to menu, type [go menu]";
@@ -154,21 +179,9 @@ and create (st : State.t) =
       let un = read_line () in
       if go_menu un then acc_menu st;
       check_username st un;
-      print_endline
-        "Set a password \n\
-         (Must have no spaces, contain at least 8 characters, and include at \
-         least 1 capital letter, 1 lower case letter, 1 number, and 1 special \
-         character of !, @,\
-        \ #, &, or *):";
-      print_string "> ";
-      let pw = read_line () in
-      if go_menu pw then acc_menu st;
-      verify_password pw;
-      print_endline "Confirm password";
-      print_string "> ";
-      let pw' = read_line () in
-      if go_menu pw' then acc_menu st;
-      confirm_password pw pw';
+
+      let pw = set_password st in
+
       print_endline "Select a currency (USD, EUR, KRW, RMB, CAD, CML):";
       print_string ">";
       let home_curr = read_line () in
@@ -178,7 +191,7 @@ and create (st : State.t) =
       let init_deposit = read_line () in
       if go_menu init_deposit then acc_menu st;
       if init_deposit = "yes" then begin
-        print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
+        print_endline "Enter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
         print_string "> ";
         let init_bal = read_line () in
         if go_menu init_bal then acc_menu st;
@@ -193,7 +206,6 @@ and create (st : State.t) =
         full_menu st
       end
       else
-        (* create a security question *)
         let acc = Account.create !running_id un pw home_curr in
         incr running_id;
         print_endline "Account successfully created!";
@@ -201,13 +213,13 @@ and create (st : State.t) =
         add_account st acc;
         full_menu st
   | _ ->
-      print_endline "Please enter a valid command [file/manual/back]:";
-      print_string "> "
+      print_endline "Invalid command!";
+      create st
 
 and balance st =
   print_string "Current balance: ";
   match current_account st with
-  | None -> raise (InvalidCommand "Not logged in")
+  | None -> not_logged_in st
   | Some acc ->
       print_string (Account.balance acc);
       print_newline ();
@@ -216,10 +228,10 @@ and balance st =
 
 and deposit st =
   match current_account st with
-  | None -> raise (InvalidCommand "Not logged in")
+  | None -> not_logged_in st
   | Some acc ->
       print_endline "To return to menu, type [go menu]";
-      print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
+      print_endline "Enter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
       print_string "> ";
       let amt = read_line () in
       if go_menu amt then acc_menu st;
@@ -234,7 +246,7 @@ and deposit st =
       transaction_menu st
 
 and init_deposit st un : unit =
-  print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
+  print_endline "Enter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
   print_string "> ";
   let amt = read_line () in
   if go_menu amt then acc_menu st;
@@ -263,17 +275,16 @@ and logout st =
   print_newline ();
   acc_menu st
 
-(*next ()*)
 and display_hist st =
   match current_account st with
-  | None -> raise (InvalidCommand "Not logged in")
+  | None -> not_logged_in st
   | Some acc ->
       print_endline (display_history (current (current_account st)));
       transaction_menu st
 
 and friend_list_acc st =
   match current_account st with
-  | None -> raise (InvalidCommand "Not logged in")
+  | None -> not_logged_in st
   | Some acc ->
       print_endline (display_friends (current (current_account st)));
       print_newline ();
@@ -315,13 +326,13 @@ and friend_list_acc st =
 
 and pay st =
   match current_account st with
-  | None -> raise (InvalidCommand "Not logged in")
+  | None -> not_logged_in st
   | Some acc ->
       print_endline "To return to menu, type [go menu]";
       print_endline "Enter the username of the user that you want to pay money";
       print_string "> ";
       let payee = read_line () in
-      print_endline "Enter paying amount of USD, EUR, KRW, RMB, CAD, CML:";
+      print_endline "\nEnter a paying amount in USD, EUR, KRW, RMB, CAD, CML:";
       print_string "> ";
       let amt = read_line () in
       if go_menu amt then acc_menu st;
@@ -339,14 +350,14 @@ and pay st =
 
 and request st =
   match current_account st with
-  | None -> raise (InvalidCommand "Not logged in")
+  | None -> not_logged_in st
   | Some acc ->
       print_endline "To return to menu, type [go menu]";
       print_endline
-        "Enter the username of the user that you want to request money";
+        "\nEnter the username of the user from whom you want to request money";
       print_string "> ";
       let payer = read_line () in
-      print_endline "Enter deposit amount of USD, EUR, KRW, RMB, CAD, CML:";
+      print_endline "\nEnter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
       print_string "> ";
       let amt = read_line () in
       if go_menu amt then acc_menu st;
@@ -356,15 +367,16 @@ and request st =
 
 and notification_inbox st =
   match current_account st with
-  | None -> raise (InvalidCommand "Not logged in")
+  | None -> not_logged_in st
   | Some acc ->
       print_endline
-        "Select the command to access the notification inbox [display/go over]";
+        "\n\
+         Select the command to access the notification inbox [display/go over]";
       print_string "> ";
       let command = read_line () in
       if command = "display" then begin
         print_endline (display_notif acc);
-        print_endline "Would you like to clear you inbox? [yes/no]";
+        print_endline "\nWould you like to clear you inbox? [yes/no]";
         print_string "> ";
         let answer = read_line () in
         if answer = "yes" then begin
@@ -372,7 +384,7 @@ and notification_inbox st =
           transaction_menu st
         end
         else if answer = "no" then transaction_menu st
-        else print_endline "invalid answer";
+        else print_endline "Invalid answer!";
         transaction_menu st
       end
       else if command = "go over" then begin
@@ -382,7 +394,8 @@ and notification_inbox st =
           if notif_accepted (List.nth (notif_inbox acc) !i) = false then begin
             print_endline (string_of_notif (List.nth (notif_inbox acc) !i));
             print_newline ();
-            print_endline "Will you accept the payment/friend request? [yes/no]";
+            print_endline
+              "\nWould you like to accept the payment/friend request? [yes/no]";
             print_string ">";
             let answer = read_line () in
             let notif = List.nth (notif_inbox acc) !i in
@@ -425,7 +438,8 @@ and notification_inbox st =
               end
             else if answer = "no" then begin
               print_endline
-                "You can accpet the request later unless you clear the inbox.";
+                "You will be able to accept the request later unless you clear \
+                 your inbox.";
               if notif_type notif then begin
                 new_inbox :=
                   make_notif (notif_payer notif) (notif_payee notif)
@@ -439,7 +453,8 @@ and notification_inbox st =
                 i := !i + 1
               end
             end
-            else raise (InvalidCommand "Command nonexist")
+            else print_endline "Invalid command!";
+            notification_inbox st
           end
           else begin
             new_inbox := List.nth (notif_inbox acc) !i :: !new_inbox;
@@ -449,23 +464,24 @@ and notification_inbox st =
         acc_new_inbox (current (current_account st)) !new_inbox;
         transaction_menu st
       end
-      else raise (InvalidCommand "Command nonexist")
+      else print_endline "Invalid command!";
+      notification_inbox st
 
 and search_friend st =
   match current_account st with
-  | None -> raise (InvalidCommand "Not logged in")
+  | None -> not_logged_in st
   | Some acc -> (
-      print_endline "Search Friends";
-      print_endline "Type the username";
+      print_endline "\nSearch Friends";
+      print_endline "Type a username: ";
       print_string ">";
       let friend = read_line () in
       match find_account st friend with
       | exception Failure s ->
-          print_endline "username doesn't exist";
+          print_endline "User doesn't exist!";
           transaction_menu st
       | acc_friend ->
           print_endline
-            "Would you want to send a follow request to this user? [yes/no]";
+            "\nWould you like to send a follow request to this user? [yes/no]";
           print_string ">";
 
           let answer = read_line () in
@@ -488,39 +504,41 @@ and search_friend st =
 
 and message st =
   match current_account st with
-  | None -> raise (InvalidCommand "Not logged in")
+  | None -> not_logged_in st
   | Some acc ->
       print_newline ();
-      print_endline "Welcome to your message inbox";
-      print_endline "You can view your inbox or send a message -> [view/send]";
+      print_endline "\nWelcome to your message inbox";
+      print_endline
+        "Would you like to view your inbox or send a message? [view/send]";
       print_string ">";
       let answer = read_line () in
       if answer = "view" then begin
         print_endline (display_message acc);
         print_newline ();
-        print_endline "Would you like to clear your message inbox? [yes/no]";
+        print_endline "\nWould you like to clear your message inbox? [yes/no]";
         let clear = read_line () in
         if clear = "yes" then begin
           message_clear acc;
           transaction_menu st
         end
         else if clear = "no" then transaction_menu st
-        else print_endline "Invalid Command";
+        else print_endline "Invalid command!";
         transaction_menu st;
         transaction_menu st
       end
       else if answer = "send" then begin
         print_newline ();
-        print_endline "Type the user's username that you want to send a message";
+        print_endline
+          "\nType the user's username that you want to send a message";
         print_string ">";
         let user = read_line () in
         match find_account st user with
         | exception Failure s ->
-            print_endline "username doesn't exist";
+            print_endline "User doesn't exist!";
             transaction_menu st
         | acc_friend ->
             print_newline ();
-            print_endline "Type a message that you want to send";
+            print_endline "\nType a message that you want to send";
             let mess = read_line () in
             add_message (find_account st user) (username acc ^ ": " ^ mess);
             transaction_menu st
@@ -530,12 +548,22 @@ and message st =
         transaction_menu st
       end
 
+and not_logged_in st =
+  print_endline "Not logged in!";
+  acc_menu st
+
 (** [main ()] prompts for the game to play, then starts it. *)
 let main () =
   print_newline ();
-  let _ = print_endline "🐫 Welcome to the VenmOCaml demo! 🐫" in
-  let curr_st = ref Venmo.State.init_state in
-  acc_menu !curr_st;
+  let _ =
+    print_endline "🐫 Welcome to VenmOCaml! 🐫";
+    print_endline
+      "Follow the instructions below. To return to the menu at any time, type \
+       [go menu]."
+  in
+  let init_state, last_id = from_file () in
+  acc_menu init_state;
+  running_id := !running_id + last_id + 1;
   print_endline ""
 
 (* Execute the game engine. *)

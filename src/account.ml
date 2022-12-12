@@ -357,7 +357,6 @@ let string_of_notif notif =
       ^ if accept then " accepted" else " not accepted"
   | _ -> raise (Failure "invalid transaction for notification")
 
-(*let notif_of_string *)
 let from_json j id =
   let bal =
     if j |> member "balance" = `Null then { number = 0.00; currency = USD }

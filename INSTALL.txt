@@ -1,8 +1,10 @@
 # Installation instructions
 1. Unzip venmocaml.zip
 2. Open venmocaml in Visual Studio Code
-2.5 Install yojson and ANSITerminal and other libraries included in the textbook 
-    installation instructions, if not already installed
+2.5 Follow the OCaml and package installation instructions below: 
+    https://cs3110.github.io/textbook/chapters/preface/install.html
+    This will ensure that you have libraries that we use, such as yojson and 
+    ANSITerminal.
 3. Run "dune build" in the terminal
 4. Run "make start" in terminal
 5. Follow the prompts in the terminal to interact with the VenmOCaml system

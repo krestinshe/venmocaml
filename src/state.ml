@@ -1,4 +1,5 @@
 open Account
+open Yojson.Basic.Util
 
 exception InvalidUsername of string
 exception IncorrectPassword
@@ -143,7 +144,7 @@ let to_json st : Yojson.Basic.t =
       ( "current account",
         `String
           (match current_account st with
-          | None -> "none"
+          | None -> ""
           | Some acc -> username acc) );
       ("accounts", `List Array.(to_list (map Account.to_json (accounts st))));
       ( "transactions",
@@ -158,6 +159,29 @@ let to_file st =
   let oc = open_out file in
   Yojson.Basic.to_channel oc (to_json st);
   close_out oc
+
+let running_id = ref 0
+
+let from_file () =
+  let j = Yojson.Basic.from_file "data/data.json" in
+  let accounts =
+    j |> member "accounts" |> to_list |> Array.of_list
+    |> Array.map (fun j ->
+           let acc = from_json j !running_id in
+           incr running_id;
+           acc)
+  in
+  ( {
+      current_account =
+        (match j |> member "current account" |> to_string with
+        | "" -> None
+        | un -> Some accounts.(array_find accounts (fun a -> username a = un) 0));
+      accounts;
+      transactions =
+        j |> member "transactions" |> to_list |> List.map to_string
+        |> List.map transaction_of_string;
+    },
+    !running_id )
 
 let execute_transaction st t =
   (match t with

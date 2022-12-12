@@ -3,5 +3,8 @@
   "password": "encrypted",
   "home currency": "USD",
   "history": [],
-  "notification inbox": []
+  "active": "true",
+  "notification inbox": [],
+  "friend list": [],
+  "message inbox": []
 }

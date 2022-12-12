@@ -47,33 +47,42 @@ val delete_account : t -> int -> unit
     [st] and returns [()]. *)
 
 val make_deposit : t -> string -> string -> unit
-(** [make_dposit st un p] increases the balance of the account with username
-    [un] by [p]*)
+(** [make_deposit st un p] increases the balance of the account with username
+    [un] by [p]. *)
 
 val make_payment : t -> string -> string -> string -> unit
-(**[make_payment st
-  paying_acc_un paid_acc_un p] adds [p] to the balance of
-   account with the username [paid_acc_un] and removes [p] from the balance of the
-   account identified with username [paying_acc_un]*)
+(**[make_payment st paying_acc_un paid_acc_un p] adds [p] to the balance of
+   account with the username [paid_acc_un] and removes [p] from the balance of
+   the account identified with username [paying_acc_un].
+
+   **TODO**: What happens if you don't have enough money? *)
 
 val login_system : t -> string -> string -> unit
-(** [login_system st un pass] changes current account of the state if the
-    username and password input matches one of the accounts in the state*)
+(** [login_system st un pass] changes current account of [st] if the username
+    [un] and password [pass] match one of the accounts [st]. *)
 
 val logout : t -> unit
-(** [logout st] removes the current account of the state*)
+(** [logout st] removes the current account from [st]. *)
 
 val to_file : t -> unit
 (** [to_file st] converts the state [st] to a JSON object and stores it in
     "data/data.json". *)
+
+val from_file : unit -> t * int
+(** [from_file ()] reads "data/data.json" into a state, and returns a pair
+    containing that state and the unique ID of the last created account in the
+    state. *)
+
 val add_notif_inbox : t -> string -> Account.notification -> unit
-(** [add_notif_inbox st payer notif] adds the notification to the payer's notification inbox*)
+(** [add_notif_inbox st payer notif] adds the notification to the payer's
+    notification inbox*)
 
 val find_account : t -> string -> Account.t
-(** [find_account t str] finds account from its username in state t*)
+(** [find_account st str] finds account from its username in [st]. *)
 
-val current : 'a option -> 'a
-(** [current some] returns the original value of 'a option*)
+val current : Account.t option -> Account.t
+(** [current acc] returns the value contained in [acc] if [acc] is [Some], and
+    raises an exception otherwise. *)
 
 val add_friend_state : t -> string -> unit
 (** [add_friend_state t friend] adds friend to t's friend list *)
