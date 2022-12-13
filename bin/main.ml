@@ -142,10 +142,16 @@ and set_password (st : State.t) =
   | PasswordMismatch ->
       print_endline "\nYour passwords do not match!";
       set_password st
+  | _ ->
+      print_endline "Error!";
+      set_password st
 
 and set_init_bal st =
   try
-    print_endline "\nEnter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
+    print_endline
+      "\n\
+       Enter a deposit amount in USD, EUR, KRW, RMB, CAD, CML (e.g., 10 USD, \
+       31.10 CML):";
     print_string "> ";
     let init_bal = read_line () in
     if go_menu init_bal then acc_menu st;
@@ -162,115 +168,149 @@ and set_init_bal st =
       set_init_bal st
 
 and set_home_curr st =
-  print_endline "\nSelect a currency (USD, EUR, KRW, RMB, CAD, CML):";
-  print_string ">";
+  print_endline "\nSelect a home currency (USD, EUR, KRW, RMB, CAD, CML):";
+  print_string "> ";
   let home_curr = read_line () in
   if go_menu home_curr then acc_menu st;
   try
     match String.uppercase_ascii home_curr with
     | "USD" | "EUR" | "KRW" | "RMB" | "CAD" | "CML" -> home_curr
     | _ -> raise (InvalidCurrency home_curr)
-  with InvalidCurrency s ->
-    print_endline (s ^ "is an invalid currency!");
-    set_home_curr st
+  with
+  | InvalidCurrency s ->
+      print_endline (s ^ "is an invalid currency!");
+      set_home_curr st
+  | _ ->
+      print_endline "Error!";
+      set_home_curr st
 
 and create (st : State.t) =
-  print_endline "To return to menu, type [go menu]";
-  print_endline
-    "Would you like to create an account from a file or manually? [file/manual]";
-  print_string "> ";
-  let line = read_line () in
-  match line with
-  | "go menu" -> acc_menu st
-  | exception End_of_file -> ()
-  | "file" -> (
-      print_endline "Enter a file name:";
-      print_string "> ";
-      let line = read_line () in
-      match line with
-      | "go menu" -> acc_menu st
-      | exception End_of_file -> ()
-      | file_name ->
-          (let acc =
-             Venmo.Account.from_json
-               (Yojson.Basic.from_file (data_dir_prefix ^ file_name ^ ".json"))
-               !running_id
-           in
-           incr running_id;
-           check_username st (username acc);
-           print_endline "Account successfully created!";
-           print_endline (display acc);
-           add_account st acc);
-          acc_menu st)
-  | "manual" ->
-      print_endline "Choose a username:";
-      print_string "> ";
-      let un = read_line () in
-      if go_menu un then acc_menu st;
-      check_username st un;
+  try
+    print_endline "To return to menu, type [go menu]";
+    print_endline
+      "Would you like to create an account from a file or manually? \
+       [file/manual]";
+    print_string "> ";
+    let line = read_line () in
+    match line with
+    | "go menu" -> acc_menu st
+    | exception End_of_file -> ()
+    | "file" -> (
+        print_endline "Enter a file name:";
+        print_string "> ";
+        let line = read_line () in
+        match line with
+        | "go menu" -> acc_menu st
+        | exception End_of_file -> ()
+        | file_name ->
+            (let acc =
+               Venmo.Account.from_json
+                 (Yojson.Basic.from_file
+                    (data_dir_prefix ^ file_name ^ ".json"))
+                 !running_id
+             in
+             incr running_id;
+             check_username st (username acc);
+             print_endline "Account successfully created!";
+             print_endline (display acc);
+             add_account st acc);
+            acc_menu st)
+    | "manual" ->
+        print_endline "Choose a username:";
+        print_string "> ";
+        let un = read_line () in
+        if go_menu un then acc_menu st;
+        check_username st un;
 
-      let pw = set_password st in
+        let pw = set_password st in
 
-      let home_curr = set_home_curr st in
+        let home_curr = set_home_curr st in
 
-      print_endline "\nWould you like to make an initial deposit? [yes/no]";
-      print_string "> ";
-      let init_deposit = read_line () in
-      if go_menu init_deposit then acc_menu st;
-      if init_deposit = "yes" then begin
-        let init_bal = set_init_bal st in
-        let acc =
-          Account.create !running_id un pw ~balance:init_bal home_curr
-        in
-        incr running_id;
-        print_endline "Account successfully created!";
-        print_endline (display acc);
-        add_account st acc;
-        add_transaction acc (deposit_transaction acc init_bal);
-        acc_menu st
-      end
-      else
-        let acc = Account.create !running_id un pw home_curr in
-        incr running_id;
-        print_endline "Account successfully created!";
-        print_endline (display acc);
-        add_account st acc;
-        acc_menu st
-  | _ ->
-      print_endline "Invalid command!";
+        print_endline "\nWould you like to make an initial deposit? [yes/no]";
+        print_string "> ";
+        let init_deposit = read_line () in
+        if go_menu init_deposit then acc_menu st;
+        if init_deposit = "yes" then begin
+          let init_bal = set_init_bal st in
+          let acc =
+            Account.create !running_id un pw ~balance:init_bal home_curr
+          in
+          incr running_id;
+          print_endline "Account successfully created!";
+          print_endline (display acc);
+          add_account st acc;
+          add_transaction acc (deposit_transaction acc init_bal);
+          acc_menu st
+        end
+        else
+          let acc = Account.create !running_id un pw home_curr in
+          incr running_id;
+          print_endline "Account successfully created!";
+          print_endline (display acc);
+          add_account st acc;
+          acc_menu st
+    | _ ->
+        print_endline "Invalid command!";
+        create st
+  with
+  | InvalidAmount s ->
+      print_endline (s ^ " is an invalid amount!");
+      create st
+  | InvalidCurrency s ->
+      print_endline (s ^ " is an invalid currency!");
       create st
 
 and balance st =
-  print_string "Current balance: ";
-  match current_account st with
-  | None -> not_logged_in st
-  | Some acc ->
-      print_string (Account.balance acc);
-      print_newline ();
-      print_newline ();
-      transaction_menu st
+  try
+    print_string "Current balance: ";
+    match current_account st with
+    | None -> not_logged_in st
+    | Some acc ->
+        print_string (Account.balance acc);
+        print_newline ();
+        print_newline ();
+        transaction_menu st
+  with _ ->
+    print_endline "Error!";
+    balance st
 
 and deposit st =
-  match current_account st with
-  | None -> not_logged_in st
-  | Some acc ->
-      print_endline "\nTo return to menu, type [go menu]";
-      print_endline "Enter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
-      print_string "> ";
-      let amt = read_line () in
-      if go_menu amt then transaction_menu st;
-      make_deposit st (username acc) amt;
-      add_transaction
-        (current (current_account st))
-        (deposit_transaction acc amt);
-      print_endline ("Amount " ^ amt ^ " has been deposited");
-      print_newline ();
-      balance st;
-      print_newline ();
-      transaction_menu st
+  try
+    match current_account st with
+    | None -> not_logged_in st
+    | Some acc ->
+        print_endline "\nTo return to menu, type [go menu]";
+        print_endline
+          "Enter a deposit amount in USD, EUR, KRW, RMB, CAD, CML (e.g., 10 \
+           USD, 31.10 CML):";
+        print_string "> ";
+        let amt = read_line () in
+        if go_menu amt then transaction_menu st;
+        make_deposit st (username acc) amt;
+        add_transaction
+          (current (current_account st))
+          (deposit_transaction acc amt);
+        print_endline ("Amount " ^ amt ^ " has been deposited");
+        print_newline ();
+        balance st;
+        print_newline ();
+        transaction_menu st
+  with
+  | InvalidAmount s ->
+      print_endline (s ^ "is an invalid amount!");
+      deposit st
+  | InvalidCurrency s ->
+      print_endline (s ^ "is an invalid currency!");
+      deposit st
+  | _ ->
+      print_endline "Error!";
+      deposit st
 
 and init_deposit st un : unit =
-  print_endline "\nEnter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
+  print_endline
+    "\n\
+     Enter a deposit amount in USD, EUR, KRW, RMB, CAD, CML (e.g., 10 USD, \
+     31.10 CML):";
   print_string "> ";
   let amt = read_line () in
   if go_menu amt then acc_menu st;
@@ -299,6 +339,9 @@ and login st =
       login st
   | Failure _ ->
       print_endline "Account does not exist!";
+      login st
+  | _ ->
+      print_endline "Error!";
       login st
 
 and logout st =
@@ -370,7 +413,10 @@ and pay st =
         print_string "> ";
         let payee = read_line () in
         if go_menu payee then transaction_menu st;
-        print_endline "\nEnter a paying amount in USD, EUR, KRW, RMB, CAD, CML:";
+        print_endline
+          "\n\
+           Enter a paying amount in USD, EUR, KRW, RMB, CAD, CML (e.g., 10 \
+           USD, 31.10 CML):";
         print_string "> ";
         let amt = read_line () in
         if go_menu amt then transaction_menu st;
@@ -386,7 +432,7 @@ and pay st =
         print_newline ();
         transaction_menu st
   with
-  | InvalidAmount _ ->
+  | InvalidAmount _ | InvalidCurrency _ ->
       print_endline "Invalid amount!";
       pay st
   | Failure _ ->
@@ -406,7 +452,10 @@ and request st =
           "Enter the username of the user from whom you want to request money: ";
         print_string "> ";
         let payer = read_line () in
-        print_endline "\nEnter an amount in USD, EUR, KRW, RMB, CAD, CML:";
+        print_endline
+          "\n\
+           Enter an amount in USD, EUR, KRW, RMB, CAD, CML (e.g., 10 USD, \
+           31.10 CML):";
         print_string "> ";
         let amt = read_line () in
         if go_menu amt then acc_menu st;
@@ -453,8 +502,9 @@ and notification_inbox st =
           if notif_accepted (List.nth (notif_inbox acc) !i) = false then begin
             print_endline (string_of_notif (List.nth (notif_inbox acc) !i));
             print_newline ();
-            print_endline "Will you accept the payment/friend request? [yes/no]";
-            print_string ">";
+            print_endline
+              "\nWould you like to accept the payment/friend request? [yes/no]";
+            print_string "> ";
             let answer = read_line () in
             let notif = List.nth (notif_inbox acc) !i in
             if answer = "yes" then
@@ -496,7 +546,7 @@ and notification_inbox st =
               end
             else if answer = "no" then begin
               print_endline
-                "You can accpet the request later unless you clear the inbox.";
+                "You can accept the request later unless you clear the inbox.";
               if notif_type notif then begin
                 new_inbox :=
                   make_notif (notif_payer notif) (notif_payee notif)
@@ -511,7 +561,7 @@ and notification_inbox st =
               end
             end
             else begin
-              print_endline "Invlid Command";
+              print_endline "Invalid Command";
               transaction_menu st
             end
           end
@@ -523,7 +573,7 @@ and notification_inbox st =
         acc_new_inbox (current (current_account st)) !new_inbox;
         transaction_menu st
       end
-      else print_endline "Invlid Command";
+      else print_endline "Invalid Command";
       transaction_menu st
 
 and search_friend st =
@@ -532,7 +582,7 @@ and search_friend st =
   | Some acc -> (
       print_endline "\nSearch Friends";
       print_endline "Type a username: ";
-      print_string ">";
+      print_string "> ";
       let friend = read_line () in
       match find_account st friend with
       | exception Failure s ->
@@ -541,7 +591,7 @@ and search_friend st =
       | acc_friend ->
           print_endline
             "\nWould you like to send a follow request to this user? [yes/no]";
-          print_string ">";
+          print_string "> ";
 
           let answer = read_line () in
           if answer = "yes" then begin
@@ -558,7 +608,7 @@ and search_friend st =
             transaction_menu st
           end
           else if answer = "no" then transaction_menu st
-          else print_endline "Invalid command";
+          else print_endline "Invalid command!";
           transaction_menu st)
 
 and message st =
@@ -569,12 +619,13 @@ and message st =
       print_endline "\nWelcome to your message inbox!";
       print_endline
         "\nWould you like to view your inbox or send a message? [view/send]";
-      print_string ">";
+      print_string "> ";
       let answer = read_line () in
       if answer = "view" then begin
         print_endline (display_message acc);
         print_newline ();
         print_endline "\nWould you like to clear your message inbox? [yes/no]";
+        print_string "> ";
         let clear = read_line () in
         if clear = "yes" then begin
           message_clear acc;
@@ -587,9 +638,8 @@ and message st =
       else if answer = "send" then begin
         print_newline ();
         print_endline
-          "\n\
-           Type the user's username to whom you would like to send a message: ";
-        print_string ">";
+          "\nType the user's username to whom you would like to send a message:";
+        print_string "> ";
         let user = read_line () in
         match find_account st user with
         | exception Failure s ->
@@ -598,13 +648,13 @@ and message st =
         | acc_friend ->
             print_newline ();
             print_endline "\nType a message that you want to send: ";
-            print_string ">";
+            print_string "> ";
             let mess = read_line () in
             add_message (find_account st user) (username acc ^ ": " ^ mess);
             transaction_menu st
       end
       else begin
-        print_endline "Invalid Command";
+        print_endline "Invalid command!";
         transaction_menu st
       end
 
