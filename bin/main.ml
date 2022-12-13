@@ -68,12 +68,6 @@ let verify_password pw =
 let confirm_password pw pw_attempt =
   if pw_attempt = pw then () else raise PasswordMismatch
 
-(** [create st] prompts the user to create an account from a file or by manually
-    enter the username and password. If the username is associated with an
-    existing account, an InvalidUsername exception is thrown. Otherwise, it
-    prompts the user to create the password. It then displays the newly created
-    account and adds it to the existing accounts. *)
-
 let rec acc_menu (st : State.t) : unit =
   match String.trim (start_instruction ()) with
   | "create" -> create st
@@ -149,6 +143,17 @@ and set_password (st : State.t) =
       print_endline "\nYour passwords do not match!";
       set_password st
 
+and set_init_bal st =
+  try
+    print_endline "\nEnter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
+    print_string "> ";
+    let init_bal = read_line () in
+    if go_menu init_bal then acc_menu st;
+    init_bal
+  with InvalidAmount s ->
+    print_endline (s ^ "is an invalid amount!");
+    set_init_bal st
+
 and create (st : State.t) =
   print_endline "To return to menu, type [go menu]";
   print_endline
@@ -190,16 +195,13 @@ and create (st : State.t) =
       print_string ">";
       let home_curr = read_line () in
       if go_menu home_curr then acc_menu st;
+
       print_endline "\nWould you like to make an initial deposit? [yes/no]";
       print_string "> ";
       let init_deposit = read_line () in
       if go_menu init_deposit then acc_menu st;
       if init_deposit = "yes" then begin
-        print_endline
-          "\nEnter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
-        print_string "> ";
-        let init_bal = read_line () in
-        if go_menu init_bal then acc_menu st;
+        let init_bal = set_init_bal st in
         let acc =
           Account.create !running_id un pw ~balance:init_bal home_curr
         in
@@ -403,92 +405,109 @@ and request st =
       request st
 
 and notification_inbox st =
-match current_account st with 
- | None -> not_logged_in st
- | Some acc ->  
-  print_endline 
-  "\n\
-  Would you like to display or go over and respond to your \
-  notifications? [display/go over]";
-  print_string "> ";
-let command = read_line () in
-if command = "display" then begin
-    if command = "display" then 
-      begin 
-    print_endline (display_notif acc);
-    print_endline "\nWould you like to clear your inbox? [yes/no]";
-    print_string "> ";
-    let answer = read_line () in 
-                              if (answer = "yes") then begin 
-                                (notif_clear acc); 
-                               transaction_menu st;
-                              end
-                              else if (answer != "no") then begin 
-                               transaction_menu st;
-                            end
-                              else (print_endline "Invalid answer!");
-                                    transaction_menu st; 
-                            
-                            
-    end      
-  end
-    else if (command = "go over") then
-                          begin 
-       let i = ref 0 in 
-       let new_inbox = ref [] in
-    while (!i < (length_notif acc)) do
-      if ((notif_accepted (List.nth (notif_inbox acc) !i) = false)) then begin
-        print_endline (string_of_notif (List.nth (notif_inbox acc) !i)); 
-        print_newline ();
-        print_endline "Will you accept the payment/friend request? [yes/no]";
-        print_string ">";
-        let answer = read_line () in 
-        let notif = (List.nth (notif_inbox acc) !i) in
-        if (answer = "yes") then begin 
-          if (List.mem (notif_payer notif) (friend_list acc)) then begin print_endline ("You are already following user " ^ (notif_payer notif));
-                                                                                   transaction_menu st end
-        else
-          if (notif_type notif) then begin
-          (State.make_payment st (notif_payer notif) (notif_payee notif) (notif_amount notif));
-          add_transaction (current (current_account st)) (pay_transaction acc (notif_payee notif) (notif_amount notif)); 
-          add_transaction (find_account st (notif_payee notif)) (received_transaction (username acc) (notif_amount notif)); 
-          new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) true ) :: !new_inbox;
-          i := !i +1
-        end 
-    else begin add_friend_state st (notif_payer notif) ;
-                add_friend (find_account st (notif_payer notif)) (username(current (current_account st)) ) ;
-    new_inbox := (make_notif_friend (username (current (current_account st))) true ) :: !new_inbox;
-    add_notif_inbox st (notif_payer notif) (make_notif_friend (username (current (current_account st))) true); 
-          i := !i +1
-  end;
-  end
-
-        else if ( answer = "no") then  begin (print_endline "You can accpet the request later unless you clear the inbox."); 
-        if (notif_type notif) then 
-          begin  new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) false ) :: !new_inbox;
-        i := !i +1; 
-      end
-        else 
-          begin 
-            new_inbox := (make_notif_friend (notif_payer notif)  false) :: !new_inbox ;
-            i := !i +1;
+  match current_account st with
+  | None -> not_logged_in st
+  | Some acc ->
+      print_endline
+        "\n\
+         Would you like to display or go over and respond to your \
+         notifications? [display/go over]";
+      print_string "> ";
+      let command = read_line () in
+      if command = "display" then begin
+        if command = "display" then begin
+          print_endline (display_notif acc);
+          print_endline "\nWould you like to clear your inbox? [yes/no]";
+          print_string "> ";
+          let answer = read_line () in
+          if answer = "yes" then begin
+            notif_clear acc;
+            transaction_menu st
           end
-
-         end
-      else begin print_endline "Invlid Command";
-          transaction_menu st end
-    end 
-  else begin
-    new_inbox := (List.nth (notif_inbox acc) !i) :: !new_inbox;
-    i := !i +1 end
-   
-done;
-acc_new_inbox (current (current_account st)) !new_inbox;
-transaction_menu st
-end
-else print_endline "Invlid Command";
-transaction_menu st 
-
+          else if answer != "no" then transaction_menu st
+          else print_endline "Invalid answer!";
+          transaction_menu st
+        end
+      end
+      else if command = "go over" then begin
+        let i = ref 0 in
+        let new_inbox = ref [] in
+        while !i < length_notif acc do
+          if notif_accepted (List.nth (notif_inbox acc) !i) = false then begin
+            print_endline (string_of_notif (List.nth (notif_inbox acc) !i));
+            print_newline ();
+            print_endline "Will you accept the payment/friend request? [yes/no]";
+            print_string ">";
+            let answer = read_line () in
+            let notif = List.nth (notif_inbox acc) !i in
+            if answer = "yes" then
+              if List.mem (notif_payer notif) (friend_list acc) then begin
+                print_endline
+                  ("You are already following user " ^ notif_payer notif);
+                transaction_menu st
+              end
+              else if notif_type notif then begin
+                State.make_payment st (notif_payer notif) (notif_payee notif)
+                  (notif_amount notif);
+                add_transaction
+                  (current (current_account st))
+                  (pay_transaction acc (notif_payee notif) (notif_amount notif));
+                add_transaction
+                  (find_account st (notif_payee notif))
+                  (received_transaction (username acc) (notif_amount notif));
+                new_inbox :=
+                  make_notif (notif_payer notif) (notif_payee notif)
+                    (notif_amount notif) true
+                  :: !new_inbox;
+                i := !i + 1
+              end
+              else begin
+                add_friend_state st (notif_payer notif);
+                add_friend
+                  (find_account st (notif_payer notif))
+                  (username (current (current_account st)));
+                new_inbox :=
+                  make_notif_friend
+                    (username (current (current_account st)))
+                    true
+                  :: !new_inbox;
+                add_notif_inbox st (notif_payer notif)
+                  (make_notif_friend
+                     (username (current (current_account st)))
+                     true);
+                i := !i + 1
+              end
+            else if answer = "no" then begin
+              print_endline
+                "You can accpet the request later unless you clear the inbox.";
+              if notif_type notif then begin
+                new_inbox :=
+                  make_notif (notif_payer notif) (notif_payee notif)
+                    (notif_amount notif) false
+                  :: !new_inbox;
+                i := !i + 1
+              end
+              else begin
+                new_inbox :=
+                  make_notif_friend (notif_payer notif) false :: !new_inbox;
+                i := !i + 1
+              end
+            end
+            else begin
+              print_endline "Invlid Command";
+              transaction_menu st
+            end
+          end
+          else begin
+            new_inbox := List.nth (notif_inbox acc) !i :: !new_inbox;
+            i := !i + 1
+          end
+        done;
+        acc_new_inbox (current (current_account st)) !new_inbox;
+        transaction_menu st
+      end
+      else print_endline "Invlid Command";
+      transaction_menu st
 
 and search_friend st =
   match current_account st with
