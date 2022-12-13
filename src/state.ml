@@ -128,15 +128,12 @@ let make_payment st paying_acc_un paid_acc_un p =
   st.accounts.(find_un st paying_acc_un) <-
     withdraw st.accounts.(find_un st paying_acc_un) p;
   st.accounts.(find_un st paid_acc_un) <-
-    deposit
-      st.accounts.(find_un st paid_acc_un)
-      p (*; st.current_account <- Some st.accounts.(find_un st paying_acc_un)*)
+    deposit st.accounts.(find_un st paid_acc_un) p;
+  st.current_account <- Some st.accounts.(find_un st paying_acc_un)
 
 let make_deposit st un p =
-  st.accounts.(find_un st un) <-
-    deposit
-      st.accounts.(find_un st un)
-      p (*; st.current_account <- Some st.accounts.(find_un st un)*)
+  st.accounts.(find_un st un) <- deposit st.accounts.(find_un st un) p;
+  st.current_account <- Some st.accounts.(find_un st un)
 
 let to_json st : Yojson.Basic.t =
   `Assoc
@@ -220,6 +217,7 @@ let login_state st un pass = Account.check_password pass (acc st un)
 
 let login_system st un pass =
   if login_state st un pass then st.current_account <- Some (acc st un)
+  else raise IncorrectPassword
 
 let add_notif_inbox st payer notif =
   Account.add_notification st.accounts.(find_un st payer) notif

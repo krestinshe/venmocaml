@@ -15,7 +15,9 @@ let start_instruction () =
   print_string "> ";
   read_line ()
 
-let transaction_instruction () =
+let transaction_instruction st =
+  print_endline
+    ("\nCurrently logged in as " ^ username (current (current_account st)));
   print_endline "\nEnter a command:";
   print_endline "View balance [balance]";
   print_endline "View transaction history [hist]";
@@ -26,7 +28,7 @@ let transaction_instruction () =
   print_endline "Send follow request [search friend]";
   print_endline "Friend activities [friend]";
   print_endline "Receive/send messages [message]";
-  print_endline "Logout of an account [log out]";
+  print_endline "Log out [log out]";
   print_endline "End session [end]";
   print_string "> ";
   read_line ()
@@ -84,7 +86,7 @@ let rec acc_menu (st : State.t) : unit =
       acc_menu st
 
 and transaction_menu (st : State.t) : unit =
-  match String.trim (transaction_instruction ()) with
+  match String.trim (transaction_instruction st) with
   | "balance" -> balance st
   | "hist" -> display_hist st
   | "deposit" -> deposit st
@@ -100,7 +102,7 @@ and transaction_menu (st : State.t) : unit =
       exit 0
   | invalid_command ->
       print_endline "Invalid command!";
-      acc_menu st
+      transaction_menu st
 
 and full_menu (st : State.t) : unit =
   match String.trim (full_instruction ()) with
@@ -121,29 +123,31 @@ and full_menu (st : State.t) : unit =
       acc_menu st
 
 and set_password (st : State.t) =
-  print_endline
-    "\n\
-     Set a password \n\
-     (Must have no spaces, contain at least 8 characters, and include at least \
-     1 capital letter, 1 lower case letter, 1 number, and 1 special character \
-     of !, @,\
-    \ #, &, or *):";
-  print_string "> ";
-  let pw = read_line () in
-  if go_menu pw then acc_menu st;
-  (try verify_password pw
-   with InvalidPassword ->
-     print_endline "\nYour password does not meet the security requirements!";
-     ignore (set_password st));
-  print_endline "\nConfirm password: ";
-  print_string "> ";
-  let pw' = read_line () in
-  if go_menu pw' then acc_menu st;
-  (try confirm_password pw pw'
-   with PasswordMismatch ->
-     print_endline "\nYour passwords do not match!";
-     ignore (set_password st));
-  pw
+  try
+    print_endline
+      "\n\
+       Set a password \n\
+       (Must have no spaces, contain at least 8 characters, and include at \
+       least 1 capital letter, 1 lower case letter, 1 number, and 1 special \
+       character of !, @,\
+      \ #, &, or *):";
+    print_string "> ";
+    let pw = read_line () in
+    if go_menu pw then acc_menu st;
+    verify_password pw;
+    print_endline "\nConfirm password: ";
+    print_string "> ";
+    let pw' = read_line () in
+    if go_menu pw' then acc_menu st;
+    confirm_password pw pw';
+    pw
+  with
+  | InvalidPassword ->
+      print_endline "\nYour password does not meet the security requirements!";
+      set_password st
+  | PasswordMismatch ->
+      print_endline "\nYour passwords do not match!";
+      set_password st
 
 and create (st : State.t) =
   print_endline "To return to menu, type [go menu]";
@@ -172,7 +176,7 @@ and create (st : State.t) =
            print_endline "Account successfully created!";
            print_endline (display acc);
            add_account st acc);
-          full_menu st)
+          acc_menu st)
   | "manual" ->
       print_endline "Choose a username:";
       print_string "> ";
@@ -182,16 +186,17 @@ and create (st : State.t) =
 
       let pw = set_password st in
 
-      print_endline "Select a currency (USD, EUR, KRW, RMB, CAD, CML):";
+      print_endline "\nSelect a currency (USD, EUR, KRW, RMB, CAD, CML):";
       print_string ">";
       let home_curr = read_line () in
       if go_menu home_curr then acc_menu st;
-      print_endline "Would you like to make an initial deposit? [yes/no]";
+      print_endline "\nWould you like to make an initial deposit? [yes/no]";
       print_string "> ";
       let init_deposit = read_line () in
       if go_menu init_deposit then acc_menu st;
       if init_deposit = "yes" then begin
-        print_endline "Enter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
+        print_endline
+          "\nEnter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
         print_string "> ";
         let init_bal = read_line () in
         if go_menu init_bal then acc_menu st;
@@ -203,7 +208,7 @@ and create (st : State.t) =
         print_endline (display acc);
         add_account st acc;
         add_transaction acc (deposit_transaction acc init_bal);
-        full_menu st
+        acc_menu st
       end
       else
         let acc = Account.create !running_id un pw home_curr in
@@ -211,7 +216,7 @@ and create (st : State.t) =
         print_endline "Account successfully created!";
         print_endline (display acc);
         add_account st acc;
-        full_menu st
+        acc_menu st
   | _ ->
       print_endline "Invalid command!";
       create st
@@ -230,11 +235,11 @@ and deposit st =
   match current_account st with
   | None -> not_logged_in st
   | Some acc ->
-      print_endline "To return to menu, type [go menu]";
+      print_endline "\nTo return to menu, type [go menu]";
       print_endline "Enter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
       print_string "> ";
       let amt = read_line () in
-      if go_menu amt then acc_menu st;
+      if go_menu amt then transaction_menu st;
       make_deposit st (username acc) amt;
       add_transaction
         (current (current_account st))
@@ -246,7 +251,7 @@ and deposit st =
       transaction_menu st
 
 and init_deposit st un : unit =
-  print_endline "Enter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
+  print_endline "\nEnter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
   print_string "> ";
   let amt = read_line () in
   if go_menu amt then acc_menu st;
@@ -255,19 +260,27 @@ and init_deposit st un : unit =
   ()
 
 and login st =
-  print_endline "To return to menu, type [go menu]";
-  print_endline "Enter username:";
-  print_string "> ";
-  let un = read_line () in
-  if go_menu un then acc_menu st;
-  print_endline "Enter password:";
-  print_string "> ";
-  let pw = read_line () in
-  if go_menu pw then acc_menu st;
-  login_system st un pw;
-  print_endline ("Successfully logged in! Welcome back " ^ un);
-  print_newline ();
-  transaction_menu st
+  try
+    print_endline "\nTo return to menu, type [go menu]";
+    print_endline "\nEnter username:";
+    print_string "> ";
+    let un = read_line () in
+    if go_menu un then acc_menu st;
+    print_endline "\nEnter password:";
+    print_string "> ";
+    let pw = read_line () in
+    if go_menu pw then acc_menu st;
+    login_system st un pw;
+    print_endline ("Successfully logged in! Welcome back " ^ un);
+    print_newline ();
+    transaction_menu st
+  with
+  | IncorrectPassword ->
+      print_endline "Incorrect password!";
+      login st
+  | Failure _ ->
+      print_endline "Account does not exist!";
+      login st
 
 and logout st =
   State.logout st;
@@ -288,10 +301,13 @@ and friend_list_acc st =
   | Some acc ->
       print_endline (display_friends (current (current_account st)));
       print_newline ();
-      print_endline "remove friend of see friend's activity [remove/activity]";
+      print_endline
+        "\n\
+         Would you like to remove a friend or see your friends' activity? \
+         [remove/activity]";
       let select = read_line () in
       if select = "activity" then begin
-        print_endline "Type the username of your friend";
+        print_endline "\nType the username of your friend";
         let username = read_line () in
         if List.mem username (friend_list acc) = false then begin
           print_endline (username ^ " doesn't exist in your friend list");
@@ -305,7 +321,7 @@ and friend_list_acc st =
         end
       end
       else if select = "remove" then begin
-        print_endline "Type the username of your friend";
+        print_endline "\nType the username of your friend";
         let friend = read_line () in
         if List.mem friend (friend_list acc) = false then begin
           print_endline (friend ^ " doesn't exist in your friend list");
@@ -325,45 +341,66 @@ and friend_list_acc st =
       transaction_menu st
 
 and pay st =
-  match current_account st with
-  | None -> not_logged_in st
-  | Some acc ->
-      print_endline "To return to menu, type [go menu]";
-      print_endline "Enter the username of the user that you want to pay money";
-      print_string "> ";
-      let payee = read_line () in
-      print_endline "\nEnter a paying amount in USD, EUR, KRW, RMB, CAD, CML:";
-      print_string "> ";
-      let amt = read_line () in
-      if go_menu amt then acc_menu st;
-      make_payment st (username acc) payee amt;
-      add_transaction
-        (current (current_account st))
-        (pay_transaction acc payee amt);
-      add_transaction (find_account st payee)
-        (received_transaction (username acc) amt);
-      print_endline ("Amount " ^ amt ^ " has been paid to " ^ payee);
-      print_newline ();
-      balance st;
-      print_newline ();
-      transaction_menu st
+  try
+    match current_account st with
+    | None -> not_logged_in st
+    | Some acc ->
+        print_endline "\nTo return to menu, type [go menu]";
+        print_endline
+          "Enter the username of the user that you want to pay money";
+        print_string "> ";
+        let payee = read_line () in
+        if go_menu payee then transaction_menu st;
+        print_endline "\nEnter a paying amount in USD, EUR, KRW, RMB, CAD, CML:";
+        print_string "> ";
+        let amt = read_line () in
+        if go_menu amt then transaction_menu st;
+        make_payment st (username acc) payee amt;
+        add_transaction
+          (current (current_account st))
+          (pay_transaction acc payee amt);
+        add_transaction (find_account st payee)
+          (received_transaction (username acc) amt);
+        print_endline ("Amount " ^ amt ^ " has been paid to " ^ payee);
+        print_newline ();
+        balance st;
+        print_newline ();
+        transaction_menu st
+  with
+  | InvalidAmount _ ->
+      print_endline "Invalid amount!";
+      pay st
+  | Failure _ ->
+      print_endline "User not found!";
+      pay st
+  | InsufficientBalance ->
+      print_endline "Insufficient balance!";
+      pay st
 
 and request st =
-  match current_account st with
-  | None -> not_logged_in st
-  | Some acc ->
-      print_endline "To return to menu, type [go menu]";
-      print_endline
-        "\nEnter the username of the user from whom you want to request money";
-      print_string "> ";
-      let payer = read_line () in
-      print_endline "\nEnter a deposit amount in USD, EUR, KRW, RMB, CAD, CML:";
-      print_string "> ";
-      let amt = read_line () in
-      if go_menu amt then acc_menu st;
-      add_notif_inbox st payer (make_request acc payer amt);
-      print_endline ("You sent a request to username [" ^ payer ^ "]");
-      transaction_menu st
+  try
+    match current_account st with
+    | None -> not_logged_in st
+    | Some acc ->
+        print_endline "\nTo return to menu, type [go menu]";
+        print_endline
+          "Enter the username of the user from whom you want to request money: ";
+        print_string "> ";
+        let payer = read_line () in
+        print_endline "\nEnter an amount in USD, EUR, KRW, RMB, CAD, CML:";
+        print_string "> ";
+        let amt = read_line () in
+        if go_menu amt then acc_menu st;
+        add_notif_inbox st payer (make_request acc payer amt);
+        print_endline ("You sent a request to username [" ^ payer ^ "]");
+        transaction_menu st
+  with
+  | InvalidAmount _ ->
+      print_endline "Invalid amount!";
+      request st
+  | Failure _ ->
+      print_endline "User not found!";
+      request st
 
 and notification_inbox st =
   match current_account st with
@@ -371,12 +408,13 @@ and notification_inbox st =
   | Some acc ->
       print_endline
         "\n\
-         Select the command to access the notification inbox [display/go over]";
+         Would you like to display or go over and respond to your \
+         notifications? [display/go over]";
       print_string "> ";
       let command = read_line () in
       if command = "display" then begin
         print_endline (display_notif acc);
-        print_endline "\nWould you like to clear you inbox? [yes/no]";
+        print_endline "\nWould you like to clear your inbox? [yes/no]";
         print_string "> ";
         let answer = read_line () in
         if answer = "yes" then begin
@@ -394,15 +432,14 @@ and notification_inbox st =
           if notif_accepted (List.nth (notif_inbox acc) !i) = false then begin
             print_endline (string_of_notif (List.nth (notif_inbox acc) !i));
             print_newline ();
-            print_endline
-              "\nWould you like to accept the payment/friend request? [yes/no]";
+            print_endline "\nWould you like to accept the request? [yes/no]";
             print_string ">";
             let answer = read_line () in
             let notif = List.nth (notif_inbox acc) !i in
             if answer = "yes" then
               if List.mem (notif_payer notif) (friend_list acc) then begin
                 print_endline
-                  ("You are already following user " ^ notif_payer notif);
+                  ("You are already friends with " ^ notif_payer notif);
                 transaction_menu st
               end
               else if notif_type notif then begin
@@ -418,6 +455,7 @@ and notification_inbox st =
                   make_notif (notif_payer notif) (notif_payee notif)
                     (notif_amount notif) true
                   :: !new_inbox;
+                (* new_inbox := List.tl !new_inbox; *)
                 i := !i + 1
               end
               else begin
@@ -430,6 +468,7 @@ and notification_inbox st =
                     (username (current (current_account st)))
                     true
                   :: !new_inbox;
+                (* new_inbox := List.tl !new_inbox; *)
                 add_notif_inbox st (notif_payer notif)
                   (make_notif_friend
                      (username (current (current_account st)))
@@ -456,10 +495,10 @@ and notification_inbox st =
             else print_endline "Invalid command!";
             notification_inbox st
           end
-          else begin
+          else (
             new_inbox := List.nth (notif_inbox acc) !i :: !new_inbox;
-            i := !i + 1
-          end
+            (* new_inbox := List.tl !new_inbox; *)
+            i := !i + 1)
         done;
         acc_new_inbox (current (current_account st)) !new_inbox;
         transaction_menu st
@@ -507,9 +546,9 @@ and message st =
   | None -> not_logged_in st
   | Some acc ->
       print_newline ();
-      print_endline "\nWelcome to your message inbox";
+      print_endline "\nWelcome to your message inbox!";
       print_endline
-        "Would you like to view your inbox or send a message? [view/send]";
+        "\nWould you like to view your inbox or send a message? [view/send]";
       print_string ">";
       let answer = read_line () in
       if answer = "view" then begin
@@ -523,13 +562,13 @@ and message st =
         end
         else if clear = "no" then transaction_menu st
         else print_endline "Invalid command!";
-        transaction_menu st;
         transaction_menu st
       end
       else if answer = "send" then begin
         print_newline ();
         print_endline
-          "\nType the user's username that you want to send a message";
+          "\n\
+           Type the user's username to whom you would like to send a message: ";
         print_string ">";
         let user = read_line () in
         match find_account st user with
@@ -538,7 +577,8 @@ and message st =
             transaction_menu st
         | acc_friend ->
             print_newline ();
-            print_endline "\nType a message that you want to send";
+            print_endline "\nType a message that you want to send: ";
+            print_string ">";
             let mess = read_line () in
             add_message (find_account st user) (username acc ^ ": " ^ mess);
             transaction_menu st

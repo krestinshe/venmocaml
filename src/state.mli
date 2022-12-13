@@ -28,7 +28,7 @@ val check_username : t -> string -> unit
 
 val current_account : t -> Account.t option
 (** [current_account st] is the account that the user is currently logged into
-    in state [st]. *)
+    in state [st], or [None] if the user is not logged into any account. *)
 
 val accounts : t -> Account.t array
 (** [accounts st] is a set-like array of the accounts that have been created in

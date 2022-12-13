@@ -31,8 +31,6 @@ type transaction =
       accepted : bool;
     }
   | Deposit of {
-      (* could also model this as a payment to oneself instead of defining a new
-         constructor *)
       account : string;
       amount : string;
     }
@@ -77,9 +75,8 @@ type t = {
 exception InvalidAmount of string
 exception InvalidCurrency of string
 exception InvalidTransaction
-exception InvalidDeposit of string
-exception InvalidWithdrawal of string
 exception InvalidConversion
+exception InsufficientBalance
 
 (** [currency_of_string s] converts [s] to a [currency], and raises
     [InvalidCurrency s] if [s] is not the name of a constructor of [currency].
@@ -245,13 +242,13 @@ let string_of_transaction (t : transaction) : string =
     following words (and no more), separated by spaces, in the following order:
 
     - a word describing the transaction type (one of "Deposited", "Withdrew",
-      "Paid", or "Requested")
+      "Paid", "Requested", or "Received")
     - 2 words representing a valid amount
     - and 0 or 2 words representing the other party in a transaction:
     - ... if the first word was "Paid", then the word "to" followed by a valid
       username representing the payee
-    - ... if the first word was "Requested", then the word "from" followed by a
-      valid username representing the payer (requestee)
+    - ... if the first word was "Requested" or "Received", then the word "from"
+      followed by a valid username representing the payer (requestee)
     - ... if the first word was "Deposited" or "Withdrew", then 0 words
 
     Raises: [InvalidTransaction] if [s] does not represent a valid transaction.
@@ -325,7 +322,7 @@ let transaction_of_string (s : string) (un : string) : transaction =
 let notif_of_string str =
   let split = String.split_on_char ' ' (String.trim str) in
   match split with
-  | friend :: req :: "following:" :: status :: not :: tail ->
+  | friend :: req :: "following-" :: status :: not :: tail ->
       FriendRequest (friend, if not = "accepted" then true else false)
   | []
   | [ _ ]
@@ -353,7 +350,7 @@ let string_of_notif notif =
       payee ^ " requested " ^ payer ^ " " ^ amount ^ " and transaction"
       ^ if accepted then " accepted" else " not accepted"
   | FriendRequest (friend, accept) ->
-      friend ^ " requested following: status"
+      friend ^ " requested following- status:"
       ^ if accept then " accepted" else " not accepted"
   | _ -> raise (Failure "invalid transaction for notification")
 
@@ -394,6 +391,8 @@ let to_json acc : Yojson.Basic.t =
    history;
    active;
    notification_inbox;
+   friend_list;
+   message_inbox;
   } ->
       `Assoc
         [
@@ -410,6 +409,8 @@ let to_json acc : Yojson.Basic.t =
               (List.map
                  (fun not -> `String (string_of_notif not))
                  notification_inbox) );
+          ("friend list", `List (List.map (fun s -> `String s) friend_list));
+          ("message inbox", `List (List.map (fun s -> `String s) message_inbox));
         ]
 
 let create (id : int) (username : string) (password : string)
@@ -484,7 +485,7 @@ let to_homecurr acc parsed_amt =
   | CML -> to_cml parsed_amt.number parsed_amt.currency
 
 let deposit acc amt =
-  print_endline "Deposited!";
+  (* print_endline "Deposited!"; *)
   (*this line prints out but doesn't update*)
   let a = to_homecurr acc (parse_amount amt) in
   let acc_num = acc.balance.number in
@@ -498,10 +499,12 @@ let withdraw acc amt =
   let a = to_homecurr acc (parse_amount amt) in
   let acc_num = acc.balance.number in
   let amt_num = a.number in
-  {
-    acc with
-    balance = { number = acc_num -. amt_num; currency = acc.home_currency };
-  }
+  if acc_num < amt_num then raise InsufficientBalance
+  else
+    {
+      acc with
+      balance = { number = acc_num -. amt_num; currency = acc.home_currency };
+    }
 
 let withdraw_transaction acc amt =
   Withdraw { account = acc.username; amount = amt }
