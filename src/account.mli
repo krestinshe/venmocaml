@@ -157,19 +157,19 @@ val make_notif_friend : string -> bool -> notification
     not accepted otherwise. *)
 
 val add_friend : t -> string -> unit
-(** *)
+(** [add_friend acc friend] adds friend to acc's friend list*)
 
 val remove_friend : t -> string -> unit
-(** *)
+(** [remove_friend acc friend] removed friend in acc's friend list*)
 
 val friend_list : t -> string list
-(** *)
+(** [friend_list acc] returns acc's friend list*)
 
 val notif_type : notification -> bool
-(** *)
+(** [notif_type notif] returns true if notif is a payment request else false*)
 
 val add_message : t -> string -> unit
-(** *)
+(** [add_message acc message] adds message to acc's message inbox*)
 
 val message_clear : t -> unit
-(** *)
+(** [message_clear acc] empties acc's message inbox*)

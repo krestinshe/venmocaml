@@ -403,108 +403,92 @@ and request st =
       request st
 
 and notification_inbox st =
-  match current_account st with
-  | None -> not_logged_in st
-  | Some acc ->
-      print_endline
-        "\n\
-         Would you like to display or go over and respond to your \
-         notifications? [display/go over]";
-      print_string "> ";
-      let command = read_line () in
-      if command = "display" then begin
-        print_endline (display_notif acc);
-        print_endline "\nWould you like to clear your inbox? [yes/no]";
-        print_string "> ";
-        let answer = read_line () in
-        if answer = "yes" then begin
-          notif_clear acc;
-          transaction_menu st
-        end
-        else if answer = "no" then transaction_menu st
-        else print_endline "Invalid answer!";
-        transaction_menu st
+match current_account st with 
+ | None -> not_logged_in st
+ | Some acc ->  
+  print_endline 
+  "\n\
+  Would you like to display or go over and respond to your \
+  notifications? [display/go over]";
+  print_string "> ";
+let command = read_line () in
+if command = "display" then begin
+    if command = "display" then 
+      begin 
+    print_endline (display_notif acc);
+    print_endline "\nWould you like to clear your inbox? [yes/no]";
+    print_string "> ";
+    let answer = read_line () in 
+                              if (answer = "yes") then begin 
+                                (notif_clear acc); 
+                               transaction_menu st;
+                              end
+                              else if (answer != "no") then begin 
+                               transaction_menu st;
+                            end
+                              else (print_endline "Invalid answer!");
+                                    transaction_menu st; 
+                            
+                            
+    end      
+  end
+    else if (command = "go over") then
+                          begin 
+       let i = ref 0 in 
+       let new_inbox = ref [] in
+    while (!i < (length_notif acc)) do
+      if ((notif_accepted (List.nth (notif_inbox acc) !i) = false)) then begin
+        print_endline (string_of_notif (List.nth (notif_inbox acc) !i)); 
+        print_newline ();
+        print_endline "Will you accept the payment/friend request? [yes/no]";
+        print_string ">";
+        let answer = read_line () in 
+        let notif = (List.nth (notif_inbox acc) !i) in
+        if (answer = "yes") then begin 
+          if (List.mem (notif_payer notif) (friend_list acc)) then begin print_endline ("You are already following user " ^ (notif_payer notif));
+                                                                                   transaction_menu st end
+        else
+          if (notif_type notif) then begin
+          (State.make_payment st (notif_payer notif) (notif_payee notif) (notif_amount notif));
+          add_transaction (current (current_account st)) (pay_transaction acc (notif_payee notif) (notif_amount notif)); 
+          add_transaction (find_account st (notif_payee notif)) (received_transaction (username acc) (notif_amount notif)); 
+          new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) true ) :: !new_inbox;
+          i := !i +1
+        end 
+    else begin add_friend_state st (notif_payer notif) ;
+                add_friend (find_account st (notif_payer notif)) (username(current (current_account st)) ) ;
+    new_inbox := (make_notif_friend (username (current (current_account st))) true ) :: !new_inbox;
+    add_notif_inbox st (notif_payer notif) (make_notif_friend (username (current (current_account st))) true); 
+          i := !i +1
+  end;
+  end
+
+        else if ( answer = "no") then  begin (print_endline "You can accpet the request later unless you clear the inbox."); 
+        if (notif_type notif) then 
+          begin  new_inbox := (make_notif (notif_payer notif) (notif_payee notif) (notif_amount notif) false ) :: !new_inbox;
+        i := !i +1; 
       end
-      else if command = "go over" then begin
-        let i = ref 0 in
-        let new_inbox = ref [] in
-        while !i < length_notif acc do
-          if notif_accepted (List.nth (notif_inbox acc) !i) = false then begin
-            print_endline (string_of_notif (List.nth (notif_inbox acc) !i));
-            print_newline ();
-            print_endline "\nWould you like to accept the request? [yes/no]";
-            print_string ">";
-            let answer = read_line () in
-            let notif = List.nth (notif_inbox acc) !i in
-            if answer = "yes" then
-              if List.mem (notif_payer notif) (friend_list acc) then begin
-                print_endline
-                  ("You are already friends with " ^ notif_payer notif);
-                transaction_menu st
-              end
-              else if notif_type notif then begin
-                State.make_payment st (notif_payer notif) (notif_payee notif)
-                  (notif_amount notif);
-                add_transaction
-                  (current (current_account st))
-                  (pay_transaction acc (notif_payee notif) (notif_amount notif));
-                add_transaction
-                  (find_account st (notif_payee notif))
-                  (received_transaction (username acc) (notif_amount notif));
-                new_inbox :=
-                  make_notif (notif_payer notif) (notif_payee notif)
-                    (notif_amount notif) true
-                  :: !new_inbox;
-                (* new_inbox := List.tl !new_inbox; *)
-                i := !i + 1
-              end
-              else begin
-                add_friend_state st (notif_payer notif);
-                add_friend
-                  (find_account st (notif_payer notif))
-                  (username (current (current_account st)));
-                new_inbox :=
-                  make_notif_friend
-                    (username (current (current_account st)))
-                    true
-                  :: !new_inbox;
-                (* new_inbox := List.tl !new_inbox; *)
-                add_notif_inbox st (notif_payer notif)
-                  (make_notif_friend
-                     (username (current (current_account st)))
-                     true);
-                i := !i + 1
-              end
-            else if answer = "no" then begin
-              print_endline
-                "You will be able to accept the request later unless you clear \
-                 your inbox.";
-              if notif_type notif then begin
-                new_inbox :=
-                  make_notif (notif_payer notif) (notif_payee notif)
-                    (notif_amount notif) false
-                  :: !new_inbox;
-                i := !i + 1
-              end
-              else begin
-                new_inbox :=
-                  make_notif_friend (notif_payer notif) false :: !new_inbox;
-                i := !i + 1
-              end
-            end
-            else print_endline "Invalid command!";
-            notification_inbox st
+        else 
+          begin 
+            new_inbox := (make_notif_friend (notif_payer notif)  false) :: !new_inbox ;
+            i := !i +1;
           end
-          else (
-            new_inbox := List.nth (notif_inbox acc) !i :: !new_inbox;
-            (* new_inbox := List.tl !new_inbox; *)
-            i := !i + 1)
-        done;
-        acc_new_inbox (current (current_account st)) !new_inbox;
-        transaction_menu st
-      end
-      else print_endline "Invalid command!";
-      notification_inbox st
+
+         end
+      else begin print_endline "Invlid Command";
+          transaction_menu st end
+    end 
+  else begin
+    new_inbox := (List.nth (notif_inbox acc) !i) :: !new_inbox;
+    i := !i +1 end
+   
+done;
+acc_new_inbox (current (current_account st)) !new_inbox;
+transaction_menu st
+end
+else print_endline "Invlid Command";
+transaction_menu st 
+
 
 and search_friend st =
   match current_account st with
