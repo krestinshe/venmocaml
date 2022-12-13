@@ -101,7 +101,9 @@ type t = {
   mutable transactions : transaction list;
 }
 
-let init_state = { current_account = None; accounts = [||]; transactions = [] }
+let init_state () =
+  { current_account = None; accounts = [||]; transactions = [] }
+
 let current_account st = st.current_account
 let accounts st = st.accounts
 let transactions st = st.transactions

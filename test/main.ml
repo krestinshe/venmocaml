@@ -1,6 +1,13 @@
 open OUnit2
 (** Test Plan
 
+    Our testing approach demonstrates the correctness of our system because we
+    adequately covered all the modules in our system with either automatic or
+    manual testing. In both, we made sure to include tests for basic
+    functionalities (to make sure our functions and features do what they say
+    they do), corner cases or cases that we thought of as most likely to contain
+    errors, and cases that raise exceptions (such as invalid inputs).
+
     We used unit tests to test:
 
     - Our currency system, including testing conversions between strings and our
@@ -28,19 +35,18 @@ open OUnit2
     We used manual testing to test the remaining features of our system,
     including:
 
-    - user prompts and interaction with the system (including what happens in
-      the case of an invalid input)
-    - notification inbox, friends list, messages list
     - conversions between transactions and strings (since this was encapsulated
       such that it was impossible to test with OUnit, and was only used for
       conversion to and from the data file)
-
-    Our testing approach demonstrates the correctness of our system because we
-    adequately covered all the modules in our system with either automatic or
-    manual testing. In both, we made sure to include tests for basic
-    functionalities (to make sure our functions and features do what they say
-    they do), corner cases or cases that we thought of as most likely to contain
-    errors, and cases that raise exceptions (such as invalid inputs). *)
+    - user prompts and interaction with the system (including what happens in
+      the case of an invalid input, making sure that exceptions do not exit the
+      program but provide an informative error message and prompt the user to
+      enter a valid input)
+    - notification inbox (adding and clearing notifications)
+    - friends list (e.g., check for updated friends list after adding and
+      removing friends)
+    - messages list (e.g., check for updated messages list after receiving one
+      or more messages) *)
 
 open Venmo.Account
 open Venmo.State
@@ -299,6 +305,8 @@ let withdraw_amount_tests =
       assert_equal "102.03 USD" (balance withdraw1) ~printer:(fun x -> x) );
     ( "withdrawing twice is a valid deposit" >:: fun _ ->
       assert_equal "81.04 USD" (balance withdraw2) ~printer:(fun x -> x) );
+    ( "insufficient balance" >:: fun _ ->
+      assert_raises InsufficientBalance (fun _ -> withdraw acc3 "1000 USD") );
   ]
 
 let state_pay_tests =
@@ -307,7 +315,7 @@ let state_pay_tests =
   let state_acc3 = create 2 "state3" "state" ~balance:"3110.00 CML" "CML" in
   let state_acc4 = create 3 "state4" "state" ~balance:"100.00 USD" "USD" in
   let unchanged_acc = create 4 "state5" "state" ~balance:"100.00 USD" "USD" in
-  let state_pay_state = init_state in
+  let state_pay_state = init_state () in
   let _ = add_account state_pay_state unchanged_acc in
   let _ = add_account state_pay_state state_acc4 in
   let _ = add_account state_pay_state state_acc3 in
@@ -321,8 +329,8 @@ let state_pay_tests =
       assert_equal "25.00 USD"
         (balance (accounts state_pay_state).(0))
         ~printer:(fun x -> x) );
-    (* ( "no initial current account" >:: fun _ -> assert_equal None
-       (current_account init_state) ); *)
+    ( "no initial current account" >:: fun _ ->
+      assert_equal None (current_account (init_state ())) );
     ( "pay in CML to USD account" >:: fun _ ->
       assert_equal "101.00 USD"
         (balance (accounts state_pay_state).(3))
@@ -359,6 +367,17 @@ let state_pay_tests =
             let _ = remove_friend_state state_pay_state "state3" in
             friend_list unchanged_acc))
         ~printer:string_of_int );
+    ( "current when current_account is none" >:: fun _ ->
+      assert_raises (Failure "current_account doesn't exist") (fun _ ->
+          init_state () |> current_account |> current) );
+    ( "current after logging in and logging back out" >:: fun _ ->
+      assert_raises (Failure "current_account doesn't exist") (fun _ ->
+          login_system state_pay_state "state1" "state";
+          logout (init_state ());
+          init_state () |> current_account |> current) );
+    ( "log in incorrect password" >:: fun _ ->
+      assert_raises IncorrectPassword (fun _ ->
+          login_system state_pay_state "state1" "incorrectpassword") );
   ]
 
 let notification_tests = []
@@ -421,7 +440,9 @@ let transaction_tests =
   ]
 
 let state_to_file_tests =
-  [ ("init_state to file" >:: fun _ -> assert_equal () (to_file init_state)) ]
+  [
+    ("init_state to file" >:: fun _ -> assert_equal () (to_file (init_state ())));
+  ]
 
 let state_from_file_tests =
   [

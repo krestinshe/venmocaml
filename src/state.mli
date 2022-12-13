@@ -17,9 +17,9 @@ exception InvalidUsername of string
 exception IncorrectPassword
 (** Raised when the user enters the incorrect password for an account. *)
 
-val init_state : t
-(** [init_state] is the initial state of the Venmo system. The user is not
-    logged into any account and there have been no accounts created or
+val init_state : unit -> t
+(** [init_state ()] generates the initial state of the Venmo system. The user is
+    not logged into any account and there have been no accounts created or
     transactions made. *)
 
 val check_username : t -> string -> unit
