@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>account.ml &mdash; Coverage report</title>
+    <meta name="description" content="60.30% coverage in src/account.ml">
+    <link rel="stylesheet" href="../coverage.css"/>
+    <script src="../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../index.html">
+          <span class="dirname">src/</span>account.ml
+        </a>
+      </h1>
+      <h2>60.30%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:35.62%"></span>
+      <span class="some-visited" style="top:37.16%"></span>
+      <span class="unvisited" style="top:39.55%"></span>
+      <span class="unvisited" style="top:39.73%"></span>
+      <span class="unvisited" style="top:39.90%"></span>
+      <span class="unvisited" style="top:40.07%"></span>
+      <span class="unvisited" style="top:40.24%"></span>
+      <span class="unvisited" style="top:40.41%"></span>
+      <span class="unvisited" style="top:47.26%"></span>
+      <span class="unvisited" style="top:47.95%"></span>
+      <span class="unvisited" style="top:48.12%"></span>
+      <span class="unvisited" style="top:48.29%"></span>
+      <span class="unvisited" style="top:48.63%"></span>
+      <span class="unvisited" style="top:48.80%"></span>
+      <span class="unvisited" style="top:48.97%"></span>
+      <span class="unvisited" style="top:49.14%"></span>
+      <span class="unvisited" style="top:49.32%"></span>
+      <span class="unvisited" style="top:49.66%"></span>
+      <span class="unvisited" style="top:49.83%"></span>
+      <span class="unvisited" style="top:50.00%"></span>
+      <span class="unvisited" style="bottom:49.83%"></span>
+      <span class="unvisited" style="bottom:49.32%"></span>
+      <span class="unvisited" style="bottom:49.14%"></span>
+      <span class="unvisited" style="bottom:48.97%"></span>
+      <span class="unvisited" style="bottom:48.63%"></span>
+      <span class="unvisited" style="bottom:44.69%"></span>
+      <span class="unvisited" style="bottom:44.52%"></span>
+      <span class="unvisited" style="bottom:44.35%"></span>
+      <span class="unvisited" style="bottom:44.18%"></span>
+      <span class="unvisited" style="bottom:44.01%"></span>
+      <span class="unvisited" style="bottom:43.84%"></span>
+      <span class="unvisited" style="bottom:43.66%"></span>
+      <span class="unvisited" style="bottom:43.49%"></span>
+      <span class="unvisited" style="bottom:43.32%"></span>
+      <span class="unvisited" style="bottom:43.15%"></span>
+      <span class="unvisited" style="bottom:42.98%"></span>
+      <span class="unvisited" style="bottom:42.81%"></span>
+      <span class="unvisited" style="bottom:42.64%"></span>
+      <span class="unvisited" style="bottom:42.29%"></span>
+      <span class="unvisited" style="bottom:42.12%"></span>
+      <span class="unvisited" style="bottom:41.10%"></span>
+      <span class="unvisited" style="bottom:40.41%"></span>
+      <span class="unvisited" style="bottom:40.24%"></span>
+      <span class="unvisited" style="bottom:39.90%"></span>
+      <span class="unvisited" style="bottom:39.73%"></span>
+      <span class="unvisited" style="bottom:39.38%"></span>
+      <span class="unvisited" style="bottom:39.21%"></span>
+      <span class="some-visited" style="bottom:38.53%"></span>
+      <span class="some-visited" style="bottom:35.27%"></span>
+      <span class="some-visited" style="bottom:30.65%"></span>
+      <span class="unvisited" style="bottom:29.79%"></span>
+      <span class="some-visited" style="bottom:29.45%"></span>
+      <span class="some-visited" style="bottom:29.28%"></span>
+      <span class="unvisited" style="bottom:28.60%"></span>
+      <span class="unvisited" style="bottom:22.43%"></span>
+      <span class="unvisited" style="bottom:19.86%"></span>
+      <span class="unvisited" style="bottom:19.69%"></span>
+      <span class="unvisited" style="bottom:19.01%"></span>
+      <span class="unvisited" style="bottom:18.49%"></span>
+      <span class="unvisited" style="bottom:14.04%"></span>
+      <span class="unvisited" style="bottom:12.67%"></span>
+      <span class="unvisited" style="bottom:12.16%"></span>
+      <span class="unvisited" style="bottom:11.64%"></span>
+      <span class="unvisited" style="bottom:11.30%"></span>
+      <span class="unvisited" style="bottom:10.79%"></span>
+      <span class="unvisited" style="bottom:10.62%"></span>
+      <span class="unvisited" style="bottom:10.10%"></span>
+      <span class="unvisited" style="bottom:9.76%"></span>
+      <span class="unvisited" style="bottom:9.59%"></span>
+      <span class="unvisited" style="bottom:9.42%"></span>
+      <span class="unvisited" style="bottom:9.25%"></span>
+      <span class="unvisited" style="bottom:9.08%"></span>
+      <span class="unvisited" style="bottom:6.85%"></span>
+      <span class="unvisited" style="bottom:6.68%"></span>
+      <span class="unvisited" style="bottom:6.51%"></span>
+      <span class="unvisited" style="bottom:6.34%"></span>
+      <span class="unvisited" style="bottom:5.82%"></span>
+      <span class="unvisited" style="bottom:5.65%"></span>
+      <span class="unvisited" style="bottom:5.48%"></span>
+      <span class="unvisited" style="bottom:4.97%"></span>
+      <span class="unvisited" style="bottom:4.79%"></span>
+      <span class="unvisited" style="bottom:4.62%"></span>
+      <span class="unvisited" style="bottom:4.11%"></span>
+      <span class="unvisited" style="bottom:3.94%"></span>
+      <span class="unvisited" style="bottom:3.77%"></span>
+      <span class="unvisited" style="bottom:3.60%"></span>
+      <span class="unvisited" style="bottom:3.25%"></span>
+      <span class="unvisited" style="bottom:2.74%"></span>
+      <span class="unvisited" style="bottom:2.40%"></span>
+      <span class="unvisited" style="bottom:0.68%"></span>
+      <span class="unvisited" style="bottom:0.51%"></span>
+      <span class="unvisited" style="bottom:0.34%"></span>
+      <span class="unvisited" style="bottom:0.00%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span > </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span class="visited"> </span>
+<a id="L92"></a><span class="visited"> </span>
+<a id="L93"></a><span class="visited"> </span>
+<a id="L94"></a><span class="visited"> </span>
+<a id="L95"></a><span class="visited"> </span>
+<a id="L96"></a><span class="visited"> </span>
+<a id="L97"></a><span class="visited"> </span>
+<a id="L98"></a><span class="visited"> </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span > </span>
+<a id="L103"></a><span > </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span class="visited"> </span>
+<a id="L107"></a><span class="visited"> </span>
+<a id="L108"></a><span class="visited"> </span>
+<a id="L109"></a><span class="visited"> </span>
+<a id="L110"></a><span class="visited"> </span>
+<a id="L111"></a><span class="visited"> </span>
+<a id="L112"></a><span class="visited"> </span>
+<a id="L113"></a><span > </span>
+<a id="L114"></a><span > </span>
+<a id="L115"></a><span > </span>
+<a id="L116"></a><span > </span>
+<a id="L117"></a><span > </span>
+<a id="L118"></a><span > </span>
+<a id="L119"></a><span class="visited"> </span>
+<a id="L120"></a><span class="visited"> </span>
+<a id="L121"></a><span class="visited"> </span>
+<a id="L122"></a><span class="visited"> </span>
+<a id="L123"></a><span class="visited"> </span>
+<a id="L124"></a><span class="visited"> </span>
+<a id="L125"></a><span class="visited"> </span>
+<a id="L126"></a><span > </span>
+<a id="L127"></a><span > </span>
+<a id="L128"></a><span > </span>
+<a id="L129"></a><span class="visited"> </span>
+<a id="L130"></a><span class="visited"> </span>
+<a id="L131"></a><span class="visited"> </span>
+<a id="L132"></a><span class="visited"> </span>
+<a id="L133"></a><span class="visited"> </span>
+<a id="L134"></a><span class="visited"> </span>
+<a id="L135"></a><span class="visited"> </span>
+<a id="L136"></a><span > </span>
+<a id="L137"></a><span > </span>
+<a id="L138"></a><span > </span>
+<a id="L139"></a><span class="visited"> </span>
+<a id="L140"></a><span class="visited"> </span>
+<a id="L141"></a><span class="visited"> </span>
+<a id="L142"></a><span class="visited"> </span>
+<a id="L143"></a><span class="visited"> </span>
+<a id="L144"></a><span class="visited"> </span>
+<a id="L145"></a><span class="visited"> </span>
+<a id="L146"></a><span > </span>
+<a id="L147"></a><span > </span>
+<a id="L148"></a><span > </span>
+<a id="L149"></a><span class="visited"> </span>
+<a id="L150"></a><span class="visited"> </span>
+<a id="L151"></a><span class="visited"> </span>
+<a id="L152"></a><span class="visited"> </span>
+<a id="L153"></a><span class="visited"> </span>
+<a id="L154"></a><span class="visited"> </span>
+<a id="L155"></a><span class="visited"> </span>
+<a id="L156"></a><span > </span>
+<a id="L157"></a><span > </span>
+<a id="L158"></a><span > </span>
+<a id="L159"></a><span class="visited"> </span>
+<a id="L160"></a><span class="visited"> </span>
+<a id="L161"></a><span class="visited"> </span>
+<a id="L162"></a><span class="visited"> </span>
+<a id="L163"></a><span class="visited"> </span>
+<a id="L164"></a><span class="visited"> </span>
+<a id="L165"></a><span class="visited"> </span>
+<a id="L166"></a><span > </span>
+<a id="L167"></a><span > </span>
+<a id="L168"></a><span class="visited"> </span>
+<a id="L169"></a><span class="visited"> </span>
+<a id="L170"></a><span class="visited"> </span>
+<a id="L171"></a><span class="visited"> </span>
+<a id="L172"></a><span class="visited"> </span>
+<a id="L173"></a><span class="visited"> </span>
+<a id="L174"></a><span class="visited"> </span>
+<a id="L175"></a><span > </span>
+<a id="L176"></a><span > </span>
+<a id="L177"></a><span > </span>
+<a id="L178"></a><span > </span>
+<a id="L179"></a><span > </span>
+<a id="L180"></a><span > </span>
+<a id="L181"></a><span > </span>
+<a id="L182"></a><span > </span>
+<a id="L183"></a><span > </span>
+<a id="L184"></a><span > </span>
+<a id="L185"></a><span > </span>
+<a id="L186"></a><span > </span>
+<a id="L187"></a><span > </span>
+<a id="L188"></a><span > </span>
+<a id="L189"></a><span > </span>
+<a id="L190"></a><span > </span>
+<a id="L191"></a><span > </span>
+<a id="L192"></a><span > </span>
+<a id="L193"></a><span > </span>
+<a id="L194"></a><span > </span>
+<a id="L195"></a><span > </span>
+<a id="L196"></a><span > </span>
+<a id="L197"></a><span > </span>
+<a id="L198"></a><span > </span>
+<a id="L199"></a><span > </span>
+<a id="L200"></a><span > </span>
+<a id="L201"></a><span > </span>
+<a id="L202"></a><span > </span>
+<a id="L203"></a><span > </span>
+<a id="L204"></a><span class="visited"> </span>
+<a id="L205"></a><span class="visited"> </span>
+<a id="L206"></a><span > </span>
+<a id="L207"></a><span > </span>
+<a id="L208"></a><span class="unvisited"> </span>
+<a id="L209"></a><span class="visited"> </span>
+<a id="L210"></a><span class="visited"> </span>
+<a id="L211"></a><span > </span>
+<a id="L212"></a><span class="visited"> </span>
+<a id="L213"></a><span class="visited"> </span>
+<a id="L214"></a><span > </span>
+<a id="L215"></a><span class="visited"> </span>
+<a id="L216"></a><span > </span>
+<a id="L217"></a><span class="some-visited"> </span>
+<a id="L218"></a><span class="visited"> </span>
+<a id="L219"></a><span > </span>
+<a id="L220"></a><span > </span>
+<a id="L221"></a><span > </span>
+<a id="L222"></a><span > </span>
+<a id="L223"></a><span > </span>
+<a id="L224"></a><span > </span>
+<a id="L225"></a><span > </span>
+<a id="L226"></a><span class="visited"> </span>
+<a id="L227"></a><span > </span>
+<a id="L228"></a><span class="visited"> </span>
+<a id="L229"></a><span > </span>
+<a id="L230"></a><span > </span>
+<a id="L231"></a><span class="unvisited"> </span>
+<a id="L232"></a><span class="unvisited"> </span>
+<a id="L233"></a><span class="unvisited"> </span>
+<a id="L234"></a><span class="unvisited"> </span>
+<a id="L235"></a><span class="unvisited"> </span>
+<a id="L236"></a><span class="unvisited"> </span>
+<a id="L237"></a><span > </span>
+<a id="L238"></a><span > </span>
+<a id="L239"></a><span > </span>
+<a id="L240"></a><span > </span>
+<a id="L241"></a><span > </span>
+<a id="L242"></a><span > </span>
+<a id="L243"></a><span > </span>
+<a id="L244"></a><span > </span>
+<a id="L245"></a><span > </span>
+<a id="L246"></a><span > </span>
+<a id="L247"></a><span > </span>
+<a id="L248"></a><span > </span>
+<a id="L249"></a><span > </span>
+<a id="L250"></a><span > </span>
+<a id="L251"></a><span > </span>
+<a id="L252"></a><span > </span>
+<a id="L253"></a><span > </span>
+<a id="L254"></a><span > </span>
+<a id="L255"></a><span > </span>
+<a id="L256"></a><span > </span>
+<a id="L257"></a><span > </span>
+<a id="L258"></a><span > </span>
+<a id="L259"></a><span > </span>
+<a id="L260"></a><span > </span>
+<a id="L261"></a><span > </span>
+<a id="L262"></a><span > </span>
+<a id="L263"></a><span > </span>
+<a id="L264"></a><span > </span>
+<a id="L265"></a><span > </span>
+<a id="L266"></a><span > </span>
+<a id="L267"></a><span > </span>
+<a id="L268"></a><span > </span>
+<a id="L269"></a><span > </span>
+<a id="L270"></a><span > </span>
+<a id="L271"></a><span > </span>
+<a id="L272"></a><span > </span>
+<a id="L273"></a><span > </span>
+<a id="L274"></a><span class="visited"> </span>
+<a id="L275"></a><span class="visited"> </span>
+<a id="L276"></a><span class="unvisited"> </span>
+<a id="L277"></a><span class="visited"> </span>
+<a id="L278"></a><span class="visited"> </span>
+<a id="L279"></a><span class="visited"> </span>
+<a id="L280"></a><span class="unvisited"> </span>
+<a id="L281"></a><span class="unvisited"> </span>
+<a id="L282"></a><span class="unvisited"> </span>
+<a id="L283"></a><span > </span>
+<a id="L284"></a><span class="unvisited"> </span>
+<a id="L285"></a><span class="unvisited"> </span>
+<a id="L286"></a><span class="unvisited"> </span>
+<a id="L287"></a><span class="unvisited"> </span>
+<a id="L288"></a><span class="unvisited"> </span>
+<a id="L289"></a><span > </span>
+<a id="L290"></a><span class="unvisited"> </span>
+<a id="L291"></a><span class="unvisited"> </span>
+<a id="L292"></a><span class="unvisited"> </span>
+<a id="L293"></a><span class="unvisited"> </span>
+<a id="L294"></a><span class="visited"> </span>
+<a id="L295"></a><span > </span>
+<a id="L296"></a><span class="unvisited"> </span>
+<a id="L297"></a><span class="unvisited"> </span>
+<a id="L298"></a><span class="unvisited"> </span>
+<a id="L299"></a><span class="visited"> </span>
+<a id="L300"></a><span class="unvisited"> </span>
+<a id="L301"></a><span > </span>
+<a id="L302"></a><span > </span>
+<a id="L303"></a><span > </span>
+<a id="L304"></a><span > </span>
+<a id="L305"></a><span > </span>
+<a id="L306"></a><span > </span>
+<a id="L307"></a><span > </span>
+<a id="L308"></a><span > </span>
+<a id="L309"></a><span > </span>
+<a id="L310"></a><span > </span>
+<a id="L311"></a><span > </span>
+<a id="L312"></a><span > </span>
+<a id="L313"></a><span > </span>
+<a id="L314"></a><span > </span>
+<a id="L315"></a><span > </span>
+<a id="L316"></a><span > </span>
+<a id="L317"></a><span > </span>
+<a id="L318"></a><span > </span>
+<a id="L319"></a><span > </span>
+<a id="L320"></a><span > </span>
+<a id="L321"></a><span > </span>
+<a id="L322"></a><span > </span>
+<a id="L323"></a><span class="unvisited"> </span>
+<a id="L324"></a><span class="unvisited"> </span>
+<a id="L325"></a><span class="unvisited"> </span>
+<a id="L326"></a><span class="unvisited"> </span>
+<a id="L327"></a><span class="unvisited"> </span>
+<a id="L328"></a><span class="unvisited"> </span>
+<a id="L329"></a><span class="unvisited"> </span>
+<a id="L330"></a><span class="unvisited"> </span>
+<a id="L331"></a><span class="unvisited"> </span>
+<a id="L332"></a><span class="unvisited"> </span>
+<a id="L333"></a><span class="unvisited"> </span>
+<a id="L334"></a><span class="unvisited"> </span>
+<a id="L335"></a><span class="unvisited"> </span>
+<a id="L336"></a><span > </span>
+<a id="L337"></a><span class="unvisited"> </span>
+<a id="L338"></a><span class="unvisited"> </span>
+<a id="L339"></a><span > </span>
+<a id="L340"></a><span > </span>
+<a id="L341"></a><span > </span>
+<a id="L342"></a><span > </span>
+<a id="L343"></a><span > </span>
+<a id="L344"></a><span class="unvisited"> </span>
+<a id="L345"></a><span > </span>
+<a id="L346"></a><span > </span>
+<a id="L347"></a><span > </span>
+<a id="L348"></a><span class="unvisited"> </span>
+<a id="L349"></a><span class="unvisited"> </span>
+<a id="L350"></a><span > </span>
+<a id="L351"></a><span class="unvisited"> </span>
+<a id="L352"></a><span class="unvisited"> </span>
+<a id="L353"></a><span > </span>
+<a id="L354"></a><span class="unvisited"> </span>
+<a id="L355"></a><span class="unvisited"> </span>
+<a id="L356"></a><span > </span>
+<a id="L357"></a><span > </span>
+<a id="L358"></a><span class="visited"> </span>
+<a id="L359"></a><span class="some-visited"> </span>
+<a id="L360"></a><span class="visited"> </span>
+<a id="L361"></a><span > </span>
+<a id="L362"></a><span class="visited"> </span>
+<a id="L363"></a><span class="visited"> </span>
+<a id="L364"></a><span > </span>
+<a id="L365"></a><span > </span>
+<a id="L366"></a><span class="visited"> </span>
+<a id="L367"></a><span > </span>
+<a id="L368"></a><span > </span>
+<a id="L369"></a><span class="visited"> </span>
+<a id="L370"></a><span > </span>
+<a id="L371"></a><span class="visited"> </span>
+<a id="L372"></a><span class="visited"> </span>
+<a id="L373"></a><span > </span>
+<a id="L374"></a><span > </span>
+<a id="L375"></a><span > </span>
+<a id="L376"></a><span > </span>
+<a id="L377"></a><span class="visited"> </span>
+<a id="L378"></a><span class="some-visited"> </span>
+<a id="L379"></a><span class="visited"> </span>
+<a id="L380"></a><span class="visited"> </span>
+<a id="L381"></a><span > </span>
+<a id="L382"></a><span > </span>
+<a id="L383"></a><span > </span>
+<a id="L384"></a><span class="visited"> </span>
+<a id="L385"></a><span class="visited"> </span>
+<a id="L386"></a><span > </span>
+<a id="L387"></a><span > </span>
+<a id="L388"></a><span > </span>
+<a id="L389"></a><span > </span>
+<a id="L390"></a><span > </span>
+<a id="L391"></a><span > </span>
+<a id="L392"></a><span > </span>
+<a id="L393"></a><span > </span>
+<a id="L394"></a><span > </span>
+<a id="L395"></a><span > </span>
+<a id="L396"></a><span > </span>
+<a id="L397"></a><span > </span>
+<a id="L398"></a><span > </span>
+<a id="L399"></a><span > </span>
+<a id="L400"></a><span > </span>
+<a id="L401"></a><span class="visited"> </span>
+<a id="L402"></a><span class="visited"> </span>
+<a id="L403"></a><span > </span>
+<a id="L404"></a><span > </span>
+<a id="L405"></a><span class="some-visited"> </span>
+<a id="L406"></a><span class="visited"> </span>
+<a id="L407"></a><span > </span>
+<a id="L408"></a><span > </span>
+<a id="L409"></a><span class="visited"> </span>
+<a id="L410"></a><span class="unvisited"> </span>
+<a id="L411"></a><span > </span>
+<a id="L412"></a><span class="some-visited"> </span>
+<a id="L413"></a><span class="some-visited"> </span>
+<a id="L414"></a><span > </span>
+<a id="L415"></a><span > </span>
+<a id="L416"></a><span > </span>
+<a id="L417"></a><span class="unvisited"> </span>
+<a id="L418"></a><span class="visited"> </span>
+<a id="L419"></a><span > </span>
+<a id="L420"></a><span > </span>
+<a id="L421"></a><span > </span>
+<a id="L422"></a><span class="visited"> </span>
+<a id="L423"></a><span class="visited"> </span>
+<a id="L424"></a><span > </span>
+<a id="L425"></a><span > </span>
+<a id="L426"></a><span > </span>
+<a id="L427"></a><span > </span>
+<a id="L428"></a><span > </span>
+<a id="L429"></a><span > </span>
+<a id="L430"></a><span > </span>
+<a id="L431"></a><span class="visited"> </span>
+<a id="L432"></a><span class="visited"> </span>
+<a id="L433"></a><span class="visited"> </span>
+<a id="L434"></a><span class="visited"> </span>
+<a id="L435"></a><span class="visited"> </span>
+<a id="L436"></a><span class="visited"> </span>
+<a id="L437"></a><span class="visited"> </span>
+<a id="L438"></a><span class="visited"> </span>
+<a id="L439"></a><span > </span>
+<a id="L440"></a><span > </span>
+<a id="L441"></a><span > </span>
+<a id="L442"></a><span > </span>
+<a id="L443"></a><span > </span>
+<a id="L444"></a><span > </span>
+<a id="L445"></a><span > </span>
+<a id="L446"></a><span > </span>
+<a id="L447"></a><span > </span>
+<a id="L448"></a><span > </span>
+<a id="L449"></a><span > </span>
+<a id="L450"></a><span > </span>
+<a id="L451"></a><span > </span>
+<a id="L452"></a><span class="visited"> </span>
+<a id="L453"></a><span class="unvisited"> </span>
+<a id="L454"></a><span > </span>
+<a id="L455"></a><span > </span>
+<a id="L456"></a><span class="visited"> </span>
+<a id="L457"></a><span class="visited"> </span>
+<a id="L458"></a><span > </span>
+<a id="L459"></a><span class="visited"> </span>
+<a id="L460"></a><span > </span>
+<a id="L461"></a><span > </span>
+<a id="L462"></a><span > </span>
+<a id="L463"></a><span class="visited"> </span>
+<a id="L464"></a><span class="visited"> </span>
+<a id="L465"></a><span > </span>
+<a id="L466"></a><span > </span>
+<a id="L467"></a><span > </span>
+<a id="L468"></a><span class="unvisited"> </span>
+<a id="L469"></a><span class="unvisited"> </span>
+<a id="L470"></a><span > </span>
+<a id="L471"></a><span > </span>
+<a id="L472"></a><span > </span>
+<a id="L473"></a><span class="unvisited"> </span>
+<a id="L474"></a><span > </span>
+<a id="L475"></a><span > </span>
+<a id="L476"></a><span class="unvisited"> </span>
+<a id="L477"></a><span > </span>
+<a id="L478"></a><span > </span>
+<a id="L479"></a><span class="visited"> </span>
+<a id="L480"></a><span class="visited"> </span>
+<a id="L481"></a><span class="visited"> </span>
+<a id="L482"></a><span class="visited"> </span>
+<a id="L483"></a><span class="visited"> </span>
+<a id="L484"></a><span class="visited"> </span>
+<a id="L485"></a><span class="visited"> </span>
+<a id="L486"></a><span > </span>
+<a id="L487"></a><span > </span>
+<a id="L488"></a><span > </span>
+<a id="L489"></a><span > </span>
+<a id="L490"></a><span class="visited"> </span>
+<a id="L491"></a><span class="visited"> </span>
+<a id="L492"></a><span > </span>
+<a id="L493"></a><span > </span>
+<a id="L494"></a><span > </span>
+<a id="L495"></a><span > </span>
+<a id="L496"></a><span > </span>
+<a id="L497"></a><span > </span>
+<a id="L498"></a><span > </span>
+<a id="L499"></a><span class="visited"> </span>
+<a id="L500"></a><span class="visited"> </span>
+<a id="L501"></a><span > </span>
+<a id="L502"></a><span class="unvisited"> </span>
+<a id="L503"></a><span > </span>
+<a id="L504"></a><span class="visited"> </span>
+<a id="L505"></a><span > </span>
+<a id="L506"></a><span > </span>
+<a id="L507"></a><span > </span>
+<a id="L508"></a><span > </span>
+<a id="L509"></a><span > </span>
+<a id="L510"></a><span class="unvisited"> </span>
+<a id="L511"></a><span > </span>
+<a id="L512"></a><span > </span>
+<a id="L513"></a><span class="unvisited"> </span>
+<a id="L514"></a><span > </span>
+<a id="L515"></a><span > </span>
+<a id="L516"></a><span class="unvisited"> </span>
+<a id="L517"></a><span > </span>
+<a id="L518"></a><span class="unvisited"> </span>
+<a id="L519"></a><span > </span>
+<a id="L520"></a><span > </span>
+<a id="L521"></a><span class="unvisited"> </span>
+<a id="L522"></a><span class="unvisited"> </span>
+<a id="L523"></a><span > </span>
+<a id="L524"></a><span > </span>
+<a id="L525"></a><span class="unvisited"> </span>
+<a id="L526"></a><span > </span>
+<a id="L527"></a><span class="unvisited"> </span>
+<a id="L528"></a><span class="unvisited"> </span>
+<a id="L529"></a><span class="unvisited"> </span>
+<a id="L530"></a><span class="unvisited"> </span>
+<a id="L531"></a><span class="unvisited"> </span>
+<a id="L532"></a><span > </span>
+<a id="L533"></a><span > </span>
+<a id="L534"></a><span > </span>
+<a id="L535"></a><span > </span>
+<a id="L536"></a><span > </span>
+<a id="L537"></a><span > </span>
+<a id="L538"></a><span > </span>
+<a id="L539"></a><span > </span>
+<a id="L540"></a><span > </span>
+<a id="L541"></a><span > </span>
+<a id="L542"></a><span > </span>
+<a id="L543"></a><span > </span>
+<a id="L544"></a><span class="unvisited"> </span>
+<a id="L545"></a><span class="unvisited"> </span>
+<a id="L546"></a><span class="unvisited"> </span>
+<a id="L547"></a><span class="unvisited"> </span>
+<a id="L548"></a><span > </span>
+<a id="L549"></a><span > </span>
+<a id="L550"></a><span class="unvisited"> </span>
+<a id="L551"></a><span class="unvisited"> </span>
+<a id="L552"></a><span class="unvisited"> </span>
+<a id="L553"></a><span > </span>
+<a id="L554"></a><span > </span>
+<a id="L555"></a><span class="unvisited"> </span>
+<a id="L556"></a><span class="unvisited"> </span>
+<a id="L557"></a><span class="unvisited"> </span>
+<a id="L558"></a><span > </span>
+<a id="L559"></a><span > </span>
+<a id="L560"></a><span class="unvisited"> </span>
+<a id="L561"></a><span class="unvisited"> </span>
+<a id="L562"></a><span class="unvisited"> </span>
+<a id="L563"></a><span class="unvisited"> </span>
+<a id="L564"></a><span > </span>
+<a id="L565"></a><span class="unvisited"> </span>
+<a id="L566"></a><span > </span>
+<a id="L567"></a><span > </span>
+<a id="L568"></a><span class="unvisited"> </span>
+<a id="L569"></a><span > </span>
+<a id="L570"></a><span class="unvisited"> </span>
+<a id="L571"></a><span class="visited"> </span>
+<a id="L572"></a><span class="visited"> </span>
+<a id="L573"></a><span > </span>
+<a id="L574"></a><span > </span>
+<a id="L575"></a><span class="visited"> </span>
+<a id="L576"></a><span > </span>
+<a id="L577"></a><span class="visited"> </span>
+<a id="L578"></a><span > </span>
+<a id="L579"></a><span > </span>
+<a id="L580"></a><span class="unvisited"> </span>
+<a id="L581"></a><span class="unvisited"> </span>
+<a id="L582"></a><span class="unvisited"> </span>
+<a id="L583"></a><span > </span>
+<a id="L584"></a><span class="unvisited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+<a href="#L191">191</a>
+<a href="#L192">192</a>
+<a href="#L193">193</a>
+<a href="#L194">194</a>
+<a href="#L195">195</a>
+<a href="#L196">196</a>
+<a href="#L197">197</a>
+<a href="#L198">198</a>
+<a href="#L199">199</a>
+<a href="#L200">200</a>
+<a href="#L201">201</a>
+<a href="#L202">202</a>
+<a href="#L203">203</a>
+<a href="#L204">204</a>
+<a href="#L205">205</a>
+<a href="#L206">206</a>
+<a href="#L207">207</a>
+<a href="#L208">208</a>
+<a href="#L209">209</a>
+<a href="#L210">210</a>
+<a href="#L211">211</a>
+<a href="#L212">212</a>
+<a href="#L213">213</a>
+<a href="#L214">214</a>
+<a href="#L215">215</a>
+<a href="#L216">216</a>
+<a href="#L217">217</a>
+<a href="#L218">218</a>
+<a href="#L219">219</a>
+<a href="#L220">220</a>
+<a href="#L221">221</a>
+<a href="#L222">222</a>
+<a href="#L223">223</a>
+<a href="#L224">224</a>
+<a href="#L225">225</a>
+<a href="#L226">226</a>
+<a href="#L227">227</a>
+<a href="#L228">228</a>
+<a href="#L229">229</a>
+<a href="#L230">230</a>
+<a href="#L231">231</a>
+<a href="#L232">232</a>
+<a href="#L233">233</a>
+<a href="#L234">234</a>
+<a href="#L235">235</a>
+<a href="#L236">236</a>
+<a href="#L237">237</a>
+<a href="#L238">238</a>
+<a href="#L239">239</a>
+<a href="#L240">240</a>
+<a href="#L241">241</a>
+<a href="#L242">242</a>
+<a href="#L243">243</a>
+<a href="#L244">244</a>
+<a href="#L245">245</a>
+<a href="#L246">246</a>
+<a href="#L247">247</a>
+<a href="#L248">248</a>
+<a href="#L249">249</a>
+<a href="#L250">250</a>
+<a href="#L251">251</a>
+<a href="#L252">252</a>
+<a href="#L253">253</a>
+<a href="#L254">254</a>
+<a href="#L255">255</a>
+<a href="#L256">256</a>
+<a href="#L257">257</a>
+<a href="#L258">258</a>
+<a href="#L259">259</a>
+<a href="#L260">260</a>
+<a href="#L261">261</a>
+<a href="#L262">262</a>
+<a href="#L263">263</a>
+<a href="#L264">264</a>
+<a href="#L265">265</a>
+<a href="#L266">266</a>
+<a href="#L267">267</a>
+<a href="#L268">268</a>
+<a href="#L269">269</a>
+<a href="#L270">270</a>
+<a href="#L271">271</a>
+<a href="#L272">272</a>
+<a href="#L273">273</a>
+<a href="#L274">274</a>
+<a href="#L275">275</a>
+<a href="#L276">276</a>
+<a href="#L277">277</a>
+<a href="#L278">278</a>
+<a href="#L279">279</a>
+<a href="#L280">280</a>
+<a href="#L281">281</a>
+<a href="#L282">282</a>
+<a href="#L283">283</a>
+<a href="#L284">284</a>
+<a href="#L285">285</a>
+<a href="#L286">286</a>
+<a href="#L287">287</a>
+<a href="#L288">288</a>
+<a href="#L289">289</a>
+<a href="#L290">290</a>
+<a href="#L291">291</a>
+<a href="#L292">292</a>
+<a href="#L293">293</a>
+<a href="#L294">294</a>
+<a href="#L295">295</a>
+<a href="#L296">296</a>
+<a href="#L297">297</a>
+<a href="#L298">298</a>
+<a href="#L299">299</a>
+<a href="#L300">300</a>
+<a href="#L301">301</a>
+<a href="#L302">302</a>
+<a href="#L303">303</a>
+<a href="#L304">304</a>
+<a href="#L305">305</a>
+<a href="#L306">306</a>
+<a href="#L307">307</a>
+<a href="#L308">308</a>
+<a href="#L309">309</a>
+<a href="#L310">310</a>
+<a href="#L311">311</a>
+<a href="#L312">312</a>
+<a href="#L313">313</a>
+<a href="#L314">314</a>
+<a href="#L315">315</a>
+<a href="#L316">316</a>
+<a href="#L317">317</a>
+<a href="#L318">318</a>
+<a href="#L319">319</a>
+<a href="#L320">320</a>
+<a href="#L321">321</a>
+<a href="#L322">322</a>
+<a href="#L323">323</a>
+<a href="#L324">324</a>
+<a href="#L325">325</a>
+<a href="#L326">326</a>
+<a href="#L327">327</a>
+<a href="#L328">328</a>
+<a href="#L329">329</a>
+<a href="#L330">330</a>
+<a href="#L331">331</a>
+<a href="#L332">332</a>
+<a href="#L333">333</a>
+<a href="#L334">334</a>
+<a href="#L335">335</a>
+<a href="#L336">336</a>
+<a href="#L337">337</a>
+<a href="#L338">338</a>
+<a href="#L339">339</a>
+<a href="#L340">340</a>
+<a href="#L341">341</a>
+<a href="#L342">342</a>
+<a href="#L343">343</a>
+<a href="#L344">344</a>
+<a href="#L345">345</a>
+<a href="#L346">346</a>
+<a href="#L347">347</a>
+<a href="#L348">348</a>
+<a href="#L349">349</a>
+<a href="#L350">350</a>
+<a href="#L351">351</a>
+<a href="#L352">352</a>
+<a href="#L353">353</a>
+<a href="#L354">354</a>
+<a href="#L355">355</a>
+<a href="#L356">356</a>
+<a href="#L357">357</a>
+<a href="#L358">358</a>
+<a href="#L359">359</a>
+<a href="#L360">360</a>
+<a href="#L361">361</a>
+<a href="#L362">362</a>
+<a href="#L363">363</a>
+<a href="#L364">364</a>
+<a href="#L365">365</a>
+<a href="#L366">366</a>
+<a href="#L367">367</a>
+<a href="#L368">368</a>
+<a href="#L369">369</a>
+<a href="#L370">370</a>
+<a href="#L371">371</a>
+<a href="#L372">372</a>
+<a href="#L373">373</a>
+<a href="#L374">374</a>
+<a href="#L375">375</a>
+<a href="#L376">376</a>
+<a href="#L377">377</a>
+<a href="#L378">378</a>
+<a href="#L379">379</a>
+<a href="#L380">380</a>
+<a href="#L381">381</a>
+<a href="#L382">382</a>
+<a href="#L383">383</a>
+<a href="#L384">384</a>
+<a href="#L385">385</a>
+<a href="#L386">386</a>
+<a href="#L387">387</a>
+<a href="#L388">388</a>
+<a href="#L389">389</a>
+<a href="#L390">390</a>
+<a href="#L391">391</a>
+<a href="#L392">392</a>
+<a href="#L393">393</a>
+<a href="#L394">394</a>
+<a href="#L395">395</a>
+<a href="#L396">396</a>
+<a href="#L397">397</a>
+<a href="#L398">398</a>
+<a href="#L399">399</a>
+<a href="#L400">400</a>
+<a href="#L401">401</a>
+<a href="#L402">402</a>
+<a href="#L403">403</a>
+<a href="#L404">404</a>
+<a href="#L405">405</a>
+<a href="#L406">406</a>
+<a href="#L407">407</a>
+<a href="#L408">408</a>
+<a href="#L409">409</a>
+<a href="#L410">410</a>
+<a href="#L411">411</a>
+<a href="#L412">412</a>
+<a href="#L413">413</a>
+<a href="#L414">414</a>
+<a href="#L415">415</a>
+<a href="#L416">416</a>
+<a href="#L417">417</a>
+<a href="#L418">418</a>
+<a href="#L419">419</a>
+<a href="#L420">420</a>
+<a href="#L421">421</a>
+<a href="#L422">422</a>
+<a href="#L423">423</a>
+<a href="#L424">424</a>
+<a href="#L425">425</a>
+<a href="#L426">426</a>
+<a href="#L427">427</a>
+<a href="#L428">428</a>
+<a href="#L429">429</a>
+<a href="#L430">430</a>
+<a href="#L431">431</a>
+<a href="#L432">432</a>
+<a href="#L433">433</a>
+<a href="#L434">434</a>
+<a href="#L435">435</a>
+<a href="#L436">436</a>
+<a href="#L437">437</a>
+<a href="#L438">438</a>
+<a href="#L439">439</a>
+<a href="#L440">440</a>
+<a href="#L441">441</a>
+<a href="#L442">442</a>
+<a href="#L443">443</a>
+<a href="#L444">444</a>
+<a href="#L445">445</a>
+<a href="#L446">446</a>
+<a href="#L447">447</a>
+<a href="#L448">448</a>
+<a href="#L449">449</a>
+<a href="#L450">450</a>
+<a href="#L451">451</a>
+<a href="#L452">452</a>
+<a href="#L453">453</a>
+<a href="#L454">454</a>
+<a href="#L455">455</a>
+<a href="#L456">456</a>
+<a href="#L457">457</a>
+<a href="#L458">458</a>
+<a href="#L459">459</a>
+<a href="#L460">460</a>
+<a href="#L461">461</a>
+<a href="#L462">462</a>
+<a href="#L463">463</a>
+<a href="#L464">464</a>
+<a href="#L465">465</a>
+<a href="#L466">466</a>
+<a href="#L467">467</a>
+<a href="#L468">468</a>
+<a href="#L469">469</a>
+<a href="#L470">470</a>
+<a href="#L471">471</a>
+<a href="#L472">472</a>
+<a href="#L473">473</a>
+<a href="#L474">474</a>
+<a href="#L475">475</a>
+<a href="#L476">476</a>
+<a href="#L477">477</a>
+<a href="#L478">478</a>
+<a href="#L479">479</a>
+<a href="#L480">480</a>
+<a href="#L481">481</a>
+<a href="#L482">482</a>
+<a href="#L483">483</a>
+<a href="#L484">484</a>
+<a href="#L485">485</a>
+<a href="#L486">486</a>
+<a href="#L487">487</a>
+<a href="#L488">488</a>
+<a href="#L489">489</a>
+<a href="#L490">490</a>
+<a href="#L491">491</a>
+<a href="#L492">492</a>
+<a href="#L493">493</a>
+<a href="#L494">494</a>
+<a href="#L495">495</a>
+<a href="#L496">496</a>
+<a href="#L497">497</a>
+<a href="#L498">498</a>
+<a href="#L499">499</a>
+<a href="#L500">500</a>
+<a href="#L501">501</a>
+<a href="#L502">502</a>
+<a href="#L503">503</a>
+<a href="#L504">504</a>
+<a href="#L505">505</a>
+<a href="#L506">506</a>
+<a href="#L507">507</a>
+<a href="#L508">508</a>
+<a href="#L509">509</a>
+<a href="#L510">510</a>
+<a href="#L511">511</a>
+<a href="#L512">512</a>
+<a href="#L513">513</a>
+<a href="#L514">514</a>
+<a href="#L515">515</a>
+<a href="#L516">516</a>
+<a href="#L517">517</a>
+<a href="#L518">518</a>
+<a href="#L519">519</a>
+<a href="#L520">520</a>
+<a href="#L521">521</a>
+<a href="#L522">522</a>
+<a href="#L523">523</a>
+<a href="#L524">524</a>
+<a href="#L525">525</a>
+<a href="#L526">526</a>
+<a href="#L527">527</a>
+<a href="#L528">528</a>
+<a href="#L529">529</a>
+<a href="#L530">530</a>
+<a href="#L531">531</a>
+<a href="#L532">532</a>
+<a href="#L533">533</a>
+<a href="#L534">534</a>
+<a href="#L535">535</a>
+<a href="#L536">536</a>
+<a href="#L537">537</a>
+<a href="#L538">538</a>
+<a href="#L539">539</a>
+<a href="#L540">540</a>
+<a href="#L541">541</a>
+<a href="#L542">542</a>
+<a href="#L543">543</a>
+<a href="#L544">544</a>
+<a href="#L545">545</a>
+<a href="#L546">546</a>
+<a href="#L547">547</a>
+<a href="#L548">548</a>
+<a href="#L549">549</a>
+<a href="#L550">550</a>
+<a href="#L551">551</a>
+<a href="#L552">552</a>
+<a href="#L553">553</a>
+<a href="#L554">554</a>
+<a href="#L555">555</a>
+<a href="#L556">556</a>
+<a href="#L557">557</a>
+<a href="#L558">558</a>
+<a href="#L559">559</a>
+<a href="#L560">560</a>
+<a href="#L561">561</a>
+<a href="#L562">562</a>
+<a href="#L563">563</a>
+<a href="#L564">564</a>
+<a href="#L565">565</a>
+<a href="#L566">566</a>
+<a href="#L567">567</a>
+<a href="#L568">568</a>
+<a href="#L569">569</a>
+<a href="#L570">570</a>
+<a href="#L571">571</a>
+<a href="#L572">572</a>
+<a href="#L573">573</a>
+<a href="#L574">574</a>
+<a href="#L575">575</a>
+<a href="#L576">576</a>
+<a href="#L577">577</a>
+<a href="#L578">578</a>
+<a href="#L579">579</a>
+<a href="#L580">580</a>
+<a href="#L581">581</a>
+<a href="#L582">582</a>
+<a href="#L583">583</a>
+<a href="#L584">584</a>
+</pre>
+<pre><code class="ocaml">open Yojson.Basic.Util
+
+(** [currency] is the type that represents a currency. *)
+type currency =
+  | USD
+  | EUR
+  | KRW
+  | RMB
+  | CAD
+  | CML
+
+type amount = {
+  number : float;
+  currency : currency;
+}
+(** [amount] is the type that represents an amount of money. The [number] field
+    is float, rounded to the nearest hundredth, which represents the units of
+    currency. The [currency] field represents the currency that the amount of
+    money is in. *)
+
+type transaction =
+  | Pay of {
+      payer : string; (* username of the payer *)
+      payee : string; (* username of the payee *)
+      amount : string;
+    }
+  | Request of {
+      payer : string;
+      payee : string;
+      amount : string;
+      accepted : bool;
+    }
+  | Deposit of {
+      account : string;
+      amount : string;
+    }
+  | Withdraw of {
+      account : string;
+      amount : string;
+    }
+  | Received of {
+      payer : string;
+      amount : string;
+    }
+
+type notifications =
+  | FriendRequest
+  | PaymentRequest
+
+type notification =
+  | PaymentRequest of transaction
+  | FriendRequest of (string * bool)
+
+(*let add_notification acc not = acc.notification_inbox &lt; - Array.append [|
+  not|] acc.notification_inbox let notif_clear acc = acc.notification_inbox &lt;-
+  []
+
+  let string_of_notif notif = match notif with | PaymentRequest Request {payer;
+  payee; amount} -&gt; payee ^ " requested " ^ payer ^ " " ^ amount |
+  PaymentRequest n -&gt; raises (Failure "invalid transaction for notification") *)
+
+type t = {
+  id : int;
+  username : string;
+  password : string;
+  balance : amount;
+  home_currency : currency;
+  mutable history : transaction list;
+  active : bool;
+  mutable notification_inbox : notification list;
+  mutable friend_list : string list;
+  mutable message_inbox : string list;
+}
+
+exception InvalidAmount of string
+exception InvalidCurrency of string
+exception InvalidTransaction
+exception InvalidConversion
+exception InsufficientBalance
+
+(** [currency_of_string s] converts [s] to a [currency], and raises
+    [InvalidCurrency s] if [s] is not the name of a constructor of [currency].
+    Examples:
+
+    - [currency_of_string "USD"] is [USD].
+    - [currency_of_string "EUR"] is [EUR].
+    - [currency_of_string "AAA"] raises [InvalidCurrency "AAA"].
+    - [currency_of_string ""] raises [InvalidCurrency ""]. *)
+
+let currency_of_string s =
+  <span data-count="269">m</span>atch String.uppercase_ascii s with
+  | <span data-count="162">"</span>USD" -&gt; USD
+  | <span data-count="16">"</span>EUR" -&gt; EUR
+  | <span data-count="16">"</span>KRW" -&gt; KRW
+  | <span data-count="16">"</span>RMB" -&gt; RMB
+  | <span data-count="16">"</span>CAD" -&gt; CAD
+  | <span data-count="42">"</span>CML" -&gt; CML
+  | <span data-count="1">_</span> -&gt; raise (InvalidCurrency s)
+
+(** [string_of_currency c] converts [c] to a [string]. Examples:
+
+    - [string_of_currency USD] is ["USD"].
+    - [string_of_currency EUR] is ["EUR"].*)
+
+let string_of_currency c =
+  <span data-count="64">m</span>atch c with
+  | <span data-count="31">U</span>SD -&gt; "USD"
+  | <span data-count="6">E</span>UR -&gt; "EUR"
+  | <span data-count="6">K</span>RW -&gt; "KRW"
+  | <span data-count="6">R</span>MB -&gt; "RMB"
+  | <span data-count="6">C</span>AD -&gt; "CAD"
+  | <span data-count="9">C</span>ML -&gt; "CML"
+
+(*The following functions allow for currency conversion based on the conversion
+  rates as of 10/29/2022 *)
+
+(*[to_usd n c] converts number [n] of currency [c] to an USD amount*)
+let to_usd n c =
+  <span data-count="45">m</span>atch c with
+  | <span data-count="36">U</span>SD -&gt; { number = n; currency = USD }
+  | <span data-count="1">E</span>UR -&gt; { number = n; currency = USD }
+  | <span data-count="1">K</span>RW -&gt; { number = n *. 0.0007; currency = USD }
+  | <span data-count="1">R</span>MB -&gt; { number = n *. 0.14; currency = USD }
+  | <span data-count="1">C</span>AD -&gt; { number = n *. 0.73; currency = USD }
+  | <span data-count="5">C</span>ML -&gt; { number = n /. 3110.; currency = USD }
+
+(*[to_eur n c] converts number [n] of currency [c] to an EUR amount*)
+let to_eur n c =
+  <span data-count="6">m</span>atch c with
+  | <span data-count="1">U</span>SD -&gt; { number = n; currency = EUR }
+  | <span data-count="1">E</span>UR -&gt; { number = n; currency = EUR }
+  | <span data-count="1">K</span>RW -&gt; { number = n *. 0.00071; currency = EUR }
+  | <span data-count="1">R</span>MB -&gt; { number = n *. 0.14; currency = EUR }
+  | <span data-count="1">C</span>AD -&gt; { number = n *. 0.74; currency = EUR }
+  | <span data-count="1">C</span>ML -&gt; { number = n /. 3110.; currency = EUR }
+
+(*[to_krw n c] converts number [n] of currency [c] to an KRW amount*)
+let to_krw n c =
+  <span data-count="6">m</span>atch c with
+  | <span data-count="1">U</span>SD -&gt; { number = n *. 1422.; currency = KRW }
+  | <span data-count="1">E</span>UR -&gt; { number = n *. 1417.09; currency = KRW }
+  | <span data-count="1">K</span>RW -&gt; { number = n; currency = KRW }
+  | <span data-count="1">R</span>MB -&gt; { number = n *. 196.07; currency = KRW }
+  | <span data-count="1">C</span>AD -&gt; { number = n *. 1041.84; currency = KRW }
+  | <span data-count="1">C</span>ML -&gt; { number = n *. 1422. /. 3110.; currency = KRW }
+
+(*[to_rmb n c] converts number [n] of currency [c] to an RMB amount*)
+let to_rmb n c =
+  <span data-count="6">m</span>atch c with
+  | <span data-count="1">U</span>SD -&gt; { number = n *. 7.25; currency = RMB }
+  | <span data-count="1">E</span>UR -&gt; { number = n *. 7.23; currency = RMB }
+  | <span data-count="1">K</span>RW -&gt; { number = n *. 0.0051; currency = RMB }
+  | <span data-count="1">R</span>MB -&gt; { number = n; currency = RMB }
+  | <span data-count="1">C</span>AD -&gt; { number = n *. 5.31; currency = RMB }
+  | <span data-count="1">C</span>ML -&gt; { number = n *. 7.25 /. 3110.; currency = RMB }
+
+(*[to_cad n c] converts number [n] of currency [c] to an CAD amount*)
+let to_cad n c =
+  <span data-count="6">m</span>atch c with
+  | <span data-count="1">U</span>SD -&gt; { number = n *. 1.36; currency = CAD }
+  | <span data-count="1">E</span>UR -&gt; { number = n *. 1.36; currency = CAD }
+  | <span data-count="1">K</span>RW -&gt; { number = n *. 0.00096; currency = CAD }
+  | <span data-count="1">R</span>MB -&gt; { number = n *. 0.19; currency = CAD }
+  | <span data-count="1">C</span>AD -&gt; { number = n; currency = CAD }
+  | <span data-count="1">C</span>ML -&gt; { number = n *. 1.36 /. 3110.; currency = CAD }
+
+let to_cml n c =
+  <span data-count="16">m</span>atch c with
+  | <span data-count="1">U</span>SD -&gt; { number = n *. 3110.; currency = CML }
+  | <span data-count="1">E</span>UR -&gt; { number = n *. 3110.; currency = CML }
+  | <span data-count="1">K</span>RW -&gt; { number = n *. 0.0007 *. 3110.; currency = CML }
+  | <span data-count="1">R</span>MB -&gt; { number = n *. 0.14 *. 3110.; currency = CML }
+  | <span data-count="1">C</span>AD -&gt; { number = n *. 0.73 *. 3110.; currency = CML }
+  | <span data-count="11">C</span>ML -&gt; { number = n; currency = CML }
+
+(** [parse_amount s] parses a player's input into an [amount], as follows. The
+    sequence of numbers before the space in [s] is converted to a float and 
+    rounded to the hundredth of a unit, and is the contents of the [number] 
+    field. The sequence of letters after the space is translated into a 
+    [currency] type and becomes the [currency] field. 
+
+    Requires: [s] contains only alphanumeric (A-Z, a-z, 0-9) and space
+    characters (only ASCII character code 32; not tabs or newlines, etc.).
+
+    Raises: [InvalidAmount] if [s] does not represent a valid amount. A string
+    representing a valid amount must contain a consecutive sequence of numeric 
+    characters and at most one period. Optionally, it may be followed by a 
+    3-character string that represents a valid currency (i.e., is the name of a 
+    constructor of the [currency] type), provided it is separated from the 
+    numeric sequence by at least one space and no non-spaces. 
+    
+    Examples: 
+      - [parse_amount "5.00 USD"] is {number = 0.; currency = USD}
+      - [parse_amount "5 USD"] is {number = 5.; currency = USD}
+      - [parse_amount "5"] is {number = 5.; currency = USD}
+      - [parse_amount "10.99 CAD"] is {number = 10.99; currency = CAD}
+      - [parse_amount "0.00   CAD"] is {number = 0.; currency = CAD}
+      - [parse_amount "0.00"] is {number = 0.; currency = USD}
+      - [parse_amount "USD"] raises InvalidAmount "USD"
+      - [parse_amount " "] raises InvalidAmount " "
+      - [parse_amount "0   .   00 USD"] raises InvalidAmount "0   .   00 USD"
+  *)
+let parse_amount (s : string) : amount =
+  <span data-count="191">l</span>et split = String.split_on_char ' ' (String.tri<span data-count="191">m</span> s) in
+  <span data-count="191">t</span>ry
+    let amt =
+      match split with
+      | <span data-count="0">[</span>] -&gt; raise (InvalidAmount s)
+      | <span data-count="7">[</span> n ] -&gt; { number = float_of_strin<span data-count="3">g</span> (String.tri<span data-count="7">m</span> n); currency = USD }
+      | <span data-count="180">[</span> n; c ] -&gt;
+          {
+            number = float_of_strin<span data-count="179">g</span> (String.tri<span data-count="179">m</span> n);
+            currency = currency_of_strin<span data-count="179">g</span> c;
+          }
+      | <span data-count="4">_</span> -&gt; raise (InvalidAmount s)
+    in
+    if amt.number &lt; 0. then <span data-count="0">r</span>aise (InvalidAmount s) else <span data-count="182">a</span>mt
+  with <span data-count="4">F</span>ailure f -&gt; raise (InvalidAmount s)
+
+(** [unparse_amount amt] returns a string representing an amount, rounded to the
+    nearest hundredth.
+
+    NOTE: [unparse_amount] does not work with very big numbers (~&gt; 10^23) *)
+
+let unparse_amount (a : amount) : string =
+  <span data-count="59">P</span>rintf.sprint<span data-count="59">f</span> "%.2f" (Float.roun<span data-count="59">d</span> (a.number *. 100.) /. 100.)
+  ^ " "
+  ^ string_of_currenc<span data-count="59">y</span> a.currency
+
+let string_of_transaction (t : transaction) : string =
+  <span data-count="0">m</span>atch t with
+  | <span data-count="0">D</span>eposit { amount } -&gt; "Deposited " ^ amount
+  | <span data-count="0">W</span>ithdraw { amount } -&gt; "Withdrew " ^ amount
+  | <span data-count="0">P</span>ay { payee; amount } -&gt; "Paid " ^ amount ^ " to " ^ payee
+  | <span data-count="0">R</span>equest { payer; amount } -&gt; "Requested " ^ amount ^ " from " ^ payer
+  | <span data-count="0">R</span>eceived { payer; amount } -&gt; "Received " ^ amount ^ " from " ^ payer
+
+(** [transaction_of_string s un] parses a string that describes a transaction
+    into a [transaction] involving the account with username [un] and
+    potentially another account. Input: A string that represents a valid
+    transaction. A string representing a valid transaction must contain the
+    following words (and no more), separated by spaces, in the following order:
+
+    - a word describing the transaction type (one of "Deposited", "Withdrew",
+      "Paid", "Requested", or "Received")
+    - 2 words representing a valid amount
+    - and 0 or 2 words representing the other party in a transaction:
+    - ... if the first word was "Paid", then the word "to" followed by a valid
+      username representing the payee
+    - ... if the first word was "Requested" or "Received", then the word "from"
+      followed by a valid username representing the payer (requestee)
+    - ... if the first word was "Deposited" or "Withdrew", then 0 words
+
+    Raises: [InvalidTransaction] if [s] does not represent a valid transaction.
+
+    Examples:
+
+    - [transaction_of_string "Deposited 5.00 USD" un] is
+      [Deposit {account = un; amount = "5.00 USD"}]
+    - [transaction_of_string "Deposited 5.00USD" un] raises [InvalidTransaction]
+    - [transaction_of_string "Withdrew 311.0 CML" un] is
+      [Withdraw {account = un; amount = "311.00 CML"}]
+    - [transaction_of_string "Paid 30.00 CAD to user1" un] is
+      [Pay {payer = un; payee = "user1"; amount = "30.00 CAD"}]
+    - [transaction_of_string "Paid 30.00 CAD user1" un] raises
+      [InvalidTransaction]
+    - [transaction_of_string "Requested 30.00 CAD from user1" un] is
+      [Request {payer = "user1"; payee = un; amount = "30.00 CAD"; accepted = false}]
+    - [transaction_of_string "Requested 30.00 CAD to user1" un] raises
+      [InvalidTransaction]
+    - [transaction_of_string "Deposited 5.00 USD to user1" un] raises
+      [InvalidTransaction] *)
+let transaction_of_string (s : string) (un : string) : transaction =
+  <span data-count="17">l</span>et split = String.split_on_char ' ' (String.tri<span data-count="17">m</span> s) in
+  <span data-count="17">m</span>atch split with
+  | <span data-count="0">[</span>] | <span data-count="0">[</span> _ ] | <span data-count="0">[</span> _; _ ] -&gt; raise InvalidTransaction
+  | <span data-count="17">a</span>ction :: number :: curr :: tail -&gt; (
+      let amt = String.trim (String.tri<span data-count="17">m</span> number ^ " " ^ String.tri<span data-count="17">m</span> curr) in
+      <span data-count="17">m</span>atch String.trim action with
+      | <span data-count="0">"</span>Deposited" -&gt; Deposit { account = un; amount = amt }
+      | <span data-count="0">"</span>Withdrew" -&gt; Withdraw { account = un; amount = amt }
+      | <span data-count="0">"</span>Paid" -&gt; (
+          match tail with
+          | <span data-count="0">[</span> _to; payee ] -&gt;
+              if _to &lt;&gt; "to" then <span data-count="0">r</span>aise InvalidTransaction
+              else <span data-count="0">P</span>ay { payer = un; payee; amount = amt }
+          | <span data-count="0">_</span> -&gt; raise InvalidTransaction)
+      | <span data-count="0">"</span>Requested" -&gt; (
+          match tail with
+          | <span data-count="0">[</span> _from; payer ] -&gt;
+              if _from &lt;&gt; "from" then <span data-count="0">r</span>aise InvalidTransaction
+              else <span data-count="0">R</span>equest { payer; payee = un; amount = amt; accepted = false }
+          | <span data-count="0">_</span> -&gt; raise InvalidTransaction)
+      | <span data-count="17">"</span>Received" -&gt; (
+          match tail with
+          | <span data-count="0">[</span> _from; payer ] -&gt;
+              if _from &lt;&gt; "from" then <span data-count="0">r</span>aise InvalidTransaction
+              else <span data-count="0">R</span>eceived { payer = un; amount = amt }
+          | <span data-count="17">_</span> -&gt; raise InvalidTransaction)
+      | <span data-count="0">_</span> -&gt; raise InvalidTransaction)
+
+(** [notif_of_string s un] parses a string that describes a notification to
+    [notification]. Input: A string that represents a valid notification. A
+    string representing a valid transaction must contain the following words
+    (and no more), separated by spaces, in the following order:
+
+    - a word describing the payer will be the first word
+    - second word will always be "requested"
+    - a word describing the payee will be the third word
+    - last two words will be the amount -accepted will always be false since it
+      is in the notification list
+
+    Raises: [InvalidTransaction] if [s] does not represent a valid request
+    transaction.
+
+    Examples:
+
+    - [transaction_of_string "user1 requested user2 3.00 USD"] is
+      [PaymentRequest (Request {payer = user1; payee = user2; amount = "3.00 USD"; accepted = false })]
+      \-anything else will raise an error *)
+
+let notif_of_string str =
+  <span data-count="0">l</span>et split = String.split_on_char ' ' (String.tri<span data-count="0">m</span> str) in
+  <span data-count="0">m</span>atch split with
+  | <span data-count="0">f</span>riend :: req :: "following-" :: status :: not :: tail -&gt;
+      FriendRequest (friend, if not = "accepted" then <span data-count="0">t</span>rue else <span data-count="0">f</span>alse)
+  | <span data-count="0">[</span>]
+  | <span data-count="0">[</span> _ ]
+  | <span data-count="0">[</span> _; _ ]
+  | <span data-count="0">[</span> _; _; _ ]
+  | <span data-count="0">[</span> _; _; _; _ ]
+  | <span data-count="0">[</span> _; _; _; _; _ ]
+  | <span data-count="0">[</span> _; _; _; _; _; _ ]
+  | <span data-count="0">[</span> _; _; _; _; _; _; _ ] -&gt; failwith "Invalid Notification"
+  | <span data-count="0">p</span>ayee :: req :: payer :: amount :: curr :: and_ :: transaction_ :: not
+    :: tail -&gt;
+      let amt = String.trim (String.tri<span data-count="0">m</span> amount ^ " " ^ String.tri<span data-count="0">m</span> curr) in
+      <span data-count="0">P</span>aymentRequest
+        (Request
+           {
+             payer;
+             payee;
+             amount = amt;
+             accepted = (if not = "accepted" then <span data-count="0">t</span>rue else <span data-count="0">f</span>alse);
+           })
+
+let string_of_notif notif =
+  <span data-count="0">m</span>atch notif with
+  | <span data-count="0">P</span>aymentRequest (Request { payer; payee; amount; accepted }) -&gt;
+      payee ^ " requested " ^ payer ^ " " ^ amount ^ " and transaction"
+      ^ if accepted then <span data-count="0">"</span> accepted" else <span data-count="0">"</span> not accepted"
+  | <span data-count="0">F</span>riendRequest (friend, accept) -&gt;
+      friend ^ " requested following- status:"
+      ^ if accept then <span data-count="0">"</span> accepted" else <span data-count="0">"</span> not accepted"
+  | <span data-count="0">_</span> -&gt; raise (Failure "invalid transaction for notification")
+
+let from_json j id =
+  <span data-count="22">l</span>et bal =
+    if j |&gt; membe<span data-count="22">r</span> "balance" = `Null then <span data-count="0">{</span> number = 0.00; currency = USD }
+    else j |&gt; member "balance" |&gt; <span data-count="22">t</span>o_string |&gt; <span data-count="44">p</span>arse_amoun<span data-count="22">t</span>
+  in
+  let un = j |&gt; member "username" |&gt; <span data-count="22">t</span>o_string in
+  <span data-count="22">{</span>
+    id;
+    username = un;
+    password = j |&gt; member "password" |&gt; <span data-count="5">t</span>o_strin<span data-count="5">g</span>;
+    balance = bal;
+    home_currency =
+      j |&gt; member "home currency" |&gt; <span data-count="5">t</span>o_string |&gt; <span data-count="5">c</span>urrency_of_strin<span data-count="5">g</span>;
+    history =
+      j |&gt; member "history" |&gt; <span data-count="22">t</span>o_list |&gt; <span data-count="22">L</span>ist.map to_string
+      |&gt; <span data-count="22">L</span>ist.ma<span data-count="5">p</span> (fun s -&gt; <span data-count="17">t</span>ransaction_of_string s un);
+    active = true;
+    notification_inbox =
+      j
+      |&gt; member "notification inbox"
+      |&gt; <span data-count="22">t</span>o_list |&gt; <span data-count="22">L</span>ist.map to_string
+      |&gt; <span data-count="22">L</span>ist.ma<span data-count="22">p</span> (fun s -&gt; <span data-count="0">n</span>otif_of_string s);
+    friend_list = j |&gt; member "friend list" |&gt; <span data-count="22">t</span>o_list |&gt; <span data-count="22">L</span>ist.ma<span data-count="22">p</span> to_string;
+    message_inbox = j |&gt; member "message inbox" |&gt; <span data-count="22">t</span>o_list |&gt; <span data-count="22">L</span>ist.ma<span data-count="22">p</span> to_string;
+  }
+
+let to_json acc : Yojson.Basic.t =
+  <span data-count="5">m</span>atch acc with
+  | <span data-count="5">{</span>
+   id;
+   username;
+   password;
+   balance;
+   home_currency;
+   history;
+   active;
+   notification_inbox;
+   friend_list;
+   message_inbox;
+  } -&gt;
+      `Assoc
+        [
+          ("username", `String username);
+          ("password", `String password);
+          ("balance", `String (unparse_amoun<span data-count="5">t</span> balance));
+          ("home currency", `String (string_of_currenc<span data-count="5">y</span> home_currency));
+          ( "history",
+            `List
+              (List.ma<span data-count="5">p</span> (fun t -&gt; <span data-count="0">`</span>String (string_of_transactio<span data-count="0">n</span> t)) history) );
+          ("active", `String (string_of_boo<span data-count="5">l</span> active));
+          ( "notification inbox",
+            `List
+              (List.ma<span data-count="5">p</span>
+                 (fun not -&gt; <span data-count="0">`</span>String (string_of_noti<span data-count="0">f</span> not))
+                 notification_inbox) );
+          ("friend list", `List (List.ma<span data-count="5">p</span> (fun s -&gt; <span data-count="0">`</span>String s) friend_list));
+          ("message inbox", `List (List.ma<span data-count="5">p</span> (fun s -&gt; <span data-count="0">`</span>String s) message_inbox));
+        ]
+
+let create (id : int) (username : string) (password : string)
+    ?(balance = <span data-count="0">"</span>0.00 USD") (home_curr : string) : t =
+  <span data-count="84">{</span>
+    id;
+    username;
+    password;
+    balance = parse_amoun<span data-count="75">t</span> balance;
+    home_currency = currency_of_strin<span data-count="84">g</span> home_curr;
+    history = [];
+    active = true;
+    notification_inbox = [];
+    friend_list = [];
+    message_inbox = [];
+  }
+
+let username acc = <span data-count="209">a</span>cc.username
+let password acc = <span data-count="2">a</span>cc.password
+let check_password str acc = <span data-count="2">s</span>tr = passwor<span data-count="2">d</span> acc
+let balance acc = <span data-count="54">u</span>nparse_amount acc.balance
+let is_active acc = <span data-count="2">a</span>cc.active
+let deactivate acc = <span data-count="1">{</span> acc with active = false }
+let history acc = <span data-count="1">a</span>cc.history
+let string_of_info name info = <span data-count="4">n</span>ame ^ ": " ^ info
+
+(*let rec print_list = function | [] -&gt; () | h :: t -&gt; print_endline h;
+  print_list t
+
+  let display acc = print_newline (); print_endline "Account Information";
+  print_endline (string_of_info "Account Username" (username acc));
+  print_endline (string_of_info "Balance" (balance acc)); print_newline ()
+
+  let display_history acc = print_newline (); print_endline "Transaction
+  History"; print_list (List.map string_of_transaction (history acc));
+  print_newline ()*)
+
+let rec list_to_string str = function
+  | <span data-count="1">[</span>] -&gt; str
+  | <span data-count="0">h</span> :: t -&gt; list_to_string (str ^ h ^ "\n") t
+
+let display acc =
+  <span data-count="2">"</span>\n" ^ "Account Information\n"
+  ^ string_of_inf<span data-count="2">o</span> "Account Username" (usernam<span data-count="2">e</span> acc)
+  ^ "\n"
+  ^ string_of_inf<span data-count="2">o</span> "Balance" (balanc<span data-count="2">e</span> acc)
+  ^ "\n"
+
+let display_history acc =
+  <span data-count="1">"</span>\n" ^ "Transaction History\n"
+  ^ list_to_strin<span data-count="1">g</span> "" (List.ma<span data-count="1">p</span> string_of_transaction (histor<span data-count="1">y</span> acc))
+  ^ "\n"
+
+let display_notif acc =
+  <span data-count="0">"</span>\n" ^ "Notification Inbox\n"
+  ^ list_to_strin<span data-count="0">g</span> "" (List.ma<span data-count="0">p</span> string_of_notif acc.notification_inbox)
+  ^ "\n"
+
+let display_friends acc =
+  <span data-count="0">"</span>\n" ^ "Friends List\n" ^ list_to_strin<span data-count="0">g</span> "" acc.friend_list ^ "\n"
+
+let display_message acc =
+  <span data-count="0">"</span>\n" ^ "Message Inbox\n" ^ list_to_strin<span data-count="0">g</span> "" acc.message_inbox ^ "\n"
+
+let to_homecurr acc parsed_amt =
+  <span data-count="85">m</span>atch acc.home_currency with
+  | <span data-count="45">U</span>SD -&gt; to_usd parsed_amt.number parsed_amt.currency
+  | <span data-count="6">E</span>UR -&gt; to_eur parsed_amt.number parsed_amt.currency
+  | <span data-count="6">K</span>RW -&gt; to_krw parsed_amt.number parsed_amt.currency
+  | <span data-count="6">R</span>MB -&gt; to_rmb parsed_amt.number parsed_amt.currency
+  | <span data-count="6">C</span>AD -&gt; to_cad parsed_amt.number parsed_amt.currency
+  | <span data-count="16">C</span>ML -&gt; to_cml parsed_amt.number parsed_amt.currency
+
+let deposit acc amt =
+  (* print_endline "Deposited!"; *)
+  (*this line prints out but doesn't update*)
+  <span data-count="65">l</span>et a = to_homecurr acc (parse_amoun<span data-count="65">t</span> amt) in
+  <span data-count="65">l</span>et acc_num = acc.balance.number in
+  let amt_num = a.number in
+  {
+    acc with
+    balance = { number = acc_num +. amt_num; currency = acc.home_currency };
+  }
+
+let withdraw acc amt =
+  <span data-count="20">l</span>et a = to_homecurr acc (parse_amoun<span data-count="20">t</span> amt) in
+  <span data-count="20">l</span>et acc_num = acc.balance.number in
+  let amt_num = a.number in
+  if acc_num &lt; amt_num then <span data-count="0">r</span>aise InsufficientBalance
+  else
+    <span data-count="20">{</span>
+      acc with
+      balance = { number = acc_num -. amt_num; currency = acc.home_currency };
+    }
+
+let withdraw_transaction acc amt =
+  <span data-count="0">W</span>ithdraw { account = acc.username; amount = amt }
+
+let deposit_transaction acc amt =
+  <span data-count="0">D</span>eposit { account = acc.username; amount = amt }
+
+let pay_transaction acc payee amount =
+  <span data-count="0">P</span>ay { payer = acc.username; payee; amount }
+
+let received_transaction payer amount = <span data-count="0">R</span>eceived { payer; amount }
+
+let make_request t payer amount =
+  <span data-count="0">P</span>aymentRequest
+    (Request { payer; payee = usernam<span data-count="0">e</span> t; amount; accepted = false })
+
+let add_notification acc not =
+  <span data-count="0">a</span>cc.notification_inbox &lt;- not :: acc.notification_inbox
+
+let add_transaction acc tran = <span data-count="0">a</span>cc.history &lt;- tran :: acc.history
+let notif_clear acc = <span data-count="0">a</span>cc.notification_inbox &lt;- []
+let message_clear acc = <span data-count="0">a</span>cc.message_inbox &lt;- []
+let length_notif acc = <span data-count="0">L</span>ist.length acc.notification_inbox
+let notif_inbox acc = <span data-count="0">a</span>cc.notification_inbox
+
+(*let rec go_over_notif acc st = let i = 0 in while (i &lt; length_notif acc) do if
+  (notif_accepted (List.nth (notif_inbox acc) i)) then begin print_endline
+  (string_of_notif (List.nth (notif_inbox acc) i)); print_endline "Will you
+  accept the payment request? [yes/no]"; print_string "&gt;"; let answer =
+  read_line () in let notif = (List.nth (notif_inbox acc) i) in if (answer =
+  "yes") then begin (State.make_payment st (notif_payer notif) (notif_payee
+  notif) (notif_amount notif)); end else if ( answer = "no") then begin
+  (print_endline "You can accpet the payment request unless you clear the
+  inbox."); end else failwith "Invalid command" end done*)
+
+let notif_payer notif =
+  <span data-count="0">m</span>atch notif with
+  | <span data-count="0">P</span>aymentRequest (Request { payer; payee; amount; accepted }) -&gt; payer
+  | <span data-count="0">F</span>riendRequest (friend, accept) -&gt; friend
+  | <span data-count="0">_</span> -&gt; failwith "Invalid notif"
+
+let notif_payee notif =
+  <span data-count="0">m</span>atch notif with
+  | <span data-count="0">P</span>aymentRequest (Request { payer; payee; amount; accepted }) -&gt; payee
+  | <span data-count="0">_</span> -&gt; failwith "Invalid notif"
+
+let notif_amount notif =
+  <span data-count="0">m</span>atch notif with
+  | <span data-count="0">P</span>aymentRequest (Request { payer; payee; amount; accepted }) -&gt; amount
+  | <span data-count="0">_</span> -&gt; failwith "Invalid notif"
+
+let notif_accepted notif =
+  <span data-count="0">m</span>atch notif with
+  | <span data-count="0">P</span>aymentRequest (Request { payer; payee; amount; accepted }) -&gt; accepted
+  | <span data-count="0">F</span>riendRequest (friend, accept) -&gt; accept
+  | <span data-count="0">_</span> -&gt; failwith "Invalid notif"
+
+let acc_new_inbox acc inbox = <span data-count="0">a</span>cc.notification_inbox &lt;- inbox
+
+let make_notif payer payee amount accepted =
+  <span data-count="0">P</span>aymentRequest (Request { payer; payee; amount; accepted })
+
+let make_notif_friend friend accepted = <span data-count="0">F</span>riendRequest (friend, accepted)
+let add_friend acc friend = <span data-count="1">a</span>cc.friend_list &lt;- friend :: acc.friend_list
+let find_friend friend x = <span data-count="1">x</span> != friend
+
+let remove_friend acc friend =
+  <span data-count="1">a</span>cc.friend_list &lt;- List.filte<span data-count="1">r</span> (find_frien<span data-count="1">d</span> friend) acc.friend_list
+
+let friend_list acc = <span data-count="1">a</span>cc.friend_list
+
+let notif_type notif =
+  <span data-count="0">m</span>atch notif with
+  | <span data-count="0">P</span>aymentRequest n -&gt; true
+  | <span data-count="0">F</span>riendRequest n -&gt; false
+
+let add_message acc str = <span data-count="0">a</span>cc.message_inbox &lt;- str :: acc.message_inbox
+</code></pre>
+      </div>
+    </div>
+    <script src="../coverage.js"></script>
+  </body>
+</html>

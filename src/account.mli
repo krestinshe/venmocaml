@@ -94,11 +94,13 @@ exception InsufficientBalance
     in a negative balance.*)
 
 val deposit_transaction : t -> string -> transaction
-(** [deposit_transaction acc tran ]*)
+(** [deposit_transaction acc amount] returns a transaction representing a
+    deposit of amount [amount] into account [acc]. *)
 
 val pay_transaction : t -> string -> string -> transaction
-(** [pay_transaction acc payee amount] returns a transaction of paying with the
-    information of the payee, payer, and amount. *)
+(** [pay_transaction acc payee amount] returns a transaction representing a
+    payment of amount represented by [amount] from the user represented by [acc]
+    to the user with username [payee]. *)
 
 val received_transaction : string -> string -> transaction
 (** [received_transaction payer amount] returns a transaction of received with
@@ -157,19 +159,20 @@ val make_notif_friend : string -> bool -> notification
     not accepted otherwise. *)
 
 val add_friend : t -> string -> unit
-(** [add_friend acc friend] adds friend to acc's friend list*)
+(** [add_friend acc friend] adds [friend] to [acc]'s friend list. *)
 
 val remove_friend : t -> string -> unit
-(** [remove_friend acc friend] removed friend in acc's friend list*)
+(** [remove_friend acc friend] removes [friend] from [acc]'s friend list. *)
 
 val friend_list : t -> string list
-(** [friend_list acc] returns acc's friend list*)
+(** [friend_list acc] returns [acc]'s friend list. *)
 
 val notif_type : notification -> bool
-(** [notif_type notif] returns true if notif is a payment request else false*)
+(** [notif_type notif] returns true if [notif] is a payment request, and false
+    otherwise. *)
 
 val add_message : t -> string -> unit
-(** [add_message acc message] adds message to acc's message inbox*)
+(** [add_message acc message] adds [message] to [acc]'s message inbox. *)
 
 val message_clear : t -> unit
-(** [message_clear acc] empties acc's message inbox*)
+(** [message_clear acc] empties [acc]'s message inbox. *)

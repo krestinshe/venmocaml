@@ -150,9 +150,29 @@ and set_init_bal st =
     let init_bal = read_line () in
     if go_menu init_bal then acc_menu st;
     init_bal
-  with InvalidAmount s ->
-    print_endline (s ^ "is an invalid amount!");
-    set_init_bal st
+  with
+  | InvalidAmount s ->
+      print_endline (s ^ "is an invalid amount!");
+      set_init_bal st
+  | InvalidCurrency s ->
+      print_endline (s ^ "is an invalid currency!");
+      set_init_bal st
+  | _ ->
+      print_endline "Invalid amount!";
+      set_init_bal st
+
+and set_home_curr st =
+  print_endline "\nSelect a currency (USD, EUR, KRW, RMB, CAD, CML):";
+  print_string ">";
+  let home_curr = read_line () in
+  if go_menu home_curr then acc_menu st;
+  try
+    match String.uppercase_ascii home_curr with
+    | "USD" | "EUR" | "KRW" | "RMB" | "CAD" | "CML" -> home_curr
+    | _ -> raise (InvalidCurrency home_curr)
+  with InvalidCurrency s ->
+    print_endline (s ^ "is an invalid currency!");
+    set_home_curr st
 
 and create (st : State.t) =
   print_endline "To return to menu, type [go menu]";
@@ -191,10 +211,7 @@ and create (st : State.t) =
 
       let pw = set_password st in
 
-      print_endline "\nSelect a currency (USD, EUR, KRW, RMB, CAD, CML):";
-      print_string ">";
-      let home_curr = read_line () in
-      if go_menu home_curr then acc_menu st;
+      let home_curr = set_home_curr st in
 
       print_endline "\nWould you like to make an initial deposit? [yes/no]";
       print_string "> ";

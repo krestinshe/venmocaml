@@ -361,7 +361,7 @@ let state_pay_tests =
         ~printer:string_of_int );
   ]
 
-let state_request_tests = []
+let notification_tests = []
 
 let invalid_transaction_test (invalid_tran : string) : test =
   let j : Yojson.Basic.t =
@@ -423,6 +423,15 @@ let transaction_tests =
 let state_to_file_tests =
   [ ("init_state to file" >:: fun _ -> assert_equal () (to_file init_state)) ]
 
+let state_from_file_tests =
+  [
+    ( "from file logged into state3" >:: fun _ ->
+      assert_equal "state3"
+        (fst (from_file ()) |> current_account |> current |> username) );
+    ( "from file running id" >:: fun _ ->
+      assert_equal 5 (snd (from_file ())) ~printer:string_of_int );
+  ]
+
 let suite =
   "test suite for final project"
   >::: List.flatten
@@ -434,7 +443,7 @@ let suite =
            deposit_amount_tests;
            withdraw_amount_tests;
            state_pay_tests;
-           state_request_tests;
+           notification_tests;
            state_to_file_tests;
            invalid_transaction_tests;
            transaction_tests;
