@@ -505,26 +505,11 @@ let invalid_transaction_tests =
     ]
     let transaction_test_acc =
       create 0 "test" "test" ~balance:"0.00 USD" "USD"
-
-   let transaction_test_acc2 =
-        create 0 "test" "test" ~balance:"0.00 USD" "USD"
-
-    let transaction_add = add_transaction transaction_test_acc2 (deposit_transaction acc1 "300 USD")
 let transaction_tests =
   [
     ("original transaction list is empty" >:: fun _ ->
      assert_equal "\nTransaction History\n\n"
        (display_history transaction_test_acc) ~printer:(fun x -> x));
-
-      (* ("deposit transaction string" >:: fun _ ->
-        assert_equal "\nTransaction History\nDeposited 300 USD\n"
-          (display_history transaction_test_acc2) ~printer:(fun x -> x));*)
-        
-
-             (*("pay transaction string" >:: fun _ ->
-                assert_equal "\nTransaction History\n\n"
-                  (display_history transaction_test_acc) ~printer:(fun x -> x));*)
-
 
   ]
 
