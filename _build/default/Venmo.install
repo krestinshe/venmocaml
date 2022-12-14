@@ -1,0 +1,30 @@
+lib: [
+  "_build/install/default/lib/Venmo/META"
+  "_build/install/default/lib/Venmo/account.ml"
+  "_build/install/default/lib/Venmo/account.mli"
+  "_build/install/default/lib/Venmo/dune-package"
+  "_build/install/default/lib/Venmo/opam"
+  "_build/install/default/lib/Venmo/state.ml"
+  "_build/install/default/lib/Venmo/state.mli"
+  "_build/install/default/lib/Venmo/venmo.a"
+  "_build/install/default/lib/Venmo/venmo.cma"
+  "_build/install/default/lib/Venmo/venmo.cmi"
+  "_build/install/default/lib/Venmo/venmo.cmt"
+  "_build/install/default/lib/Venmo/venmo.cmx"
+  "_build/install/default/lib/Venmo/venmo.cmxa"
+  "_build/install/default/lib/Venmo/venmo.ml"
+  "_build/install/default/lib/Venmo/venmo__Account.cmi"
+  "_build/install/default/lib/Venmo/venmo__Account.cmt"
+  "_build/install/default/lib/Venmo/venmo__Account.cmti"
+  "_build/install/default/lib/Venmo/venmo__Account.cmx"
+  "_build/install/default/lib/Venmo/venmo__State.cmi"
+  "_build/install/default/lib/Venmo/venmo__State.cmt"
+  "_build/install/default/lib/Venmo/venmo__State.cmti"
+  "_build/install/default/lib/Venmo/venmo__State.cmx"
+]
+libexec: [
+  "_build/install/default/lib/Venmo/venmo.cmxs"
+]
+doc: [
+  "_build/install/default/doc/Venmo/README.md"
+]
