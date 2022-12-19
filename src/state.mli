@@ -53,9 +53,8 @@ val make_deposit : t -> string -> string -> unit
 val make_payment : t -> string -> string -> string -> unit
 (**[make_payment st paying_acc_un paid_acc_un p] adds [p] to the balance of
    account with the username [paid_acc_un] and removes [p] from the balance of
-   the account identified with username [paying_acc_un].
-
-   **TODO**: What happens if you don't have enough money? *)
+   the account identified with username [paying_acc_un]. If the paying account
+   does not have enough money, the [InsufficientBalance] exception is raised. *)
 
 val login_system : t -> string -> string -> unit
 (** [login_system st un pass] changes current account of [st] if the username
@@ -65,27 +64,28 @@ val logout : t -> unit
 (** [logout st] removes the current account from [st]. *)
 
 val to_file : t -> unit
-(** [to_file st] converts the state [st] to a JSON object and stores it in
-    "data/data.json". *)
+(** [to_file st] converts the state [st] to a JSON object and stores it in a
+    file in the "data" folder. *)
 
 val from_file : unit -> t * int
-(** [from_file ()] reads "data/data.json" into a state, and returns a pair
-    containing that state and the unique ID of the last created account in the
-    state. *)
+(** [from_file ()] reads the current data from the "data" folder into a state,
+    and returns a pair containing that state and the unique ID of the last
+    created account in the state. *)
 
 val add_notif_inbox : t -> string -> Account.notification -> unit
-(** [add_notif_inbox st payer notif] adds the notification to the payer's
-    notification inbox*)
+(** [add_notif_inbox st payer notif] adds the notification [notif] to [payer]'s
+    notification inbox in [st]. *)
 
 val find_account : t -> string -> Account.t
-(** [find_account st str] finds account from its username in [st]. *)
+(** [find_account st str] finds the account associated with the username [str]
+    in [st]. *)
 
 val current : Account.t option -> Account.t
 (** [current acc] returns the value contained in [acc] if [acc] is [Some], and
     raises an exception otherwise. *)
 
 val add_friend_state : t -> string -> unit
-(** [add_friend_state t friend] adds friend to t's friend list *)
+(** [add_friend_state acc friend] adds [friend] to [acc]'s friend list *)
 
 val remove_friend_state : t -> string -> unit
-(** [remove_friend_state t friend] removed friend in t's friend list *)
+(** [remove_friend_state t friend] removes [friend] from [acc]'s friend list *)

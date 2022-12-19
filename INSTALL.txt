@@ -5,6 +5,6 @@
     https://cs3110.github.io/textbook/chapters/preface/install.html
     This will ensure that you have libraries that we use, such as yojson and 
     ANSITerminal.
-3. Run "dune build" in the terminal
+3. Run "make build" in the terminal
 4. Run "make start" in terminal
 5. Follow the prompts in the terminal to interact with the VenmOCaml system
